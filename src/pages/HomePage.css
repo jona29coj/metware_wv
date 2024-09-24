@@ -1,0 +1,149 @@
+/* Container for the entire homepage */
+.homepage {
+  padding: 20px;
+  background-color: #f8f9fa;
+}
+
+/* Card container for all cards */
+.card-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Top Row: Three cards horizontally aligned */
+.top-row, .middle-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+/* Card styles */
+.card {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  flex: 1;
+  min-width: 280px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+/* Chart container to maintain aspect ratio */
+.chart-container {
+  flex: 1;
+  height: 200px;
+  margin-bottom: 20px;
+}
+
+/* Chiller image style */
+.chiller-image {
+  width: 100%;
+  height: auto;
+  margin-bottom: 15px;
+}
+
+/* Chiller block for individual block info */
+.chiller-block {
+  padding: 10px 0;
+}
+
+/* Feedback card slider container */
+.feedback-card {
+  text-align: center;
+}
+
+.feedback-chart {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.slider {
+  width: 100%;
+  margin: 10px 0;
+}
+
+/* Feedback bar styles */
+.feedback-bar {
+  height: 25px;
+  width: 50%; /* Adjusted dynamically in JS */
+  background-color: #3498db;
+  color: white;
+  line-height: 25px;
+  text-align: center;
+  transition: width 0.3s ease;
+}
+
+/* Additional general styling */
+h2 {
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+p {
+  font-size: 1rem;
+  color: #666;
+}
+
+/* Tech park and animated car container */
+.animated-car-card {
+  height: 200px;
+  position: relative;
+  background: url('https://source.unsplash.com/random/800x400?tech-park') no-repeat center center;
+  background-size: cover;
+  overflow: hidden;
+}
+
+/* Car container */
+.techpark-container {
+  background-image: url('//src/pages/bgtcpk.png');
+  background-size: cover;
+  background-position: center;
+  width: 100%;
+  height: 400px; /* Adjust the height as needed */
+  position: relative;
+}
+
+
+.car {
+  position: absolute;
+  bottom: 20px;
+  left: -100px;
+  animation: moveCar 6s linear infinite;
+}
+
+.car-image {
+  width: 100px;
+  height: auto;
+}
+
+/* Keyframe for car movement */
+@keyframes moveCar {
+  from {
+    left: -100px;
+  }
+  to {
+    left: 100%;
+  }
+}
+
+/* Responsive design for smaller screens */
+@media (max-width: 768px) {
+  .top-row, .middle-row {
+    flex-direction: column;
+  }
+
+  .card {
+    width: 100%;
+  }
+
+  .feedback-bar {
+    width: 100%;
+  }
+}

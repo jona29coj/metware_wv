@@ -1,0 +1,177 @@
+/* Main Navbar Styles */
+.navbar {
+    width: 200px;
+    background: linear-gradient(180deg, #38B2AC, #3182CE);
+    color: #f7fafc;
+    padding: 1rem;
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    z-index: 2;
+    height: 100vh;
+    transition: all 0.4s ease;
+}
+
+/* Navbar Collapsed */
+.navbar.collapsed {
+    width: 80px; /* Smaller width for collapsed state */
+}
+
+/* Default styling for the logo (expanded state) */
+.navbar-logo {
+    width: 130px; /* Adjust this to make the logo bigger in expanded state */
+    margin: 1rem auto;
+    display: block;
+    transition: width 0.3s ease; /* Smooth transition for resizing */
+}
+
+/* Collapsed state for logo */
+.navbar.collapsed .navbar-logo {
+    width: 80px; /* Size when collapsed */
+}
+
+/* Expanded state */
+.navbar:not(.collapsed) .navbar-logo {
+    width: 150px; /* Larger size for expanded navbar */
+}
+
+/* Navbar List */
+.navbar-list {
+    list-style: none;
+    padding: 0;
+    margin-top: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; /* Align items to the left */
+    width: 100%; /* Full width for alignment */
+}
+
+/* Navbar items */
+.navbar-item {
+    position: relative; /* For absolute positioning of the background */
+    display: flex;
+    align-items: center;
+    justify-content: flex-start; /* Align icons to the left */
+    padding: 0.75rem 1rem; /* Adjust padding as needed */
+    color: #f7fafc;
+    text-decoration: none;
+    border-radius: 0.5rem;
+    margin-bottom: 1rem;
+    font-size: 1.15rem;
+    font-weight: 700;
+    transition: color 0.3s;
+    overflow: hidden; /* Prevent overflow of the background */
+}
+
+/* Additional padding for better vertical alignment in expanded state */
+.navbar:not(.collapsed) .navbar-item {
+    padding: 1rem; /* Add padding for better spacing */
+}
+
+/* Sliding background effect */
+.navbar-item:before {
+    content: ''; /* Create a pseudo-element for the background */
+    position: absolute;
+    top: 0;
+    left: -100%; /* Start fully to the left */
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.2); /* Background color */
+    transition: left 0.3s ease; /* Smooth transition for sliding */
+    z-index: -1; /* Keep it behind the text and icons */
+}
+
+/* Hover effects */
+.navbar-item:hover:before {
+    left: 0; /* Slide the background to cover the item */
+}
+
+.navbar-item:hover {
+    color: #ffffff; /* Change text color on hover */
+}
+
+/* Icon rotation on hover */
+.navbar-item:hover .navbar-icon {
+    transform: rotate(360deg); /* Rotate icon 360 degrees */
+    transition: transform 0.5s ease; /* Smooth transition for rotation */
+}
+
+/* Keep text visible in collapsed state */
+.navbar.collapsed .navbar-item span {
+    display: inline; /* Ensure the text stays visible */
+}
+
+/* Adjust icon size in collapsed state */
+.navbar.collapsed .navbar-icon {
+    font-size: 2rem;
+}
+
+/* Active state */
+.active {
+    background-color: #81E6D9;
+}
+
+/* Icon styles */
+.navbar-icon {
+    margin-right: 1rem;
+    font-size: 1.5rem;
+}
+
+/* Collapsed icon styles */
+.navbar.collapsed .navbar-icon {
+    font-size: 1.75rem;
+}
+
+/* Slide-in animation for the items */
+@keyframes slideIn {
+    0% {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.navbar-item {
+    animation: slideIn 0.5s forwards;
+    animation-delay: calc(0.1s * var(--i));
+}
+
+/* Toggle button */
+.navbar-toggle {
+    background: none;
+    border: none;
+    color: #ffffff;
+    font-size: 1.5rem;
+    cursor: pointer;
+    position: absolute;
+    top: 15px;
+    right: -25px; /* Place it slightly outside the navbar */
+    z-index: 3;
+}
+
+/* Adjustments for mobile view */
+@media (max-width: 768px) {
+    .navbar {
+        width: 100%;
+        height: auto;
+        padding: 0;
+    }
+
+    .navbar.collapsed {
+        width: 80px; /* Collapse width for mobile too */
+    }
+
+    .navbar-item {
+        font-size: 1.25rem;
+    }
+
+    .navbar-logo {
+        width: 80px; /* Adjust logo size for mobile */
+    }
+}

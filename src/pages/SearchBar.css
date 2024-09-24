@@ -1,0 +1,35 @@
+/* SearchBar.css */
+.search-bar {
+    display: flex;
+    align-items: center; /* Center vertically */
+    border: 1px solid #e2e8f0; /* Light border */
+    border-radius: 0.375rem; /* Rounded corners */
+    padding: 0.5rem; /* Padding for spacing */
+    background-color: #ffffff; /* White background */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    width: 300px; /* Fixed width for consistency */
+  }
+  
+  .search-input {
+    border: none; /* Remove border */
+    outline: none; /* Remove outline */
+    padding: 0.5rem; /* Padding inside input */
+    flex: 1; /* Take up remaining space */
+    font-size: 1rem; /* Font size */
+  }
+  
+  .search-button {
+    background-color: #38B2AC; /* Button color */
+    color: #ffffff; /* Button text color */
+    border: none; /* No border */
+    padding: 0.5rem 1rem; /* Padding for button */
+    border-radius: 0.375rem; /* Rounded corners */
+    cursor: pointer; /* Pointer cursor */
+    transition: background-color 0.3s; /* Transition effect */
+    font-size: 1rem; /* Font size */
+  }
+  
+  .search-button:hover {
+    background-color: #319795; /* Darker teal on hover */
+  }
+  
