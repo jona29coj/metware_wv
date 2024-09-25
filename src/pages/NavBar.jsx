@@ -1,30 +1,16 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { NavLink } from 'react-router-dom';
-import { FaTachometerAlt, FaBolt, FaCogs, FaChartLine, FaBell, FaFileAlt, FaBars, FaTimes, FaChevronLeft, FaChevronRight } from 'react-icons/fa';
+import { FaTachometerAlt, FaBolt, FaCogs, FaChartLine, FaBell, FaFileAlt } from 'react-icons/fa';
 import './NavBar.css';
 import logo from '../pages/logo.png';
 
-const NavBar = () => {
-  // State to track if the navbar is open or closed
-  const [isExpanded, setIsExpanded] = useState(true); // Expanded state
-
-  // Function to toggle the expansion of the navbar
-  const toggleNavbar = () => {
-    setIsExpanded(!isExpanded);
-  };
-
+const NavBar = ({ isExpanded }) => {
   return (
     <nav className={`navbar ${isExpanded ? '' : 'collapsed'}`}>
       <div className="navbar-header">
         <img src={logo} alt="Logo" className={`navbar-logo ${isExpanded ? '' : 'collapsed-logo'}`} />
-
-        {/* Toggle Button */}
-        <button className="navbar-toggle" onClick={toggleNavbar}>
-          {isExpanded ? <FaChevronLeft /> : <FaChevronRight />}
-        </button>
       </div>
 
-      {/* Navbar Links */}
       <ul className="navbar-list">
         <li style={{ '--i': 1 }}>
           <NavLink to="/dashboard" className="navbar-item" activeClassName="active">

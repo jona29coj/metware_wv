@@ -3,6 +3,7 @@ import { Bar } from 'react-chartjs-2';
 import { Pie } from 'react-chartjs-2';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend, BarElement, CategoryScale, LinearScale } from 'chart.js';
 import './HomePage.css';
+import car from "../pages/carmov.png"
 
 // Register the necessary components
 ChartJS.register(ArcElement, Tooltip, Legend, BarElement, CategoryScale, LinearScale);
@@ -59,7 +60,7 @@ const HomePage = () => {
             <h2>Car Animation</h2>
             <div className="techpark-container">
               <div className="car">
-                <img src="/path/to/your/car-image.png" alt="Car" className="car-image" />
+                <img src={car} alt="Car" className="car-image" />
               </div>
             </div>
           </div>

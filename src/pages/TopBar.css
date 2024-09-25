@@ -2,59 +2,118 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 2rem 2.5rem; /* Increased padding for more height */
-  background: linear-gradient(90deg, #38B2AC, #3182CE); /* Horizontal gradient */
-  color: #fff;
-  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+  padding: 1rem 2.5rem;
+  background-color: transparent;
+  color: #333;
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
+  z-index: 100;
+  box-sizing: border-box;
 }
 
+/* Toggle Button - Fixed Size */
+.flip-toggle {
+  width: 40px;
+  height: 40px;
+  perspective: 600px;
+  cursor: pointer;
+  position: absolute;
+  top: 15px;
+  left: 220px; /* Position when navbar is expanded */
+  border-radius: 5px;
+  background-color: #fff;
+  box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s ease-in-out, left 0.6s ease-in-out;
+  z-index: 101;
+}
 
-.topbar-right {
+.flip-toggle.collapsed {
+  left: 80px; /* Move when navbar is collapsed */
+}
+
+/* Glow effect on hover */
+.flip-toggle:hover {
+  box-shadow: 0 0 15px 5px rgba(50, 150, 255, 0.8);
+}
+
+@keyframes glowing {
+  0% {
+    box-shadow: 0 0 5px rgba(50, 150, 255, 0.5), 0 0 10px rgba(50, 150, 255, 0.7), 0 0 20px rgba(50, 150, 255, 0.8);
+  }
+  50% {
+    box-shadow: 0 0 20px rgba(50, 150, 255, 1), 0 0 30px rgba(50, 150, 255, 1), 0 0 40px rgba(50, 150, 255, 1);
+  }
+  100% {
+    box-shadow: 0 0 5px rgba(50, 150, 255, 0.5), 0 0 10px rgba(50, 150, 255, 0.7), 0 0 20px rgba(50, 150, 255, 0.8);
+  }
+}
+
+.flip-toggle:hover {
+  animation: glowing 1.5s infinite;
+}
+
+/* Arrow styles */
+.arrow {
+  width: 100%;
+  height: 100%;
   display: flex;
-  align-items: center; /* Align elements vertically */
+  justify-content: center;
+  align-items: center;
+  font-size: 1.5rem;
+  color: #333;
+  transition: transform 0.6s ease-in-out;
 }
 
+/* Expanded state - arrow points inward */
+.arrow-right {
+  transform: rotate(180deg); /* Rotated inward */
+}
+
+/* Collapsed state - arrow points outward */
+.arrow-left {
+  transform: rotate(0deg); /* Rotated outward */
+}
+
+/* Centered Search Bar */
 .search-container {
   display: flex;
   align-items: center;
-  border: 1px solid #fff; /* Search bar border */
+  border: 1px solid #ddd;
   border-radius: 5px;
   padding: 0.5rem;
-  background-color: #fff; /* Background color of the input */
-  margin-right: 1rem; /* Space between elements */
-}
-
-.search-icon {
-  color: #38B2AC; /* Icon color */
-  margin-right: 0.5rem; /* Space between icon and input */
+  background-color: #fff;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .search-bar {
-  border: none; /* No border for the input */
-  outline: none; /* Remove outline on focus */
+  border: none;
+  outline: none;
   padding: 0.5rem;
-  border-radius: 5px;
-  width: 200px; /* Adjust width as needed */
+  width: 350px;
+}
+
+.topbar-right {
+  display: flex;
+  align-items: center;
 }
 
 .notification-container {
-  position: relative; /* To position the notification count */
-  margin-right: 1rem; /* Space before profile picture */
+  position: relative;
+  margin-right: 1rem;
 }
 
 .notification-icon {
-  color: #fff; /* Icon color */
-  font-size: 1.5rem; /* Icon size */
+  color: #666;
+  font-size: 1.5rem;
 }
 
 .notification-count {
   position: absolute;
   top: -5px;
-  right: -10px; /* Position the notification count */
+  right: -10px;
   background-color: red;
   border-radius: 50%;
   color: white;
@@ -63,7 +122,8 @@
 }
 
 .profile-picture {
-  width: 40px; /* Size of the user image */
-  height: 40px; /* Ensure it's a circle */
-  border-radius: 50%; /* Make it circular */
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid #ddd;
 }
