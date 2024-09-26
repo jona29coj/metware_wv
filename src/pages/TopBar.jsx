@@ -1,5 +1,5 @@
 import React from 'react';
-import { FaChevronRight,FaBell } from 'react-icons/fa';
+import { FaChevronRight, FaBell, FaMicrophone, FaSearch } from 'react-icons/fa';
 import './TopBar.css';
 
 const TopBar = ({ toggleNavbar, isExpanded }) => {
@@ -17,7 +17,9 @@ const TopBar = ({ toggleNavbar, isExpanded }) => {
 
       {/* Search Bar */}
       <div className="search-container">
+        <FaSearch className="search-icon" />
         <input type="text" className="search-bar" placeholder="Search..." />
+        <FaMicrophone className="microphone-icon" />
       </div>
 
       {/* Right Side of the Top Bar */}
@@ -27,11 +29,15 @@ const TopBar = ({ toggleNavbar, isExpanded }) => {
           <div className="notification-count">3</div>
         </div>
 
-        <img
-          src="https://randomuser.me/api/portraits/men/75.jpg"
-          alt="Profile"
-          className="profile-picture"
-        />
+        {/* Profile Section with Picture and Name */}
+        <div className="profile-container">
+          <img
+            src="https://randomuser.me/api/portraits/men/75.jpg"
+            alt="Profile"
+            className="profile-picture"
+          />
+          <span className="user-name">Mr. Tom Loui</span>
+        </div>
       </div>
     </div>
   );

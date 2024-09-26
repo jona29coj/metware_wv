@@ -1,5 +1,7 @@
 /* Main Navbar Styles */
 .navbar {
+    font-family: 'Poppins', sans-serif; /* New font for the entire navbar */
+    font-size: 14px;
     width: 210px; /* Increased width for the expanded state */
     background: linear-gradient(180deg, #38B2AC, #3182CE);
     color: #f7fafc;
@@ -83,13 +85,23 @@
     left: 0;
 }
 
-.navbar-item:hover {
-    color: #ffffff;
+/* Collapsed hover effect (rotation) */
+.navbar.collapsed .navbar-item:hover .navbar-icon {
+    transform: rotate(360deg); /* Rotation in collapsed state */
+    transition: transform 0.5s ease;
 }
 
-.navbar-item:hover .navbar-icon {
-    transform: rotate(360deg);
-    transition: transform 0.5s ease;
+/* Hover effect for when the navbar is expanded */
+.navbar:not(.collapsed) .navbar-item:hover {
+  background-color: rgba(255, 255, 255, 0.3); /* A different background on hover */
+  color: #ffeb3b; /* Change text color */
+  transform: scale(1.05); /* Slightly enlarge the item */
+  transition: transform 0.3s ease, background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Hover background for expanded navbar */
+.navbar:not(.collapsed) .navbar-item:hover:before {
+  background-color: rgba(0, 0, 0, 0.2); /* Darker hover background for expanded navbar */
 }
 
 /* Slide-in animation for the items */
@@ -125,11 +137,21 @@
     color: #81E6D9;
 }
 
-/* Add space between the icon and the list title */
+/* Add space between the icon and the list title in expanded state */
 .navbar-item .navbar-icon {
     font-size: 1.5rem;
-    margin-right: 1.5rem; /* Adjust the value to increase or decrease the gap */
+    margin-right: 0.5rem; /* Adjusted gap between icon and title */
     transition: transform 0.5s ease;
+}
+
+/* Reduce gap between icon and title in expanded state */
+.navbar:not(.collapsed) .navbar-item .navbar-icon {
+    margin-right: 0.3rem; /* Reduced gap when expanded */
+}
+
+/* Collapsed state: Move the icon slightly to the right */
+.navbar.collapsed .navbar-item .navbar-icon {
+    margin-left: 0.25rem; /* Moves the icon to the right */
 }
 
 .navbar-item span {
