@@ -1,59 +1,56 @@
-import React from 'react';
-import '../App.css'; // Link to the CSS defined below
+import React, { useState, useEffect } from 'react';
+import './Chiller.css';
+import { Card, CardBody, CardTitle } from 'reactstrap';
 
-const ChillerContainer = () => {
-    return (
-        <div className="h-screen flex flex-col justify-center items-center bg-gray-200">
-        {/* Page Title */}
-        <h1 className="text-3xl font-bold mb-10">Chiller Monitoring Dashboard</h1>
+const Chiller = () => {
+  const [coolingEfficiency, setCoolingEfficiency] = useState(75); // Initial efficiency at 75%
 
-        {/* Chiller Container */}
-        <div className="relative flex justify-center items-center w-1/2 h-[600px] bg-gray-100 rounded-3xl border-4 border-gray-300 shadow-xl overflow-hidden">
-            {/* Liquid inside Chiller */}
-            <div className="absolute bottom-0 w-full h-[50%] bg-blue-500 rounded-b-3xl liquid-flow-animation"></div>
+  useEffect(() => {
+    const interval = setInterval(() => {
+      // Simulate dynamic cooling efficiency (random value)
+      setCoolingEfficiency(Math.random() * 100);
+    }, 3000); // Update every 3 seconds
 
-            {/* Chiller Body */}
-            <div className="chiller-body">
-                <div className="chiller-top"></div>
-                <div className="chiller-middle">
-                    <div className="chiller-gauge inlet-gauge">
-                        <span className="gauge-label">Inlet Temp</span>
-                        <span className="gauge-value">5°C</span>
-                    </div>
-                    <div className="chiller-gauge outlet-gauge">
-                        <span className="gauge-label">Outlet Temp</span>
-                        <span className="gauge-value">10°C</span>
-                    </div>
+    return () => clearInterval(interval);
+  }, []);
+
+  return (
+    <div className="container mt-5">
+      <Card className="p-4">
+        <CardTitle className="text-center mb-4">
+          <h4>Chiller System Monitoring</h4>
+        </CardTitle>
+        <CardBody>
+          <div className="chiller-system">
+            {/* Pipe Layout */}
+            <div className="pipe pipe-hot-in">Hot Water In</div>
+            <div className="pipe pipe-hot-out">Hot Water Out</div>
+            <div className="pipe pipe-cold-in">Cold Water In</div>
+            <div className="pipe pipe-cold-out">Cold Water Out</div>
+            
+            {/* Chiller Container */}
+            <div className="chiller">
+              {/* Liquid Flow */}
+              <div
+                className="liquid-flow"
+                style={{
+                  width: `${coolingEfficiency}%`,
+                  backgroundColor: '#007bff', // Blue liquid color
+                  height: '100%',
+                  transition: 'width 2s ease' // Smooth animation for flow
+                }}
+              >
+                {/* Cooling Efficiency Display */}
+                <div className="efficiency-text">
+                  {coolingEfficiency.toFixed(1)}% Efficiency
                 </div>
-                <div className="chiller-bottom"></div>
+              </div>
             </div>
-
-            {/* Pipes */}
-            <div className="absolute -top-12 left-1/3 w-8 h-8 bg-gray-400 rounded-full pipe-animation"></div>
-            <div className="absolute -top-12 right-1/3 w-8 h-8 bg-gray-400 rounded-full pipe-animation"></div>
-        </div>
-
-        {/* Metrics Section */}
-        <div className="w-full mt-10 p-4 flex justify-evenly items-center">
-            <div className="bg-white p-4 shadow-md rounded-lg text-center w-1/4">
-                <h3 className="text-lg font-semibold">Temperature</h3>
-                <p className="text-xl font-bold">25°C</p>
-            </div>
-            <div className="bg-white p-4 shadow-md rounded-lg text-center w-1/4">
-                <h3 className="text-lg font-semibold">Pressure</h3>
-                <p className="text-xl font-bold">2.1 Bar</p>
-            </div>
-            <div className="bg-white p-4 shadow-md rounded-lg text-center w-1/4">
-                <h3 className="text-lg font-semibold">Cooling Efficiency</h3>
-                <p className="text-xl font-bold">95%</p>
-            </div>
-            <div className="bg-white p-4 shadow-md rounded-lg text-center w-1/4">
-                <h3 className="text-lg font-semibold">Energy Consumption</h3>
-                <p className="text-xl font-bold">200 kWh</p>
-            </div>
-        </div>
+          </div>
+        </CardBody>
+      </Card>
     </div>
-    );
+  );
 };
 
-export default ChillerContainer;
+export default Chiller;

@@ -40,7 +40,7 @@ const Navbar = () => {
   }, [setScreenSize]);
 
   return (
-    <div className="flex justify-between p-2 md:ml-6 md:mr-6 relative">
+    <div className="flex justify-between p-2 md:ml-6 md:mr-6 relative mb-[-1]">
       <div className="flex items-center">
         {/* Menu button now collapses/expands the sidebar */}
         <NavButton

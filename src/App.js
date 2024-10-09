@@ -10,6 +10,10 @@ import './App.css';
 import { useStateContext } from './contexts/ContextProvider';
 import MultiMeterGauge from './pages/MultiMeterGauge';
 import ChillerContainer from './pages/ChillerContainer';
+import Dashboard from './pages/Dashboard';
+import IoTFleetStatus from './pages/IOTFleet';
+import ThreeDChiller from './pages/ThreeDChiller';
+
 
 const App = () => {
   const { setCurrentColor, setCurrentMode, currentMode, activeMenu, currentColor, themeSettings, setThemeSettings, isCollapsed } = useStateContext();
@@ -55,12 +59,12 @@ const App = () => {
             <div className="fixed md:static bg-main-bg dark:bg-main-dark-bg navbar w-full top-0 z-10"> {/* Added z-10 to ensure navbar is on top */}
               <Navbar />
             </div>
-            <div className="mt-16"> {/* Added margin top to ensure main content is below the navbar */}
+            <div className="mt-1"> {/* Added margin top to ensure main content is below the navbar */}
               {themeSettings && (<ThemeSettings />)}
 
               <Routes>
                 {/* dashboard  */}
-                <Route path="/" element={(<Ecommerce />)} />
+                <Route path="/dashboard" element={(<Dashboard />)} />
                 <Route path="/ecommerce" element={(<Ecommerce />)} />
 
                 {/* pages  */}
@@ -69,6 +73,8 @@ const App = () => {
                 <Route path="/customers" element={<Customers />} />
                 <Route path="/control" element={<MultiMeterGauge />} />
                 <Route path="/monitor" element={<ChillerContainer />} />
+                <Route path="/iotfleet" element={<IoTFleetStatus />} />
+                <Route path="/threed" element={<ThreeDChiller />} />
 
                 {/* apps  */}
                 <Route path="/kanban" element={<Kanban />} />
@@ -87,7 +93,6 @@ const App = () => {
                 <Route path="/stacked" element={<Stacked />} />
               </Routes>
             </div>
-            <Footer />
           </div>
         </div>
       </BrowserRouter>

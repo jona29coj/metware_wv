@@ -1,5 +1,593 @@
 @import url('https://cdn.syncfusion.com/ej2/material.css');
 
+
+ 
+.chiller-dashboard {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #f0f4f8;
+}
+
+.chiller-container {
+  position: relative;
+  width: 800px; /* Increased size */
+  height: 800px; /* Increased size */
+  background-color: #f1f5f9;
+  border-radius: 1.5rem; /* Rounded edges */
+  border: 6px solid #94a3b8;
+  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+}
+
+.liquid-flow {
+  background-color: #4299e1;
+  height: 60%; /* Initial height */
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  transition: height 0.5s ease-in-out;
+}
+
+.pipe {
+  background-color: #6b7280; /* Pipe color */
+  position: absolute;
+  height: 40px; /* Height of the pipe */
+  width: 30px; /* Width of the pipe */
+  border-radius: 4px;
+}
+
+.pipe-length {
+  background-color: #6b7280; /* Pipe color */
+  position: absolute;
+  width: 8px; /* Width of the pipe */
+  height: 200px; /* Length of the pipe */
+  border-radius: 4px;
+}
+
+.inlet-connection, .outlet-connection {
+  background-color: #6b7280; /* Connection color */
+  position: absolute;
+  width: 20px; /* Connection size */
+  height: 20px; /* Connection size */
+  border-radius: 50%; /* Round connection */
+}
+
+.pipe-label {
+  color: #111827; /* Label color */
+  font-weight: 500;
+  position: absolute;
+  font-size: 0.8rem; /* Slightly smaller font */
+}
+
+.cooling-coils {
+  background-color: #90cdf4; /* Cooling coils color */
+  border-radius: 20px;
+  text-align: center;
+  padding: 10px;
+}
+
+.flow-sensor {
+  background-color: #38a169; /* Flow sensor color */
+  border-radius: 50%; /* Rounded */
+  text-align: center;
+  padding: 10px;
+  color: white;
+}
+
+.fan {
+  background-color: #4a5568; /* Fan color */
+  border-radius: 50%; /* Rounded */
+  animation: spin-slow 5s linear infinite;
+}
+
+.temp-indicator {
+  background-color: #e53e3e; /* Temperature indicator color */
+  border-radius: 50%; /* Rounded */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.pressure-gauge {
+  background-color: #fff;
+  border-radius: 50%; /* Rounded */
+  border: 4px solid #a0aec0; /* Pressure gauge border */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes flow {
+  from { transform: translateY(100%); }
+  to { transform: translateY(-100%); }
+}
+
+/* Slow spin for fan */
+@keyframes spin-slow {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+
+.chiller-dashboard {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #f0f4f8;
+}
+
+.chiller-container {
+  position: relative;
+  width: 600px; /* Increased size */
+  height: 700px; /* Increased size */
+  background-color: #f1f5f9;
+  border-radius: 1.5rem; /* Rounded edges */
+  border: 6px solid #94a3b8;
+  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+}
+
+.liquid-flow {
+  background-color: #4299e1;
+  height: 60%;
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  transition: height 0.5s ease-in-out;
+}
+
+.inlet, .outlet {
+  background-color: #6b7280;
+  position: absolute;
+  height: 40px;
+  width: 30px;
+  border-radius: 4px;
+}
+
+.inlet-length, .outlet-length {
+  background-color: #6b7280;
+  position: absolute;
+  width: 8px; /* Width of the pipe */
+  height: 70px; /* Length of the pipe */
+  border-radius: 4px;
+}
+
+.inlet-connection, .outlet-connection {
+  background-color: #6b7280;
+  position: absolute;
+  width: 20px; /* Connection size */
+  height: 20px; /* Connection size */
+  border-radius: 50%; /* Round connection */
+}
+
+.pipe-label {
+  color: #111827;
+  font-weight: 500;
+  position: absolute;
+  font-size: 0.8rem; /* Slightly smaller font */
+}
+
+.cooling-coils {
+  background-color: #90cdf4;
+  border-radius: 20px;
+  text-align: center;
+  padding: 10px;
+}
+
+.flow-sensor {
+  background-color: #38a169;
+  border-radius: 50%;
+  text-align: center;
+  padding: 10px;
+  color: white;
+}
+
+.fan {
+  background-color: #4a5568;
+  border-radius: 50%;
+  position: relative;
+  animation: spin 5s linear infinite;
+}
+
+.temp-indicator {
+  background-color: #f56565;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.pressure-gauge {
+  background-color: #fff;
+  border-radius: 50%;
+  border: 4px solid #a0aec0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes flow {
+  from { transform: translateY(100%); }
+  to { transform: translateY(-100%); }
+}
+
+/* Slow spin for fan */
+@keyframes spin-slow {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+
+.chiller-dashboard {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #f0f4f8;
+}
+
+.chiller-container {
+  position: relative;
+  width: 600px; /* Increased size */
+  height: 700px; /* Increased size */
+  background-color: #f1f5f9;
+  border-radius: 1.5rem; /* Rounded edges */
+  border: 6px solid #94a3b8;
+  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+}
+
+.liquid-flow {
+  background-color: #4299e1;
+  height: 60%;
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  transition: height 0.5s ease-in-out;
+}
+
+.inlet, .outlet {
+  background-color: #6b7280;
+  position: absolute;
+  height: 40px;
+  width: 30px;
+  border-radius: 4px;
+}
+
+.inlet-length, .outlet-length {
+  background-color: #6b7280;
+  position: absolute;
+  width: 8px; /* Width of the pipe */
+  height: 70px; /* Length of the pipe */
+  border-radius: 4px;
+}
+
+.inlet-connection, .outlet-connection {
+  background-color: #6b7280;
+  position: absolute;
+  width: 20px; /* Connection size */
+  height: 20px; /* Connection size */
+  border-radius: 50%; /* Round connection */
+}
+
+.pipe-label {
+  color: #111827;
+  font-weight: 500;
+  position: absolute;
+  font-size: 0.8rem; /* Slightly smaller font */
+}
+
+.cooling-coils {
+  background-color: #90cdf4;
+  border-radius: 20px;
+  text-align: center;
+  padding: 10px;
+}
+
+.flow-sensor {
+  background-color: #38a169;
+  border-radius: 50%;
+  text-align: center;
+  padding: 10px;
+  color: white;
+}
+
+.fan {
+  background-color: #4a5568;
+  border-radius: 50%;
+  position: relative;
+  animation: spin 5s linear infinite;
+}
+
+.temp-indicator {
+  background-color: #fc8181;
+  color: white;
+  font-weight: bold;
+}
+
+.pressure-gauge {
+  background-color: white;
+  border: 4px solid #cbd5e1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+
+.chiller-dashboard {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #f0f4f8;
+}
+
+.chiller-container {
+  position: relative;
+  width: 500px; /* Increased size */
+  height: 600px; /* Increased size */
+  background-color: #f1f5f9;
+  border-radius: 50%;
+  border: 6px solid #94a3b8;
+  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+}
+
+.liquid-flow {
+  background-color: #4299e1;
+  height: 60%;
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  transition: height 0.5s ease-in-out;
+}
+
+.inlet, .outlet {
+  background-color: #6b7280;
+  position: absolute;
+  height: 40px;
+  width: 30px;
+  border-radius: 4px;
+}
+
+.inlet-length, .outlet-length {
+  background-color: #6b7280;
+  position: absolute;
+  width: 8px; /* Width of the pipe */
+  height: 60px; /* Length of the pipe */
+  border-radius: 4px;
+}
+
+.pipe-label {
+  color: #111827;
+  font-weight: 500;
+  position: absolute;
+  font-size: 0.8rem; /* Slightly smaller font */
+}
+
+.cooling-coils {
+  background-color: #90cdf4;
+  border-radius: 20px;
+  text-align: center;
+  padding: 10px;
+}
+
+.flow-sensor {
+  background-color: #38a169;
+  border-radius: 50%;
+  text-align: center;
+  padding: 10px;
+  color: white;
+}
+
+.fan {
+  background-color: #4a5568;
+  border-radius: 50%;
+  position: relative;
+  animation: spin 5s linear infinite;
+}
+
+.temp-indicator {
+  background-color: #fc8181;
+  color: white;
+  font-weight: bold;
+}
+
+.pressure-gauge {
+  background-color: white;
+  border: 4px solid #cbd5e1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+
+.chiller-container {
+  position: relative;
+  background-color: #f1f5f9;
+  border-radius: 50%;
+  border: 6px solid #94a3b8;
+  width: 300px;
+  height: 300px;
+  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+}
+
+.liquid-flow {
+  background-color: #4299e1;
+  height: 60%;
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  transition: height 0.5s ease-in-out;
+}
+
+.inlet, .outlet {
+  background-color: #6b7280;
+  position: absolute;
+  height: 40px;
+  width: 30px;
+}
+
+.inlet-label, .outlet-label {
+  color: #111827;
+  font-weight: 500;
+}
+
+.cooling-coils {
+  background-color: #90cdf4;
+  border-radius: 50%;
+  text-align: center;
+  padding: 10px;
+}
+
+.flow-sensor {
+  background-color: #38a169;
+  border-radius: 50%;
+  text-align: center;
+  padding: 10px;
+  color: white;
+}
+
+.fan {
+  background-color: #4a5568;
+  border-radius: 50%;
+  position: relative;
+  animation: spin 5s linear infinite;
+}
+
+.temp-indicator {
+  background-color: #fc8181;
+  color: white;
+  font-weight: bold;
+}
+
+.pressure-gauge {
+  background-color: white;
+  border: 4px solid #cbd5e1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+
+.chiller-container {
+  position: relative;
+  background-color: #f1f5f9;
+  border-radius: 50%;
+  border: 6px solid #94a3b8;
+  width: 300px;
+  height: 300px;
+  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+}
+
+.liquid-flow {
+  background-color: #4299e1;
+  height: 60%;
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  transition: height 0.5s ease-in-out;
+}
+
+.inlet, .outlet {
+  background-color: #6b7280;
+  position: absolute;
+  height: 40px;
+  width: 30px;
+}
+
+.inlet-label, .outlet-label {
+  color: #111827;
+  font-weight: 500;
+}
+
+.cooling-coils {
+  background-color: #90cdf4;
+  border-radius: 50%;
+  text-align: center;
+}
+
+.temp-indicator {
+  background-color: #fc8181;
+  color: white;
+  font-weight: bold;
+}
+
+.pressure-gauge {
+  background-color: white;
+  border: 4px solid #cbd5e1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.temp-indicator {
+  position: absolute;
+  right: -30px; /* Adjust position */
+  bottom: 30px; /* Adjust position */
+  width: 50px; /* Width */
+  height: 100px; /* Height */
+  background-color: #ff4d4d; /* Adjust color as needed */
+  border-radius: 10px; /* Rounded corners */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 5px; /* Padding */
+  overflow: hidden; /* Prevent overflow */
+}
+
+.pressure-gauge {
+  position: absolute;
+  top: -30px; /* Adjust position */
+  left: 50%;
+  transform: translate(-50%, 0);
+  width: 60px; /* Adjust width */
+  height: 60px; /* Adjust height */
+  background-color: white; /* Background color */
+  border: 4px solid #808080; /* Border color */
+  border-radius: 50%; /* Make it circular */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden; /* Prevent overflow */
+}
+
 @keyframes moveCar {
   0% {
     left: 0; /* Start from the left edge of the card */
@@ -207,104 +795,126 @@
 
 /* App.css */
 
-body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-  background-color: #f0f0f0;
+/* Basic styling for the dashboard */
+.chiller-dashboard {
+  background-color: #f7f7f7;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Center the items horizontally */
+  justify-content: flex-start; /* Align items to the top */
+  height: 100vh; /* Full viewport height */
+  padding-top: 20px; /* Optional padding */
 }
 
-/* Chiller styles */
-.chiller-body {
+.chiller-container {
+}
+
+.metrics-section {
+  margin-top: 5px; /* You can adjust this to control space between metrics and chiller */
+}
+
+.chiller-dashboard {
+  background-color: #f7f7f7;
+}
+
+.chiller-container {
   position: relative;
-  width: 70px;
-  height: 300px;
-  background: linear-gradient(to bottom, #1c8cf0, #0056b3);
-  border-radius: 50px;
-  overflow: hidden;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  background-color: #e2e8f0; /* Lighter color for better contrast */
+  border-radius: 20px; /* Adjusted for a smoother look */
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); /* Softer shadow for a better effect */
 }
 
-.chiller-top {
-  height: 20px;
-  background: #0056b3;
-  border-radius: 50px 50px 0 0;
+/* Liquid Flow */
+.liquid-flow {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  background-color: #3b82f6; /* Blue color for liquid */
+  border-radius: 0 0 1.5rem 1.5rem; /* Rounded bottom edges */
+  animation: flow 1s linear infinite; /* Fluid animation */
 }
 
-.chiller-middle {
+/* Animation for the liquid flow */
+@keyframes flow {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(5px); /* Simulates a slight upward movement */
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+/* Pipes */
+.inlet,
+.outlet {
+  position: absolute;
+  background-color: #a1a1a1; /* Gray color for pipes */
+  border-radius: 5px; /* Rounded edges for pipes */
+}
+
+/* Adjustments for inlet and outlet size */
+.inlet {
+  width: 12px;
+  height: 50px;
+  left: -12px; /* Position left */
+  top: 25%;
+}
+
+.outlet {
+  width: 12px;
+  height: 50px;
+  right: -12px; /* Position right */
+  top: 25%;
+}
+
+/* Temperature Indicator */
+.temp-indicator {
+  position: absolute;
+  right: -25px;
+  bottom: 12px;
+  width: 50px;
+  height: 150px;
+  background-color: #e53e3e; /* Red color for temperature indicator */
+  border-radius: 10px;
+  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.2); /* Inner shadow for depth */
+}
+
+/* Pressure Gauge */
+.pressure-gauge {
+  position: absolute;
+  top: -25px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background-color: #ffffff;
+  border: 4px solid #cbd5e0; /* Light gray border */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Metrics Section */
+.metrics-section {
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  height: 100%;
-  padding: 10px 0;
+  margin-top: 20px;
 }
 
-.chiller-gauge {
-  position: absolute;
-  top: 0;
-  background: white;
-  width: 70px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
+.metrics-card {
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   text-align: center;
+  width: 30%; /* Adjusted for better spacing */
 }
 
-.inlet-gauge {
-  left: -80px;
-}
 
-.outlet-gauge {
-  right: -80px;
-}
-
-.gauge-label {
-  font-size: 12px;
-  color: #666;
-}
-
-.gauge-value {
-  font-size: 16px;
-  font-weight: bold;
-}
-
-.chiller-bottom {
-  height: 20px;
-  background: #0056b3;
-  border-radius: 0 0 50px 50px;
-}
-
-/* Liquid flow animation */
-.liquid-flow-animation {
-  animation: liquid-flow 3s linear infinite;
-}
-
-@keyframes liquid-flow {
-  0% {
-      transform: translateY(100%);
-  }
-  50% {
-      transform: translateY(50%);
-  }
-  100% {
-      transform: translateY(100%);
-  }
-}
-
-/* Pipe styles */
-.pipe-animation {
-  animation: pipe-move 1s infinite;
-}
-
-@keyframes pipe-move {
-  0% {
-      transform: scale(1);
-  }
-  50% {
-      transform: scale(1.05);
-  }
-  100% {
-      transform: scale(1);
-  }
-}
 
 
 

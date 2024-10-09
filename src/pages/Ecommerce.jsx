@@ -1,143 +1,377 @@
 import React from 'react';
+import { useState } from 'react';
 import { BsCurrencyDollar } from 'react-icons/bs';
 import { GoDot } from 'react-icons/go';
 import { IoIosMore } from 'react-icons/io';
 import { DropDownListComponent } from '@syncfusion/ej2-react-dropdowns';
-
-import { Stacked, Pie, Button, LineChart, SparkLine } from '../components';
-import { earningData, medicalproBranding, recentTransactions, weeklyStats, dropdownData, SparklineAreaData, ecomPieChartData } from '../data/dummy';
+import { Doughnut } from 'react-chartjs-2'; // Make sure to install chart.js and react-chartjs-2
+import { Bar } from 'react-chartjs-2'; // Chart.js bar chart
+import {
+  Stacked,
+  Pie,
+  Button,
+  LineChart,
+  SparkLine,
+} from '../components';
+import {
+  earningData,
+  medicalproBranding,
+  recentTransactions,
+  weeklyStats,
+  dropdownData,
+  SparklineAreaData,
+  ecomPieChartData,
+} from '../data/dummy';
 import { useStateContext } from '../contexts/ContextProvider';
 import product9 from '../data/product9.jpg';
 import bgImg from '../img1.png';
 import carImg from '../carmov.png';
 import '../App.css';
-import BarChart from './BarChart';
+import BarChart from '../components/Charts/3DBarChart';
 import ReactSlider from 'react-slider';
+import bgpic from '../img1.png'
+import Plot from 'react-plotly.js';
+import PieChart from '../components/Charts/3DPieChart';
+import 'react-datepicker/dist/react-datepicker.css';
+import DatePicker from 'react-datepicker';
+import '../pages/Chiller.css';
+import '../pages/evcharger.css';
 
 
-const MultiColoredSlider = () => {
-  return (
-    <ReactSlider
-      className="custom-slider"
-      trackClassName="track"
-      thumbClassName="thumb"
-      min={0}
-      max={100}
-      defaultValue={50}
-      renderTrack={(props, state) => (
-        <div
-          {...props}
-          className={`${props.className} ${state.index === 0 ? 'bg-green-500' : state.index === 1 ? 'bg-yellow-500' : 'bg-red-500'}`}
-        />
-      )}
-      renderThumb={(props, state) => <div {...props} className="thumb"></div>}
-    />
-  );
-};
 
 
+
+
+
+
+
+
+
+
+
+
+// Custom multi-colored slider component
+const MultiColoredSlider = () => (
+  <ReactSlider
+    className="custom-slider"
+    trackClassName="track"
+    thumbClassName="thumb"
+    min={0}
+    max={100}
+    defaultValue={50}
+    renderTrack={(props, state) => (
+      <div
+        {...props}
+        className={`${props.className} ${
+          state.index === 0
+            ? 'bg-green-500'
+            : state.index === 1
+            ? 'bg-yellow-500'
+            : 'bg-red-500'
+        }`}
+      />
+    )}
+    renderThumb={(props) => (
+      <div {...props} className="thumb"></div>
+    )}
+  />
+);
+
+// Dropdown component for selecting time period
 const DropDown = ({ currentMode }) => (
-  <div className="w-28 border-1 border-color px-2 py-1 rounded-md">
-    <DropDownListComponent id="time" fields={{ text: 'Time', value: 'Id' }} style={{ border: 'none', color: (currentMode === 'Dark') && 'white' }} value="1" dataSource={dropdownData} popupHeight="220px" popupWidth="120px" />
+  <div className="w-28 border border-color px-2 py-1 rounded-md">
+    <DropDownListComponent
+      id="time"
+      fields={{ text: 'Time', value: 'Id' }}
+      style={{
+        border: 'none',
+        color: currentMode === 'Dark' && 'white',
+      }}
+      value="1"
+      dataSource={dropdownData}
+      popupHeight="220px"
+      popupWidth="120px"
+    />
   </div>
 );
 
+// Data for Doughnut Chart
+const doughnutData = {
+  labels: ['Grid', 'Diesel', 'Wheeled in Solar', 'Rooftop', 'Today\'s Renewable Share'],
+  datasets: [
+    {
+      data: [30, 10, 40, 20, 2],
+      backgroundColor: [
+        '#4CAF50', // Green
+        '#FFC107', // Amber
+        '#2196F3', // Blue
+        '#FF5722', // Deep Orange
+        '#9E9E9E', // Grey
+      ],
+      hoverBackgroundColor: [
+        '#388E3C', // Darker Green
+        '#FFA000', // Darker Amber
+        '#1976D2', // Darker Blue
+        '#F4511E', // Darker Deep Orange
+        '#757575', // Darker Grey
+      ],
+    },
+  ],
+};
+
+// Data for Stacked Bar Chart
+const barData = {
+  labels: ['Building Consumption'],
+  datasets: [
+    {
+      label: 'Clients',
+      backgroundColor: '#4CAF50', // Green for Clients
+      data: [100],
+    },
+    {
+      label: 'Chillers',
+      backgroundColor: '#2196F3', // Blue for Chillers
+      data: [80],
+    },
+    {
+      label: 'Common Area',
+      backgroundColor: '#FF5722', // Deep Orange for Common Area
+      data: [60],
+    },
+  ],
+};
+
+const barOptions = {
+  plugins: {
+    legend: {
+      position: 'bottom', // Place the legend at the bottom for better readability
+    },
+  },
+  scales: {
+    x: {
+      stacked: true,
+    },
+    y: {
+      stacked: true,
+      beginAtZero: true,
+    },
+  },
+};
+
 const Ecommerce = () => {
   const { currentColor, currentMode } = useStateContext();
+  const [startDate, setStartDate] = useState(new Date());
+
 
   return (
-<div className="flex flex-wrap justify-around items-start mb-4">
-  <div className="flex items-start gap-8"> {/* New parent div to group both elements */}
-
-  {/* Background Image Card (Increased Width) */}
-  <div className="bg-white dark:text-gray-200 dark:bg-secondary-dark-bg rounded-xl shadow-lg p-0 max-w-xs relative mx-2"> 
-    <img
-      src={bgImg}
-      alt="Featured"
-      className="w-full h-40 object-cover rounded-lg"
-    />
-    {/* Moving Car */}
-    <div className="absolute top-2 left-0 transform -translate-y-1/2 car-animation" style={{ top: '75%' }}>
-      <img
-        src={carImg}
-        alt="Moving Car"
-        className="w-16 h-auto"
-      />
-    </div>
+    <div className="p-6 bg-gray-100 min-h-screen">
+      {/* Top Cards */}
+<div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+  {/* Facility Information Card */}
+  <div className="bg-white dark:bg-secondary-dark-bg rounded-xl shadow-md p-4">
+    <h3 className="text-lg font-semibold mb-2">Facility Information</h3>
+    <ul className="text-gray-600">
+      <li>IIT Madras Research Park</li>
+      <li>BUA: 12 lakhs sq.ft.</li>
+      <li>Chennai, India</li>
+      <li>Climate Type: Hot & Humid</li>
+    </ul>
   </div>
 
-  {/* Comment Cloud (Using Negative Margin) */}
-  <div className="relative max-w-xs mx-0 -ml-4"> {/* Applied negative margin -ml-2 */}
-    <div className="cloud-container">
-      <p className="cloud-text">Save earth by reducing CO2</p>
-      {/* Triangle Tail */}
-      <div className="cloud-tail"></div>
-    </div>
-  </div>
-  </div>
-
-  <div className="flex items-start gap-9">
-  {/* New Card 1 - Facility Information */}
-  <div className="bg-white dark:text-gray-200 dark:bg-secondary-dark-bg rounded-xl shadow-lg p-4 w-2/4 min-h-[200px] max-w-md mx-2">
-    <h3 className="text-lg font-semibold">Facility Information</h3>
-    <p>IIT Madras Research Park</p>
-    <p>BUA: 12 lakhs sq.ft.</p>
-    <p>Chennai, India</p>
-    <p>Climate Type: Hot & Humid</p>
-  </div>
-
-  {/* New Card 2 - Elements Score with Multi-colored Slider */}
-  <div className="bg-white dark:text-gray-200 dark:bg-secondary-dark-bg rounded-xl shadow-lg p-4 w-2/4 min-h-[200px] max-w-md mx-2">
+  {/* Elements Score Card */}
+  <div className="bg-white dark:bg-secondary-dark-bg rounded-xl shadow-md p-4">
     <h3 className="text-lg font-semibold mb-2">Elements Score</h3>
-    <p>Your Building Score: 760</p>
-    <p>Suggestions for improvement:</p>
-
-    {/* Multi-colored Slider Chart */}
-    <div className="mt-4">
-      <p className="mb-1">Energy Efficiency: </p>
+    <p className="text-gray-600 mb-1">Your Building Score: <span className="font-bold">760</span></p>
+    <p className="text-gray-600 mb-2">Suggestions for improvement:</p>
+    <div className="mb-2">
+      <p className="text-gray-600 mb-1">Energy Efficiency:</p>
       <MultiColoredSlider />
     </div>
+    <Button
+      color="white"
+      bgColor={currentColor}
+      text="CONNECT"
+      borderRadius="8px"
+      width="full"
+    />
+  </div>
 
-    {/* "CONNECT" Button */}
-    <button className="mt-6 w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600 focus:outline-none">
-      CONNECT
-    </button>
+  {/* Image Card with Car Animation */}
+  <div className="relative bg-white dark:bg-secondary-dark-bg rounded-xl shadow-md overflow-hidden">
+    <img
+      src={bgImg}
+      alt="Background"
+      className="w-full h-36 object-cover"  // Reduced height for image
+    />
+    <div className="absolute inset-0 flex items-center justify-center">
+      <img src={carImg} alt="Moving Car" className="w-16 animate-bounce" /> {/* Reduced image size */}
+    </div>
+    <div className="absolute bottom-0 left-0 p-2">
+      <div className="bg-white p-1 rounded-lg shadow-md">
+        <p className="text-gray-800 font-semibold">Save Earth by Reducing CO₂</p>
+      </div>
+    </div>
   </div>
 </div>
 
-
-{/* Second row - New cards with bigger sizes */}
-<div className="w-full flex flex-wrap justify-center gap-20 mt-4">
+{/* Charts Section */}
+<div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
   {/* Energy Sources Card */}
-  <div className="bg-white dark:text-gray-200 dark:bg-secondary-dark-bg rounded-xl shadow-lg p-4 w-2/5 relative">
-    <h3 className="text-lg font-semibold mt-4">Energy Sources</h3>
-    <DropDown currentMode="Light" className="absolute top-4 right-4" />
-    <div className="mt-4">
-      <BarChart />
-      <div className="mt-4">
-        <p>Grid: 30%</p>
-        <p>Diesel: 10%</p>
-        <p>Wheeled in Solar: 40%</p>
-        <p>Rooftop: 20%</p>
-        <p>Today's Renewable Share: 2%</p>
+  <div className="bg-white dark:bg-secondary-dark-bg rounded-xl shadow-md p-4 flex flex-col">
+    <div className="flex justify-between items-center mb-4">
+      <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-200">Energy Sources</h3>
+      <DatePicker
+        selected={startDate}
+        onChange={(date) => setStartDate(date)}
+        dateFormat="yyyy/MM/dd"
+        className="border rounded px-2 py-1"
+      />
+    </div>
+    <div className="flex">
+      {/* Bar Chart Section */}
+      <div className="flex-1 pr-4"> {/* Bar Chart on the left */}
+        <BarChart /> {/* Inserted 3D Bar Chart */}
+      </div>
+
+      {/* Relevant Information Section */}
+      <div className="flex-1 pl-4">
+        <h4 className="text-md font-semibold text-gray-800 dark:text-gray-200">Energy Sources Breakdown</h4>
+        <ul className="mt-2 text-gray-600 text-sm">
+          <li>Grid: 30%</li>
+          <li>Diesel: 10%</li>
+          <li>Wheeled in Solar: 40%</li>
+          <li>Rooftop: 20%</li>
+          <li>Today's Renewable Share: 2%</li>
+        </ul>
       </div>
     </div>
   </div>
 
   {/* Building Consumption Card */}
-  <div className="bg-white dark:text-gray-200 dark:bg-secondary-dark-bg rounded-xl shadow-lg p-4 w-2/5 relative">
-    <h3 className="text-lg font-semibold mt-4">Building Consumption</h3>
-    <DropDown currentMode="Light" className="absolute top-4 right-4" />
-    <Pie id="building-consumption-pie" data={ecomPieChartData} legendVisiblity height="220px" />
-    
-    {/* Additional Details */}
-    <div className="mt-4">
-      <p>Clients Total: 100 kWh</p>
-      <p>Chillers Total: 80 kWh</p>
-      <p>Common Area Total: 60 kWh</p>
+  <div className="bg-white dark:bg-secondary-dark-bg rounded-xl shadow-md p-4 flex flex-col">
+    <div className="flex justify-between items-center mb-4">
+      <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-200">Building Consumption</h3>
+      <DatePicker
+        selected={startDate}
+        onChange={(date) => setStartDate(date)}
+        dateFormat="yyyy/MM/dd"
+        className="border rounded px-2 py-1"
+      />
+    </div>
+    <div className="flex">
+      {/* Pie Chart Section */}
+      <div className="flex-1 pr-4"> {/* Pie Chart on the left */}
+        <PieChart /> {/* Inserted 3D Pie Chart */}
+      </div>
+
+      {/* Relevant Information Section */}
+      <div className="flex-1 pl-4">
+        <h4 className="text-md font-semibold text-gray-800 dark:text-gray-200">Consumption Breakdown</h4>
+        <ul className="mt-2 text-gray-600 text-sm">
+          <li>Clients Total: 100 kWh</li>
+          <li>Chillers Total: 80 kWh</li>
+          <li>Common Area Total: 60 kWh</li>
+        </ul>
+      </div>
     </div>
   </div>
 </div>
+
+{/* Chillers Efficiency Card */}
+<div className="grid grid-cols-1 gap-4 mb-4">
+  <div className="bg-white dark:bg-secondary-dark-bg rounded-xl shadow-md p-4 mb-4">
+    <h3 className="text-2xl font-bold text-gray-800 dark:text-gray-200 mb-12 text-center">Chiller Efficiency Overview</h3>
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+      {Array.from({ length: 8 }, (_, index) => (
+        <div key={index} className="chiller-card relative p-4 border border-gray-300 rounded-lg flex flex-col items-center">
+          {/* Chiller Visual Representation */}
+          <div className="chiller-placeholder">
+            <div className="cooling-efficiency">Cooling Efficiency: {Math.floor(Math.random() * (100 - 50 + 1)) + 50}%</div>
+          </div>
+          {/* Pipes */}
+          <div className="pipe inlet"></div>
+          <div className="pipe outlet"></div>
+          {/* Chiller Label */}
+          <h4 className="font-semibold text-gray-800 dark:text-gray-200 text-center mt-2">Chiller {index + 1}</h4>
+          {/* Relevant Information */}
+          <p className="text-gray-600 text-sm mt-1 text-center">
+            Temperature: {Math.floor(Math.random() * (15 - 5 + 1)) + 5} °C<br />
+            Pressure: {Math.floor(Math.random() * (120 - 80 + 1)) + 80} kPa
+          </p>
+        </div>
+      ))}
+    </div>
+  </div>
+</div>
+
+{/* EV Chargers Section */}
+<div className="grid grid-cols-1 gap-4 mb-4">
+  {/* Big Card for the entire EV Chargers section */}
+  <div className="bg-white dark:bg-secondary-dark-bg rounded-xl shadow-md p-4">
+    <h3 className="text-2xl font-bold text-gray-800 dark:text-gray-200 mb-6 text-center">EV Chargers Overview</h3>
+    
+    {/* Common Summary Card inside the big card */}
+    <div className="grid grid-cols-3 gap-4 mb-8">
+      <div className="summary-card p-4 bg-gray-100 dark:bg-gray-800 rounded-lg shadow-md flex flex-col items-center">
+        <h4 className="font-semibold text-gray-800 dark:text-gray-200">No. of Chargers Used</h4>
+        <p className="text-3xl font-bold text-green-600">00</p>
+      </div>
+      <div className="summary-card p-4 bg-gray-100 dark:bg-gray-800 rounded-lg shadow-md flex flex-col items-center">
+        <h4 className="font-semibold text-gray-800 dark:text-gray-200">Total Sessions Today</h4>
+        <p className="text-3xl font-bold text-blue-600">00</p>
+      </div>
+      <div className="summary-card p-4 bg-gray-100 dark:bg-gray-800 rounded-lg shadow-md flex flex-col items-center">
+        <h4 className="font-semibold text-gray-800 dark:text-gray-200">Total Energy Used</h4>
+        <p className="text-3xl font-bold text-red-600">00 kWh</p>
+      </div>
+    </div>
+
+    {/* EV Chargers Cards */}
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+      {Array.from({ length: 6 }, (_, index) => (
+        <div key={index} className="ev-charger-card p-4 bg-gray-100 dark:bg-gray-800 rounded-lg shadow-md flex">
+          {/* CSS-based detailed EV charging station */}
+          <div className="w-1/2 flex justify-center items-center">
+            <div className="charging-station">
+              <div className="station-screen"></div>
+              <div className="station-base"></div>
+              <div className="station-cable"></div>
+            </div>
+          </div>
+          {/* EV Charger Info */}
+          <div className="w-1/2 pl-4 flex flex-col justify-center items-center text-center">
+            <h4 className="font-semibold text-gray-800 dark:text-gray-200 mb-2">EV Charger {index + 1}</h4>
+            <p className="text-gray-600 dark:text-gray-400">
+              Location: Block E<br />
+              Energy Consumed: 50 kWh
+            </p>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     <div className="flex flex-wrap lg:flex-nowrap justify-center ">
         <div className="bg-white dark:text-gray-200 dark:bg-secondary-dark-bg h-44 rounded-xl w-full lg:w-80 p-8 pt-9 m-3 bg-hero-pattern bg-no-repeat bg-cover bg-center">
           <div className="flex justify-between items-center">
