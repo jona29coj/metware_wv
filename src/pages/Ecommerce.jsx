@@ -35,8 +35,11 @@ import PieChart from '../components/Charts/3DPieChart';
 import 'react-datepicker/dist/react-datepicker.css';
 import DatePicker from 'react-datepicker';
 import '../pages/Chiller.css';
-import '../pages/evcharger.css';
-
+import '../pages/Car.css';
+import Batteries from './Batteries';
+import WaterStorage from './WaterStorage';
+import EVchargers from './evchargers';
+import Chiller from './Chiller';
 
 
 
@@ -277,80 +280,11 @@ const Ecommerce = () => {
   </div>
 </div>
 
-{/* Chillers Efficiency Card */}
-<div className="grid grid-cols-1 gap-4 mb-4">
-  <div className="bg-white dark:bg-secondary-dark-bg rounded-xl shadow-md p-4 mb-4">
-    <h3 className="text-2xl font-bold text-gray-800 dark:text-gray-200 mb-12 text-center">Chiller Efficiency Overview</h3>
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-      {Array.from({ length: 8 }, (_, index) => (
-        <div key={index} className="chiller-card relative p-4 border border-gray-300 rounded-lg flex flex-col items-center">
-          {/* Chiller Visual Representation */}
-          <div className="chiller-placeholder">
-            <div className="cooling-efficiency">Cooling Efficiency: {Math.floor(Math.random() * (100 - 50 + 1)) + 50}%</div>
-          </div>
-          {/* Pipes */}
-          <div className="pipe inlet"></div>
-          <div className="pipe outlet"></div>
-          {/* Chiller Label */}
-          <h4 className="font-semibold text-gray-800 dark:text-gray-200 text-center mt-2">Chiller {index + 1}</h4>
-          {/* Relevant Information */}
-          <p className="text-gray-600 text-sm mt-1 text-center">
-            Temperature: {Math.floor(Math.random() * (15 - 5 + 1)) + 5} °C<br />
-            Pressure: {Math.floor(Math.random() * (120 - 80 + 1)) + 80} kPa
-          </p>
-        </div>
-      ))}
-    </div>
-  </div>
-</div>
 
-{/* EV Chargers Section */}
-<div className="grid grid-cols-1 gap-4 mb-4">
-  {/* Big Card for the entire EV Chargers section */}
-  <div className="bg-white dark:bg-secondary-dark-bg rounded-xl shadow-md p-4">
-    <h3 className="text-2xl font-bold text-gray-800 dark:text-gray-200 mb-6 text-center">EV Chargers Overview</h3>
-    
-    {/* Common Summary Card inside the big card */}
-    <div className="grid grid-cols-3 gap-4 mb-8">
-      <div className="summary-card p-4 bg-gray-100 dark:bg-gray-800 rounded-lg shadow-md flex flex-col items-center">
-        <h4 className="font-semibold text-gray-800 dark:text-gray-200">No. of Chargers Used</h4>
-        <p className="text-3xl font-bold text-green-600">00</p>
-      </div>
-      <div className="summary-card p-4 bg-gray-100 dark:bg-gray-800 rounded-lg shadow-md flex flex-col items-center">
-        <h4 className="font-semibold text-gray-800 dark:text-gray-200">Total Sessions Today</h4>
-        <p className="text-3xl font-bold text-blue-600">00</p>
-      </div>
-      <div className="summary-card p-4 bg-gray-100 dark:bg-gray-800 rounded-lg shadow-md flex flex-col items-center">
-        <h4 className="font-semibold text-gray-800 dark:text-gray-200">Total Energy Used</h4>
-        <p className="text-3xl font-bold text-red-600">00 kWh</p>
-      </div>
-    </div>
-
-    {/* EV Chargers Cards */}
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-      {Array.from({ length: 6 }, (_, index) => (
-        <div key={index} className="ev-charger-card p-4 bg-gray-100 dark:bg-gray-800 rounded-lg shadow-md flex">
-          {/* CSS-based detailed EV charging station */}
-          <div className="w-1/2 flex justify-center items-center">
-            <div className="charging-station">
-              <div className="station-screen"></div>
-              <div className="station-base"></div>
-              <div className="station-cable"></div>
-            </div>
-          </div>
-          {/* EV Charger Info */}
-          <div className="w-1/2 pl-4 flex flex-col justify-center items-center text-center">
-            <h4 className="font-semibold text-gray-800 dark:text-gray-200 mb-2">EV Charger {index + 1}</h4>
-            <p className="text-gray-600 dark:text-gray-400">
-              Location: Block E<br />
-              Energy Consumed: 50 kWh
-            </p>
-          </div>
-        </div>
-      ))}
-    </div>
-  </div>
-</div>
+<Chiller/>
+<EVchargers/>
+<WaterStorage />
+<Batteries />
 
 
 

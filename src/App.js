@@ -9,7 +9,6 @@ import './App.css';
 
 import { useStateContext } from './contexts/ContextProvider';
 import MultiMeterGauge from './pages/MultiMeterGauge';
-import ChillerContainer from './pages/ChillerContainer';
 import Dashboard from './pages/Dashboard';
 import IoTFleetStatus from './pages/IOTFleet';
 import ThreeDChiller from './pages/ThreeDChiller';
@@ -72,7 +71,6 @@ const App = () => {
                 <Route path="/employees" element={<Employees />} />
                 <Route path="/customers" element={<Customers />} />
                 <Route path="/control" element={<MultiMeterGauge />} />
-                <Route path="/monitor" element={<ChillerContainer />} />
                 <Route path="/iotfleet" element={<IoTFleetStatus />} />
                 <Route path="/threed" element={<ThreeDChiller />} />
 

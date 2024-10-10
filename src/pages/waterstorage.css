@@ -1,0 +1,149 @@
+/* Tank Body */
+.tank-body {
+    width: 80px; /* Tank width */
+    height: 150px; /* Tank height */
+    border: 2px solid #007BFF; /* Blue border for tank */
+    border-radius: 5px; /* Slightly rounded corners */
+    position: relative; /* For absolute positioning of water */
+    overflow: hidden; /* Hide overflow for the liquid */
+  }
+/* Storage Tank Visuals */
+.storage-tank {
+    width: 100px;
+    height: 200px;
+    position: relative;
+    border: 2px solid #333;
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  
+  .tank-body {
+    width: 100%;
+    height: 100%;
+    position: relative;
+  }
+  
+  .water-level {
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+    animation: fillUp 5s infinite alternate ease-in-out;
+  }
+  
+  /* Cold Water Tank - Blue Water */
+  .cold-water {
+    background: linear-gradient(180deg, lightblue 0%, blue 100%);
+    height: 50%; /* Adjust this to simulate different water levels */
+  }
+  
+  /* Hot Water Tank - Red Water */
+  .hot-water {
+    background: linear-gradient(180deg, lightcoral 0%, red 100%);
+    height: 60%; /* Adjust this to simulate different water levels */
+  }
+  
+  /* Water Level Fill Animation */
+  @keyframes fillUp {
+    0% {
+      height: 30%;
+    }
+    100% {
+      height: 80%;
+    }
+  }
+  
+  /* Flow Visuals */
+  .flow-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .inlet-flow, .outlet-flow, .delivery-flow {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: radial-gradient(circle, lightblue, deepskyblue);
+    position: relative;
+    animation: flowPulse 2s infinite;
+  }
+  
+  /* Flow Pulse Animation */
+  @keyframes flowPulse {
+    0% {
+      transform: scale(1);
+      opacity: 1;
+    }
+    50% {
+      transform: scale(1.2);
+      opacity: 0.7;
+    }
+    100% {
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
+  
+/* Flow Container */
+.flow-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  
+  /* Common CSS for Flow Visuals */
+  .flow-visual {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+  }
+  
+  .inlet-flow, .outlet-flow, .delivery-flow {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: radial-gradient(circle at center, lightblue, deepskyblue);
+    position: relative;
+    animation: pulse 2s infinite;
+  }
+  
+  /* Flow Animation */
+  @keyframes pulse {
+    0% {
+      transform: scale(1);
+      opacity: 1;
+    }
+    50% {
+      transform: scale(1.2);
+      opacity: 0.7;
+    }
+    100% {
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
+  
+  /* Flow Label Styling */
+  .flow-label {
+    margin-top: 10px;
+    font-weight: bold;
+  }
+  
+  /* Flow Styles for Cold Water */
+  .inlet-flow {
+    background: radial-gradient(circle at center, lightblue, dodgerblue);
+    box-shadow: 0px 0px 15px lightblue;
+  }
+  
+  .outlet-flow {
+    background: radial-gradient(circle at center, lightblue, dodgerblue);
+    box-shadow: 0px 0px 15px dodgerblue;
+  }
+  
+  /* Flow Styles for Hot Water */
+  .delivery-flow {
+    background: radial-gradient(circle at center, orangered, red);
+    box-shadow: 0px 0px 15px orangered;
+  }
+  

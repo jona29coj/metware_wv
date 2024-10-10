@@ -1,0 +1,51 @@
+.car-visual {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 80px;
+    height: 40px;
+    position: relative;
+    margin-bottom: 10px;
+  }
+  
+  .car-body {
+    width: 60px;
+    height: 25px;
+    background-color: grey; /* Default (disconnected) car body color */
+    border-radius: 5px;
+    position: relative;
+  }
+  
+  .car-window {
+    width: 30px;
+    height: 10px;
+    background-color: white;
+    position: absolute;
+    top: 3px;
+    left: 15px;
+    border-radius: 2px;
+  }
+  
+  .car-wheels {
+    display: flex;
+    justify-content: space-between;
+    position: absolute;
+    bottom: -6px;
+    width: 100%;
+  }
+  
+  .wheel {
+    width: 10px;
+    height: 10px;
+    background-color: black;
+    border-radius: 50%;
+  }
+  
+  .connected .car-body {
+    background-color: green; /* Green car when connected */
+  }
+  
+  .disconnected .car-body {
+    background-color: grey; /* Grey car when disconnected */
+  }
+  
