@@ -92,7 +92,7 @@ const Batteries = () => {
               <p className="text-gray-800 dark:text-gray-200">Backup: 4 hours</p>
               <p className="text-gray-800 dark:text-gray-200">Voltage: 230V</p>
               <p className="text-gray-800 dark:text-gray-200">Temp: 32°C</p>
-            </div>
+            </div> 
           </div>
           <div className="mt-4">
             <div className="status-container flex items-center">

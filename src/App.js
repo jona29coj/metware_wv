@@ -12,6 +12,7 @@ import MultiMeterGauge from './pages/MultiMeterGauge';
 import Dashboard from './pages/Dashboard';
 import IoTFleetStatus from './pages/IOTFleet';
 import ThreeDChiller from './pages/ThreeDChiller';
+import ChillerDetail from './pages/ChillerDetail';
 
 
 const App = () => {
@@ -27,7 +28,7 @@ const App = () => {
   }, []);
 
   return (
-    <div className={currentMode === 'Dark' ? 'dark' : ''}  >
+    <div className={currentMode === 'Dark' ? 'dark' : ''}>
       <BrowserRouter>
         <div className="flex relative dark:bg-main-dark-bg">
           <div className="fixed right-4 bottom-4" style={{ zIndex: '1000' }}>
@@ -73,6 +74,7 @@ const App = () => {
                 <Route path="/control" element={<MultiMeterGauge />} />
                 <Route path="/iotfleet" element={<IoTFleetStatus />} />
                 <Route path="/threed" element={<ThreeDChiller />} />
+                <Route path="/chillerdetail" element={<ChillerDetail />} />
 
                 {/* apps  */}
                 <Route path="/kanban" element={<Kanban />} />
