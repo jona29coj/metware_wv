@@ -481,6 +481,7 @@ export const links = [
       {
         name: 'monitor',
         icon: <AiOutlineDashboard />,
+        links: [],
       },
       {
         name: 'control',

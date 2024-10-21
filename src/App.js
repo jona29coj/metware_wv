@@ -13,6 +13,22 @@ import Dashboard from './pages/Dashboard';
 import IoTFleetStatus from './pages/IOTFleet';
 import ThreeDChiller from './pages/ThreeDChiller';
 import ChillerDetail from './pages/ChillerDetail';
+import BuildingOverview from './pages/BuildingOverview';
+import Client from './pages/Client';
+import CoolingHVAC from './pages/CoolingHVAC';
+import RenewableEnergy from './pages/RenewableEnergy';
+import EVCharging from './pages/EVCharging';
+import EnergyStorage from './pages/EnergyStorage';
+import AlertsOverview from './pages/Alerts';
+import OptimizeOverview from './pages/Optimize';
+import ChillerOverview from './pages/Chiller';
+import ChillerProcessFlow from './pages/ChillerProcessFlow';
+import ChillerComponent from './pages/ChillerComponent';
+import UPSControl from './pages/UPSControl';
+import ThermalControl from './pages/ThermalControl';
+import LTOControl from './pages/LTOControl';
+import HotWaterControl from './pages/HotWaterControl';
+import IOEBatteryControl from './pages/IOEBattery';
 
 
 const App = () => {
@@ -64,7 +80,7 @@ const App = () => {
 
               <Routes>
                 {/* dashboard  */}
-                <Route path="/dashboard" element={(<Dashboard />)} />
+                <Route path="/dashboard" element={(<Ecommerce />)} />
                 <Route path="/ecommerce" element={(<Ecommerce />)} />
 
                 {/* pages  */}
@@ -75,7 +91,23 @@ const App = () => {
                 <Route path="/iotfleet" element={<IoTFleetStatus />} />
                 <Route path="/threed" element={<ThreeDChiller />} />
                 <Route path="/chillerdetail" element={<ChillerDetail />} />
-
+                <Route path="/monitor/overview" element={<BuildingOverview />} />
+                <Route path="/monitor/client" element={<Client />} />
+                <Route path="monitor/usage" element={<CoolingHVAC />} />
+                <Route path="/monitor/performance" element={<RenewableEnergy />} />
+                <Route path="/ev-charging" element={<EVCharging />} />
+                <Route path="/energy-storage" element={<EnergyStorage />} />
+                <Route path="/alerts" element={<AlertsOverview />} />
+                <Route path="/optimize" element={<OptimizeOverview />} />
+                <Route path="/" element={<ChillerOverview />} />
+                <Route path="/chiller/:id" element={<ChillerDetail />} />
+                <Route path="/chiller/:id/process-flow" element={<ChillerProcessFlow />} />
+                <Route path="/test" element={<ChillerComponent />} />
+                <Route path="/control/upsbattery" element={<UPSControl />} />
+                <Route path="/control/thermal" element={<ThermalControl />} />
+                <Route path="/control/ltobattery" element={<LTOControl />} />
+                <Route path="/control/watercontrol" element={<HotWaterControl />} />
+                <Route path="/control/ioebattery" element={<IOEBatteryControl />} />
                 {/* apps  */}
                 <Route path="/kanban" element={<Kanban />} />
                 <Route path="/editor" element={<Editor />} />

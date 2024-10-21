@@ -24,12 +24,9 @@ import {
 } from '../data/dummy';
 import { useStateContext } from '../contexts/ContextProvider';
 import product9 from '../data/product9.jpg';
-import bgImg from '../img1.png';
-import carImg from '../carmov.png';
 import '../App.css';
 import BarChart from './Charts/BarChart';
 import ReactSlider from 'react-slider';
-import bgpic from '../img1.png'
 import Plot from 'react-plotly.js';
 import PieChart from '../components/Charts/3DPieChart';
 import 'react-datepicker/dist/react-datepicker.css';
@@ -41,6 +38,9 @@ import Chiller from './Chiller';
 import '../pages/enerndbuist.css';
 import TrendLineChart from './Charts/TrendLineChart';
 import StyledDatePicker from './StyledDatePicker';
+import bgpic from '../pages/Picture1.png';
+import EnergySourcesBarChart from '../components/EnergySourcesBar';
+import ConsumptionPieChart from '../components/ConsumptionPie';
 
 
 
@@ -170,169 +170,212 @@ const Ecommerce = () => {
 
 
   return (
-<div className="p-6 bg-gradient-to-br from-gray-100 to-gray-200 min-h-screen">
-  {/* Top Cards with Animation */}
-<div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
-  {/* Facility Information Card */}
-  <div className="bg-blue-500 rounded-lg shadow-md p-4 hover:shadow-lg transition-all duration-300 animate-fade-in">
-    <h3 className="text-lg font-semibold text-white mb-2">Facility Information</h3>
-    <ul className="text-white text-sm">
-      <li><strong>Location:</strong> IIT Madras Research Park</li>
-      <li><strong>BUA:</strong> 12 lakhs sq.ft.</li>
-      <li><strong>City:</strong> Chennai, India</li>
-      <li><strong>Climate:</strong> Hot & Humid</li>
-      <li><strong>Facility Type:</strong> Research & Development</li>
-      <li><strong>Occupancy:</strong> 1,200 Employees</li>
-    </ul>
-  </div>
-
- {/* Elements Score Card */}
-<div className="bg-green-500 rounded-lg shadow-md p-4 hover:shadow-lg transition-all duration-300 animate-fade-in">
-  <h3 className="text-lg font-semibold text-white mb-2">Elements Score</h3>
-  <p className="text-white text-sm mb-1">Building Score: <span className="font-bold">760</span> (Above Average)</p>
-  <p className="text-white text-sm mb-1">Energy Efficiency: <span className="font-bold">80%</span></p>
-  <p className="text-white text-sm mb-1">Water Usage Efficiency: <span className="font-bold">75%</span></p>
-  <p className="text-white text-sm mb-1">HVAC Performance: <span className="font-bold">85%</span></p>
-  <Button
-    color="white"
-    className="bg-blue-600 text-white hover:bg-blue-700 transition-all duration-300 rounded-lg w-full"
-    text="VIEW DETAILS"
-  />
-</div>
-
-
-  {/* Environmental Awareness Card */}
-  <div className="bg-orange-500 rounded-lg shadow-md p-4 hover:shadow-lg transition-all duration-300 animate-fade-in">
-    <h3 className="text-lg font-semibold text-white mb-2">Environmental Awareness</h3>
-    <p className="text-white text-sm mb-1">Current CO₂ Footprint: <span className="font-bold">24,000 tons/year</span></p>
-    <p className="text-white text-sm mb-1">Energy Savings: <span className="font-bold">15% YoY</span></p>
-    <p className="text-white text-sm mb-1">Renewable Energy Used: <span className="font-bold">25%</span></p>
-    <p className="text-white text-sm mb-2">Waste Recycling Rate: <span className="font-bold">50%</span></p>
-  </div>
-</div>
-
-{/* Charts Section */}
-<div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-      {/* Energy Sources Card */}
-      <div className="bg-white dark:bg-secondary-dark-bg rounded-xl shadow-lg p-6 flex flex-col relative overflow-hidden">
-        
-        {/* Animated Border Pulse */}
-        <div className="absolute inset-0 border-4 rounded-xl animate-glow"></div>
-
-        <div className="flex justify-between items-center mb-4 relative z-10">
-          <h3 className="text-lg font-bold text-gray-800 dark:text-gray-200">Energy Sources</h3>
-          <StyledDatePicker
-            selectedDate={startDateEnergy}
-            setSelectedDate={setStartDateEnergy}
-          />
-        </div>
-
-        {/* Animated Progress Circle for Total Energy */}
-        <div className="flex items-center justify-between mb-4 relative z-10">
-          <div className="relative w-16 h-16">
-            <div className="absolute inset-0 rounded-full border-4 border-dashed border-indigo-700 animate-spin-slow"></div>
-            <div className="absolute inset-0 rounded-full flex items-center justify-center font-bold text-indigo-700">
-              60%
-            </div>
-          </div>
-          <div className="flex-1 pl-4">
-            <h4 className="text-md font-semibold text-gray-800 dark:text-gray-200">Energy Breakdown</h4>
-            <ul className="mt-2 text-gray-600 text-sm space-y-1">
-              <li><i className="fas fa-plug mr-2 text-blue-600"></i> Grid: <span className="font-bold text-blue-600">30%</span></li>
-              <li><i className="fas fa-industry mr-2 text-red-600"></i> Diesel: <span className="font-bold text-red-600">10%</span></li>
-              <li><i className="fas fa-sun mr-2 text-yellow-600"></i> Solar: <span className="font-bold text-yellow-600">60%</span></li>
-              <li><i className="fas fa-leaf mr-2 text-green-600"></i> Renewable: <span className="font-bold text-green-600">20%</span></li>
-            </ul>
-          </div>
-        </div>
-
-        {/* Mini Cards for Energy Breakdown */}
-        <div className="grid grid-cols-2 gap-2 mb-4 relative z-10">
-          <div className="bg-blue-100 p-2 rounded-lg shadow">
-            <h4 className="text-md font-semibold text-blue-600">Grid</h4>
-            <p className="font-bold text-blue-600">30%</p>
-          </div>
-          <div className="bg-red-100 p-2 rounded-lg shadow">
-            <h4 className="text-md font-semibold text-red-600">Diesel</h4>
-            <p className="font-bold text-red-600">10%</p>
-          </div>
-          <div className="bg-yellow-100 p-2 rounded-lg shadow">
-            <h4 className="text-md font-semibold text-yellow-600">Solar</h4>
-            <p className="font-bold text-yellow-600">60%</p>
-          </div>
-          <div className="bg-green-100 p-2 rounded-lg shadow">
-            <h4 className="text-md font-semibold text-green-600">Renewable</h4>
-            <p className="font-bold text-green-600">20%</p>
-          </div>
-        </div>
-
-        {/* Additional Components */}
-        <div className="mt-4">
-          <h4 className="text-md font-semibold text-gray-800 dark:text-gray-200">Total Energy Produced</h4>
-          <p className="font-bold">500 kWh</p>
-          <h4 className="text-md font-semibold text-gray-800 dark:text-gray-200">Emission Reduction</h4>
-          <p className="font-bold">200 kg CO2</p>
+<div className="min-h-screen flex flex-col">
+  {/* Top Portion with Background Image */}
+  <div
+    className="relative bg-cover bg-center h-96 w-full"
+    style={{
+      backgroundImage: `url(${bgpic})`,
+      backgroundSize: 'cover',
+      backgroundPosition: 'center',
+      backgroundPositionY: '-110px',
+      backgroundRepeat: 'no-repeat',
+      marginBottom: '-50px',
+    }}
+  >
+    {/* Mini Cards on Top of Background Image */}
+    <div className="absolute inset-x-0 top-16 flex justify-center space-x-14"> {/* Adjusted spacing */}
+      {/* Card 1: Facility Information */}
+      <div className="bg-white dark:bg-secondary-dark-bg rounded-xl shadow-lg p-5 w-72 h-44 border border-gray-200 hover:shadow-2xl transition-all"> {/* Adjusted height */}
+        <h4 className="text-sm font-bold text-gray-800 dark:text-gray-200 text-left"> {/* Top-left heading */}
+          <i className="fas fa-building mr-1 text-blue-600"></i> Facility Information
+        </h4>
+        <div className="mt-4 space-y-1 text-left text-sm text-gray-600"> {/* Increased spacing and font size */}
+          <p className="font-semibold">IIT Madras Research Park</p>
+          <p>BUA: 12 lakhs sq.ft.</p>
+          <p>Chennai, India</p>
+          <p>Climate Type: Hot & Humid</p>
         </div>
       </div>
 
-      {/* Building Consumption Card */}
-      <div className="bg-white dark:bg-secondary-dark-bg rounded-xl shadow-lg p-6 flex flex-col relative overflow-hidden">
-        
-        {/* Animated Glowing Border */}
-        <div className="absolute inset-0 border-4 rounded-xl animate-glow"></div>
+      {/* Card 2: Elements Score with Compact Bar Chart */}
+      <div className="bg-white dark:bg-secondary-dark-bg rounded-xl shadow-lg p-5 w-72 h-44 border border-gray-200 hover:shadow-2xl transition-all">
+        <h4 className="text-sm font-bold text-gray-800 dark:text-gray-200 text-left"> {/* Top-left heading */}
+          <i className="fas fa-tachometer-alt mr-1 text-green-600"></i> Elements Score
+        </h4>
+        <div className="mt-4 text-left">
+          <p className="text-sm font-bold text-gray-600">Your Building Score: 760</p>
 
-        <div className="flex justify-between items-center mb-4 relative z-10">
-          <h3 className="text-lg font-bold  text-gray-800 dark:text-gray-200">Building Consumption</h3>
-          <StyledDatePicker
-            selectedDate={startDateConsumption}
-            setSelectedDate={setStartDateConsumption}
-          />
-        </div>
-
-        {/* Animated Icons */}
-        <div className="flex items-center justify-between mb-4 relative z-10">
-          <div className="relative w-16 h-16">
-            <div className="absolute inset-0 rounded-full border-4 border-dashed border-green-600 animate-spin-slow"></div>
-            <div className="absolute inset-0 rounded-full flex items-center justify-center font-bold text-green-600">
-              80%
+          {/* Bar Chart */}
+          <div className="mt-3 flex items-center">
+            <div className="w-full h-2 bg-gray-200 rounded-full">
+              <div
+                className="h-full bg-gradient-to-r from-red-500 to-green-500 via-yellow-500"
+                style={{ width: `${(760 / 1000) * 100}%` }}
+              ></div>
             </div>
+            <span className="ml-3 text-xs font-bold text-blue-600">760</span> {/* Adjusted position */}
           </div>
-          <div className="flex-1 pl-4">
-            <h4 className="text-md font-semibold text-gray-800 dark:text-gray-200">Consumption Breakdown</h4>
-            <ul className="mt-2 text-gray-600 text-sm space-y-1">
-              <li><i className="fas fa-user mr-2 text-blue-600"></i> Clients Total: <span className="font-bold">100 kWh</span></li>
-              <li><i className="fas fa-fan mr-2 text-green-600"></i> Chillers Total: <span className="font-bold">80 kWh</span></li>
-              <li><i className="fas fa-lightbulb mr-2 text-yellow-600"></i> Common Area: <span className="font-bold">60 kWh</span></li>
-            </ul>
+
+          <p className="mt-2 text-xs text-gray-500 text-left">
+            Efficiency and sustainability score of your building's systems.
+          </p>
+        </div>
+      </div>
+
+      {/* Card 3: Savings with Mini Visual and More Content */}
+      <div className="bg-white dark:bg-secondary-dark-bg rounded-xl shadow-lg p-5 w-72 h-44 border border-gray-200 hover:shadow-2xl transition-all"> {/* Adjusted height to match first two cards */}
+        <h4 className="text-sm font-bold text-gray-800 dark:text-gray-200 text-left"> {/* Top-left heading */}
+          <i className="fas fa-coins mr-1 text-yellow-600"></i> Savings
+        </h4>
+
+        {/* Flex container for two columns */}
+        <div className="mt-4 flex justify-between text-xs font-semibold text-gray-600 space-x-2"> {/* Reduced gap and font size */}
+          {/* Left Column for Energy Savings */}
+          <div className="text-left">
+            <p>Energy:</p>
+            <p>1.4K kWh</p>
+          </div>
+
+          {/* Right Column for Cost Savings */}
+          <div className="text-left">
+            <p>Cost:</p>
+            <p>$2K</p>
           </div>
         </div>
 
-        {/* Mini Cards for Consumption Breakdown */}
-        <div className="grid grid-cols-2 gap-2 mb-4 relative z-10">
-          <div className="bg-blue-100 p-2 rounded-lg shadow">
-            <h4 className="text-md font-semibold text-blue-600">Clients Total</h4>
-            <p className="font-bold">100 kWh</p>
-          </div>
-          <div className="bg-green-100 p-2 rounded-lg shadow">
-            <h4 className="text-md font-semibold text-green-600">Chillers Total</h4>
-            <p className="font-bold">80 kWh</p>
-          </div>
-          <div className="bg-yellow-100 p-2 rounded-lg shadow">
-            <h4 className="text-md font-semibold text-yellow-600">Common Area</h4>
-            <p className="font-bold">60 kWh</p>
-          </div>
-        </div>
+        {/* Carbon Offset */}
+        <p className="mt-2 text-xs font-bold text-gray-600 text-left">Carbon Offset: 1.2 tons</p>
 
-        {/* Additional Components */}
-        <div className="mt-4">
-          <h4 className="text-md font-semibold text-gray-800 dark:text-gray-200">Total Consumption Today</h4>
-          <p className="font-bold">240 kWh</p>
-          <h4 className="text-md font-semibold text-gray-800 dark:text-gray-200">Peak Consumption</h4>
-          <p className="font-bold">10:00 AM</p>
+        {/* Pie Chart at the bottom */}
+        <div className="mt-3 flex flex-col items-center justify-center h-12"> {/* Adjusted height */}
+          <div className="w-14 h-14 rounded-full border-4 border-gray-300 flex items-center justify-center relative">
+            <div
+              className="absolute inset-0 rounded-full"
+              style={{
+                background: 'conic-gradient(green 0%, green 50%, gray 50%, gray 100%)',
+              }}
+            />
+            <span className="text-xs font-bold text-green-500">50%</span>
+          </div>
+          <p className="mt-1 text-xs font-bold text-gray-600">Performance: Good</p> {/* Adjusted margin */}
         </div>
       </div>
     </div>
+  </div>
 
+      {/* Bottom Portion with Two Cards */}
+      <div className="p-6 bg-gradient-to-br from-gray-100 to-white flex-grow">
+        {/* Charts Section */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4 mt-[-67px]">
+{/* Energy Sources Card */}
+<div className="bg-white dark:bg-secondary-dark-bg rounded-xl shadow-lg p-6 flex flex-col">
+  <div className="flex justify-between items-center mb-4">
+    <h3 className="text-lg font-bold text-gray-800 dark:text-gray-200">Energy Sources</h3>
+    <StyledDatePicker selectedDate={startDateEnergy} setSelectedDate={setStartDateEnergy} />
+  </div>
+  {/* Animated Progress Circle for Total Energy */}
+  <div className="flex items-center justify-between mb-2">
+    <div className="relative w-16 h-16">
+      <div className="absolute inset-0 rounded-full border-4 border-dashed border-indigo-700 animate-spin-slow"></div>
+      <div className="absolute inset-0 rounded-full flex items-center justify-center font-bold text-indigo-700">60%</div>
+    </div>
+    <div className="flex-1 pl-4">
+      <h4 className="text-md font-semibold text-gray-800 dark:text-gray-200">Energy Breakdown</h4>
+      <ul className="mt-2 text-gray-600 text-sm space-y-1">
+        <li><i className="fas fa-plug mr-2 text-blue-600"></i> Grid: <span className="font-bold text-blue-600">30%</span></li>
+        <li><i className="fas fa-industry mr-2 text-red-600"></i> Diesel: <span className="font-bold text-red-600">10%</span></li>
+        <li><i className="fas fa-sun mr-2 text-yellow-600"></i> Wheeled in Solar: <span className="font-bold text-yellow-600">40%</span></li>
+        <li><i className="fas fa-leaf mr-2 text-green-600"></i> Rooftop: <span className="font-bold text-green-600">20%</span></li>
+      </ul>
+    </div>
+  </div>
+  {/* 3D Bar Chart */}
+  <div className="mb-2">
+    <EnergySourcesBarChart data={[30, 10, 40, 20]} />
+  </div>
+  {/* Mini Cards for Energy Breakdown */}
+  <div className="grid grid-cols-2 gap-2 mb-4">
+    <div className="bg-blue-100 p-2 rounded-lg shadow">
+      <h4 className="text-md font-semibold text-blue-600">Grid</h4>
+      <p className="font-bold text-blue-600">30%</p>
+    </div>
+    <div className="bg-red-100 p-2 rounded-lg shadow">
+      <h4 className="text-md font-semibold text-red-600">Diesel</h4>
+      <p className="font-bold text-red-600">10%</p>
+    </div>
+    <div className="bg-yellow-100 p-2 rounded-lg shadow">
+      <h4 className="text-md font-semibold text-yellow-600">Wheeled in Solar</h4>
+      <p className="font-bold text-yellow-600">40%</p>
+    </div>
+    <div className="bg-green-100 p-2 rounded-lg shadow">
+      <h4 className="text-md font-semibold text-green-600">Rooftop</h4>
+      <p className="font-bold text-green-600">20%</p>
+    </div>
+  </div>
+  {/* Additional Components */}
+  <div className="mt-4">
+    <h4 className="text-md font-semibold text-gray-800 dark:text-gray-200">Total Energy Produced</h4>
+    <p className="font-bold">500 kWh</p>
+    <h4 className="text-md font-semibold text-gray-800 dark:text-gray-200">Emission Reduction</h4>
+    <p className="font-bold">200 kg CO2</p>
+  </div>
+</div>
+
+
+{/* Building Consumption Card */}
+<div className="bg-white dark:bg-secondary-dark-bg rounded-xl shadow-lg p-6 flex flex-col">
+  <div className="flex justify-between items-center mb-4">
+    <h3 className="text-lg font-bold text-gray-800 dark:text-gray-200">Building Consumption</h3>
+    <StyledDatePicker selectedDate={startDateConsumption} setSelectedDate={setStartDateConsumption} />
+  </div>
+  
+  {/* Animated Icons */}
+  <div className="flex items-center justify-between mb-4">
+    <div className="relative w-16 h-16">
+      <div className="absolute inset-0 rounded-full border-4 border-dashed border-green-600 animate-spin-slow"></div>
+      <div className="absolute inset-0 rounded-full flex items-center justify-center font-bold text-green-600">80%</div>
+    </div>
+    <div className="flex-1 pl-4">
+      <h4 className="text-md font-semibold text-gray-800 dark:text-gray-200">Consumption Breakdown</h4>
+      <ul className="mt-2 text-gray-600 text-sm space-y-1">
+        <li><i className="fas fa-user mr-2 text-blue-600"></i> Clients Total: <span className="font-bold">100 kWh</span></li>
+        <li><i className="fas fa-fan mr-2 text-green-600"></i> Chillers Total: <span className="font-bold">80 kWh</span></li>
+        <li><i className="fas fa-lightbulb mr-2 text-yellow-600"></i> Common Area: <span className="font-bold">60 kWh</span></li>
+      </ul>
+    </div>
+  </div>
+  
+  {/* 3D Pie Chart - Insert the chart component here */}
+  <div className="mb-4">
+    <ConsumptionPieChart />  {/* The pie chart component added here */}
+  </div>
+
+  {/* Mini Cards for Consumption Breakdown */}
+  <div className="grid grid-cols-2 gap-2 mb-4">
+    <div className="bg-blue-100 p-2 rounded-lg shadow">
+      <h4 className="text-md font-semibold text-blue-600">Clients Total</h4>
+      <p className="font-bold">100 kWh</p>
+    </div>
+    <div className="bg-green-100 p-2 rounded-lg shadow">
+      <h4 className="text-md font-semibold text-green-600">Chillers Total</h4>
+      <p className="font-bold">80 kWh</p>
+    </div>
+    <div className="bg-yellow-100 p-2 rounded-lg shadow">
+      <h4 className="text-md font-semibold text-yellow-600">Common Area</h4>
+      <p className="font-bold">60 kWh</p>
+    </div>
+  </div>
+  
+  {/* Additional Components */}
+  <div className="mt-4">
+    <h4 className="text-md font-semibold text-gray-800 dark:text-gray-200">Total Consumption</h4>
+    <p className="font-bold">400 kWh</p>
+    <h4 className="text-md font-semibold text-gray-800 dark:text-gray-200">Emission Released</h4>
+    <p className="font-bold">150 kg CO2</p>
+  </div>
+</div>
+</div>
 
 
 
@@ -341,6 +384,7 @@ const Ecommerce = () => {
 <EVchargers/>
 <WaterStorage />
 <Batteries />
+</div>
 
     <div className="flex flex-wrap lg:flex-nowrap justify-center ">
         <div className="bg-white dark:text-gray-200 dark:bg-secondary-dark-bg h-44 rounded-xl w-full lg:w-80 p-8 pt-9 m-3 bg-hero-pattern bg-no-repeat bg-cover bg-center">

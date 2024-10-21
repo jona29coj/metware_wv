@@ -1,87 +1,39 @@
-import React, { useState } from 'react';
-import '../pages/ChillerDetail.css'; // Ensure you link the CSS file properly
+import React from 'react';
+import { useParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+
+
+const chillerData = [
+  { name: 'Chiller 1', status: 'Operational', temperature: '6°C', efficiency: '92%', energyUsage: '500 kWh' },
+  { name: 'Chiller 2', status: 'Maintenance', temperature: 'N/A', efficiency: 'N/A', energyUsage: 'N/A' },
+  { name: 'Chiller 3', status: 'Faulty', temperature: 'N/A', efficiency: 'N/A', energyUsage: 'N/A' },
+];
 
 const ChillerDetail = () => {
-  const [error, setError] = useState(false);
-
-  // Mock function to toggle error
-  const toggleError = () => {
-    setError(!error);
-  };
+  const { id } = useParams();
+  const chiller = chillerData[parseInt(id) - 1]; // Get the selected chiller by ID
 
   return (
-    <div className="chiller-detail-container">
-      <h1>Chiller 1 Detailed View</h1>
-
-      {/* Chiller Diagram Section */}
-      <div className="chiller-diagram">
-        <div className="chiller-system">
-          
-          {/* Compressor */}
-          <div className="compressor">
-            <h3>Compressor</h3>
-            <div className="compressor-body"></div>
-            <div className="compressor-blades"></div>
-          </div>
-
-          {/* Cooling Coil */}
-          <div className="cooling-coil-section">
-            <h3>Cooling Coil</h3>
-            <div className="cooling-coil"></div>
-          </div>
-
-          {/* Condenser */}
-          <div className="condenser-section">
-            <h3>Condenser</h3>
-            <div className="condenser"></div>
-          </div>
-
-        </div>
-
-        {/* Pipes and Flow */}
-        <div className="piping-system">
-          <h3>Pipes and Liquid Flow</h3>
-          <div className="pipe">
-            <div className="flow"></div>
-          </div>
-        </div>
-
-        {/* Gauge */}
-        <div className="gauge">
-          <h3>Pressure Gauge</h3>
-          <div className="gauge-display">120 psi</div>
-        </div>
-      </div>
-
-      {/* Mini-Cards */}
-      <div className="mini-cards">
-        <div className="mini-card">
-          <h4>Temperature</h4>
-          <p>34°C</p>
-        </div>
-        <div className="mini-card">
-          <h4>Flow Rate</h4>
-          <p>25 L/min</p>
-        </div>
-        <div className="mini-card">
-          <h4>Power Usage</h4>
-          <p>150 kWh</p>
-        </div>
-      </div>
-
-      {/* Error Section */}
-      {error && (
-        <div className="error-section">
-          <h3>Error Detected</h3>
-          <p>There is an issue with the compressor. Please check the system for faults.</p>
-        </div>
-      )}
-
-      {/* Toggle Error Button */}
-      <div className="toggle-error">
-        <button onClick={toggleError}>
-          {error ? 'Clear Error' : 'Simulate Error'}
-        </button>
+    <div className="container mx-auto p-6">
+      <div className="bg-white shadow-md rounded-lg p-8">
+        <h2 className="text-2xl font-bold mb-4">{chiller.name} Details</h2>
+        <p>
+          <strong>Status:</strong> {chiller.status}
+        </p>
+        <p>
+          <strong>Temperature:</strong> {chiller.temperature}
+        </p>
+        <p>
+          <strong>Efficiency:</strong> {chiller.efficiency}
+        </p>
+        <p>
+          <strong>Energy Usage:</strong> {chiller.energyUsage}
+        </p>
+        <Link to={`/chiller/${id}/process-flow`}>
+          <button className="mt-4 bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600">
+            Next: View Process Flow
+          </button>
+        </Link>
       </div>
     </div>
   );

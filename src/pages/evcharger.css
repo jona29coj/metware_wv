@@ -34,6 +34,7 @@
   background-color: #2c3e50;
   border-radius: 8px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  margin-bottom: 8px; /* Space between charging station and car */
 }
 
 .station-screen {
@@ -86,3 +87,39 @@
 .bg-gray-100 {
   background-color: #f9f9f9;
 }
+
+.status-indicator {
+  margin-top: 8px;
+  font-weight: bold;
+  font-size: 1rem;
+}
+
+.status-indicator.connected {
+  color: #4CAF50; /* Green for connected */
+}
+
+.status-indicator.disconnected {
+  color: #F44336; /* Red for disconnected */
+}
+
+/* New styling for the status card */
+.status-card {
+  margin-top: 12px; /* Space above the status card */
+  padding: 8px; /* Padding inside the card */
+}
+
+/* Update for status indicator */
+.status-indicator {
+  font-weight: bold;
+  font-size: 1rem;
+}
+
+.status-indicator.connected {
+  color: #4CAF50; /* Green for connected */
+}
+
+.status-indicator.disconnected {
+  color: #F44336; /* Red for disconnected */
+}
+
+

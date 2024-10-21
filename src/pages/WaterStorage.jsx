@@ -1,7 +1,6 @@
 import React from 'react'
 import '../pages/waterstorage.css';
 
-
 const WaterStorage = () => {
   return (
 <div className="grid grid-cols-1 gap-6 mb-6">
