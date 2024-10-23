@@ -6,12 +6,15 @@ import { FiMonitor, FiSettings, FiAlertCircle, FiFileText, FiBarChart, FiHome } 
 import { useStateContext } from '../contexts/ContextProvider';
 import logo from '../logo2.png';
 import { FaChartLine } from 'react-icons/fa';
+import { BsArrowLeftCircle, BsArrowRightCircle } from 'react-icons/bs';  // Icon for the toggle button
+
 
 const Sidebar = () => {
-  const { currentColor, activeMenu, setActiveMenu, isCollapsed } = useStateContext();
+  const { currentColor, activeMenu, setActiveMenu, isCollapsed, toggleSidebar } = useStateContext();
   const [isMonitorOpen, setMonitorOpen] = useState(false);
   const [isControlOpen, setControlOpen] = useState(false);
   const [hoveredIcon, setHoveredIcon] = useState(null);
+  
 
   const activeLink = 'flex items-center gap-5 pl-4 pt-3 pb-2.5 rounded-lg text-white text-md m-2 bg-green-600 shadow-md transition-all duration-300';
   const normalLink = 'flex items-center gap-5 pl-4 pt-3 pb-2.5 rounded-lg text-md text-gray-700 dark:text-gray-200 hover:bg-green-500 hover:text-white transition-all duration-300 m-2';
@@ -22,12 +25,18 @@ const Sidebar = () => {
     transform: hoveredIcon ? 'rotate(360deg)' : 'rotate(0deg)',
   };
 
+
+  // Toggle button for collapsing/expanding sidebar
+  const handleToggle = () => {
+    toggleSidebar(!isCollapsed);
+  };
+
   return (
     <div className={`h-screen overflow-auto pb-10 bg-[#003F3F] transition-all duration-300 ${isCollapsed ? 'w-20' : 'w-full'}`}>
       {activeMenu && (
         <>
           <div className="flex justify-center items-center bg-[#F0FFF0] p-3 mb-4">
-            <Link to="/" className="flex items-center gap-3">
+            <Link to="/dashboard" className="flex items-center gap-3">
               <img src={logo} alt="logo" className={`h-28.5 w-28.5 object-contain ${isCollapsed ? 'mx-auto' : ''}`} />
             </Link>
           </div>
@@ -112,8 +121,8 @@ const Sidebar = () => {
                   <NavLink to="/monitor/performance" className={({ isActive }) => (isActive ? activeLink : normalLink)}>
                     <span className="text-white">Renewable Energy</span>
                   </NavLink>
-                  <NavLink to="/monitor/errors" className={({ isActive }) => (isActive ? activeLink : normalLink)}>
-                    <span className="text-white">EV Charging</span>
+                  <NavLink to="/monitor/batteries" className={({ isActive }) => (isActive ? activeLink : normalLink)}>
+                    <span className="text-white">Batteries</span>
                   </NavLink>
                   <NavLink to="/monitor/settings" className={({ isActive }) => (isActive ? activeLink : normalLink)}>
                     <span className="text-white">Energy Storage</span>
@@ -202,6 +211,15 @@ const Sidebar = () => {
               <FiFileText style={hoveredIcon === 'reports' ? rotateStyle : {}} className="text-xl text-white" />
               {!isCollapsed && <span className="text-white">Reports</span>}
             </NavLink>
+          </div>
+           {/* Toggle Button for Sidebar */}
+           <div className="absolute bottom-4 left-0 right-0 flex justify-center">
+            <button 
+              onClick={handleToggle} 
+              className="flex items-center justify-center text-white p-2 hover:bg-green-500 rounded-full transition-all duration-300"
+            >
+              {isCollapsed ? <BsArrowRightCircle size={24} /> : <BsArrowLeftCircle size={24} />}
+            </button>
           </div>
         </>
       )}

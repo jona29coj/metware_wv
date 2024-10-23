@@ -11,45 +11,72 @@ const EnergySourcesBarChart = ({ data }) => {
         type: 'column',
         options3d: {
           enabled: true,
-          alpha: 10,
-          beta: 30,
-          depth: 150,
-          viewDistance: 25,
+          alpha: 20, // Top-down view angle
+          beta: 30, // Side view angle
+          depth: 500, // Increased depth for a more substantial look
+          viewDistance: 100, // Distance from the viewer
         },
+        backgroundColor: 'transparent', // Optional: to match the card style
       },
       title: {
-        text: null,
+        text: '', // Removed the title
       },
       xAxis: {
-        categories: ['Grid', 'Diesel', 'Wheeled in Solar', 'Rooftop'],
-        title: {
-          text: null,
-        },
+        categories: ['Energy Sources'], // Single category for stacking
         visible: false, // Hide x-axis
-        gridLineWidth: 0, // Hide grid lines
-        labels: {
-          enabled: false, // Hide labels
-        },
       },
       yAxis: {
         title: {
-          text: 'Percentage (%)',
+          text: null, // No title for y-axis
         },
         visible: false, // Hide y-axis
-        gridLineWidth: 0, // Hide grid lines
-        labels: {
-          enabled: false, // Hide labels
-        },
       },
       series: [{
-        name: 'Energy Sources',
-        data: data,
-        colorByPoint: true,
+        name: 'Grid',
+        data: [30], // Each series represents a stack segment
+        color: '#007bff', // Custom color for better aesthetics
+      }, {
+        name: 'Diesel',
+        data: [10],
+        color: '#dc3545',
+      }, {
+        name: 'Wheeled in Solar',
+        data: [40],
+        color: '#28a745',
+      }, {
+        name: 'Rooftop',
+        data: [20],
+        color: '#ffc107',
       }],
+      plotOptions: {
+        column: {
+          stacking: 'normal', // Enable stacking
+          depth: 200, // Increased depth for each column segment
+          dataLabels: {
+            enabled: false,
+            format: '{point.y}', // Display values on top of the columns
+            style: {
+              color: 'black', // Contrast color for readability
+              fontWeight: 'bold',
+              fontSize: '14px', // Adjust for readability
+            },
+          },
+          shadow: true, // Enable shadow for depth effect
+        },
+      },
+      legend: {
+        layout: 'vertical',
+        align: 'right',
+        verticalAlign: 'middle',
+        floating: true,
+      },
+      credits: {
+        enabled: false, // Hide Highcharts credits
+      },
     });
   }, [data]);
 
-  return <div id="energy-sources-chart" style={{ height: '400px', width: '100%' }} />;
+  return <div id="energy-sources-chart" style={{ height: '600px', width: '100%' }} />; // Overall chart height
 };
 
 export default EnergySourcesBarChart;

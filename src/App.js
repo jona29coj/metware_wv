@@ -2,11 +2,9 @@ import React, { useEffect } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { FiSettings } from 'react-icons/fi';
 import { TooltipComponent } from '@syncfusion/ej2-react-popups';
-
-import { Navbar, Footer, Sidebar, ThemeSettings } from './components';
+import { Navbar, Sidebar, ThemeSettings } from './components';
 import { Ecommerce, Orders, Calendar, Employees, Stacked, Pyramid, Customers, Kanban, Line, Area, Bar, Pie, Financial, ColorPicker, ColorMapping, Editor } from './pages';
 import './App.css';
-
 import { useStateContext } from './contexts/ContextProvider';
 import MultiMeterGauge from './pages/MultiMeterGauge';
 import Dashboard from './pages/Dashboard';
@@ -20,7 +18,6 @@ import RenewableEnergy from './pages/RenewableEnergy';
 import EVCharging from './pages/EVCharging';
 import EnergyStorage from './pages/EnergyStorage';
 import AlertsOverview from './pages/Alerts';
-import OptimizeOverview from './pages/Optimize';
 import ChillerOverview from './pages/Chiller';
 import ChillerProcessFlow from './pages/ChillerProcessFlow';
 import ChillerComponent from './pages/ChillerComponent';
@@ -29,6 +26,9 @@ import ThermalControl from './pages/ThermalControl';
 import LTOControl from './pages/LTOControl';
 import HotWaterControl from './pages/HotWaterControl';
 import IOEBatteryControl from './pages/IOEBattery';
+import BatteriesMonitor from './pagesc/BatteriesMonitor';
+import PeakAnalysis from './pagesc/PeakAnalysis';
+import Reports from './pagesc/Reports';
 
 
 const App = () => {
@@ -42,6 +42,8 @@ const App = () => {
       setCurrentMode(currentThemeMode);
     }
   }, []);
+
+  
 
   return (
     <div className={currentMode === 'Dark' ? 'dark' : ''}>
@@ -98,8 +100,8 @@ const App = () => {
                 <Route path="/ev-charging" element={<EVCharging />} />
                 <Route path="/energy-storage" element={<EnergyStorage />} />
                 <Route path="/alerts" element={<AlertsOverview />} />
-                <Route path="/optimize" element={<OptimizeOverview />} />
-                <Route path="/" element={<ChillerOverview />} />
+                <Route path="/optimize" element={<PeakAnalysis />} />
+                <Route path="/" element={<Dashboard />} />
                 <Route path="/chiller/:id" element={<ChillerDetail />} />
                 <Route path="/chiller/:id/process-flow" element={<ChillerProcessFlow />} />
                 <Route path="/test" element={<ChillerComponent />} />
@@ -108,13 +110,15 @@ const App = () => {
                 <Route path="/control/ltobattery" element={<LTOControl />} />
                 <Route path="/control/watercontrol" element={<HotWaterControl />} />
                 <Route path="/control/ioebattery" element={<IOEBatteryControl />} />
-                {/* apps  */}
+                <Route path="/monitor/batteries" element={<BatteriesMonitor />} />
+                <Route path="/reports" element={<Reports />} />
+                {/* apps  
                 <Route path="/kanban" element={<Kanban />} />
                 <Route path="/editor" element={<Editor />} />
                 <Route path="/calendar" element={<Calendar />} />
                 <Route path="/color-picker" element={<ColorPicker />} />
 
-                {/* charts  */}
+                
                 <Route path="/line" element={<Line />} />
                 <Route path="/area" element={<Area />} />
                 <Route path="/bar" element={<Bar />} />
@@ -122,7 +126,7 @@ const App = () => {
                 <Route path="/financial" element={<Financial />} />
                 <Route path="/color-mapping" element={<ColorMapping />} />
                 <Route path="/pyramid" element={<Pyramid />} />
-                <Route path="/stacked" element={<Stacked />} />
+                <Route path="/stacked" element={<Stacked />} /> */}
               </Routes>
             </div>
           </div>

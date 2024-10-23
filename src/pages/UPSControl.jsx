@@ -57,13 +57,12 @@ const UPSControl = () => {
                             </select>
                         </div>
                         <div className="mb-4">
-                            <label htmlFor="pin" className="block font-medium">PIN</label>
-                            <select id="pin" className="mt-1 block w-full p-2 border border-gray-300 rounded">
-                                <option value="">Select PIN</option>
-                                <option value="1234">1234</option>
-                                <option value="5678">5678</option>
-                                <option value="9012">9012</option>
-                            </select>
+                            <label className="block mb-1 font-medium">PIN for Control:</label>
+                            <input
+                                type="password"
+                                className="border rounded-md p-2 w-full"
+                                placeholder="Enter PIN"
+                            />
                         </div>
                         <button type="submit" className="w-full bg-blue-500 text-white font-semibold py-2 rounded hover:bg-blue-600 transition">
                             Submit

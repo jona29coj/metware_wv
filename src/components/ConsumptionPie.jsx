@@ -18,10 +18,7 @@ const ConsumptionPieChart = () => {
       },
     },
     title: {
-      text: 'Consumption Breakdown',
-      style: {
-        color: '#4a5568'
-      },
+      text: null,
     },
     tooltip: {
       pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>',
@@ -47,6 +44,9 @@ const ConsumptionPieChart = () => {
         ],
       },
     ],
+    credits: {
+      enabled: false, // Hide Highcharts credits
+    },
   };
 
   return <HighchartsReact highcharts={Highcharts} options={pieChartOptions} />;

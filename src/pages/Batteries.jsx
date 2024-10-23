@@ -1,5 +1,6 @@
 import React from 'react';
 import '../pages/Batteries.css';
+import { Link } from 'react-router-dom';
 
 const Batteries = () => {
   return (
@@ -32,8 +33,10 @@ const Batteries = () => {
               <p className="text-sm text-gray-600 dark:text-gray-400">Status: Charging</p>
             </div>
           </div>
-          <button className="mt-4 py-2 px-3 bg-green-500 text-white rounded-lg w-24">Control</button>
-        </div>
+            <Link to="/control/ioebattery">
+              <button className="mt-4 py-2 px-3 bg-green-500 text-white rounded-lg w-24">Control</button>
+            </Link>        
+          </div>
 
         {/* LTO Partition */}
         <div className="partition p-6 bg-gray-200 dark:bg-gray-700 rounded-lg shadow-md flex flex-col">
@@ -55,8 +58,9 @@ const Batteries = () => {
               <p className="text-sm">Power Flow: Grid → Battery</p>
             </div>
           </div>
-          <button className="mt-4 py-2 px-3 bg-green-500 text-white rounded-lg w-24">Control</button>
-        </div>
+          <Link to="/control/ltobattery">
+            <button className="mt-4 py-2 px-3 bg-green-500 text-white rounded-lg w-24">Control</button>
+          </Link>        </div>
 
         {/* Previous Cycle Partition */}
         <div className="partition p-6 bg-gray-100 dark:bg-gray-800 rounded-lg shadow-md flex flex-col">
@@ -76,7 +80,6 @@ const Batteries = () => {
               <p className="text-sm">Alert: High Discharge Rate</p>
             </div>
           </div>
-          <button className="mt-4 py-2 px-3 bg-green-500 text-white rounded-lg w-24">Control</button>
         </div>
 
         {/* UPS Partition */}
@@ -100,7 +103,9 @@ const Batteries = () => {
               <p className="text-sm text-gray-600 dark:text-gray-400">Status: Idle</p>
             </div>
           </div>
-          <button className="mt-4 py-2 px-3 bg-green-500 text-white rounded-lg w-24">Control</button>
+          <Link to="/control/upsbattery">
+            <button className="mt-4 py-2 px-3 bg-green-500 text-white rounded-lg w-24">Control</button>
+          </Link>
         </div>
       </div>
     </div>

@@ -20,12 +20,12 @@ const OptimizeOverview = () => {
 
       {/* Background Animation Effect */}
       <div className="absolute inset-0 z-[-1] overflow-hidden">
-        <div className="w-full h-full bg-gray-200 opacity-50 transform scale-125 animate-pulse"></div>
+        <div className="w-full h-full bg-gray-200 opacity-50"></div>
       </div>
 
       {/* Optimization Metrics Section */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-        <div className="optimization-card animate-fade-in bg-white shadow-lg rounded-lg p-6 flex flex-col">
+        <div className="optimization-card animate-fade-in bg-white rounded-lg p-6 flex flex-col">
           <div className="flex items-center mb-2">
             <FontAwesomeIcon icon={faLightbulb} className="text-3xl text-yellow-600" />
             <h2 className="text-xl font-semibold ml-2">Energy Savings</h2>
@@ -34,7 +34,7 @@ const OptimizeOverview = () => {
           <p className="text-sm text-gray-600">By implementing energy-saving measures</p>
         </div>
 
-        <div className="optimization-card animate-fade-in bg-white shadow-lg rounded-lg p-6 flex flex-col">
+        <div className="optimization-card animate-fade-in bg-white rounded-lg p-6 flex flex-col">
           <div className="flex items-center mb-2">
             <FontAwesomeIcon icon={faChartLine} className="text-3xl text-green-600" />
             <h2 className="text-xl font-semibold ml-2">Usage Trends</h2>
@@ -43,7 +43,7 @@ const OptimizeOverview = () => {
           <p className="text-sm text-gray-600">Compared to last month</p>
         </div>
 
-        <div className="optimization-card animate-fade-in bg-white shadow-lg rounded-lg p-6 flex flex-col">
+        <div className="optimization-card animate-fade-in bg-white rounded-lg p-6 flex flex-col">
           <div className="flex items-center mb-2">
             <FontAwesomeIcon icon={faThumbsUp} className="text-3xl text-blue-600" />
             <h2 className="text-xl font-semibold ml-2">Positive Impact</h2>
@@ -52,7 +52,7 @@ const OptimizeOverview = () => {
           <p className="text-sm text-gray-600">Equivalent to planting 75 trees</p>
         </div>
 
-        <div className="optimization-card animate-fade-in bg-white shadow-lg rounded-lg p-6 flex flex-col">
+        <div className="optimization-card animate-fade-in bg-white rounded-lg p-6 flex flex-col">
           <div className="flex items-center mb-2">
             <FontAwesomeIcon icon={faCogs} className="text-3xl text-orange-600" />
             <h2 className="text-xl font-semibold ml-2">System Efficiency</h2>
@@ -61,7 +61,7 @@ const OptimizeOverview = () => {
           <p className="text-sm text-gray-600">Compared to industry standards</p>
         </div>
 
-        <div className="optimization-card animate-fade-in bg-white shadow-lg rounded-lg p-6 flex flex-col">
+        <div className="optimization-card animate-fade-in bg-white rounded-lg p-6 flex flex-col">
           <div className="flex items-center mb-2">
             <FontAwesomeIcon icon={faRecycle} className="text-3xl text-purple-600" />
             <h2 className="text-xl font-semibold ml-2">Renewable Usage</h2>
@@ -70,7 +70,7 @@ const OptimizeOverview = () => {
           <p className="text-sm text-gray-600">From solar and wind sources</p>
         </div>
 
-        <div className="optimization-card animate-fade-in bg-white shadow-lg rounded-lg p-6 flex flex-col">
+        <div className="optimization-card animate-fade-in bg-white shadow-lg p-6 flex flex-col">
           <div className="flex items-center mb-2">
             <FontAwesomeIcon icon={faChartLine} className="text-3xl text-green-600" />
             <h2 className="text-xl font-semibold ml-2">Recommendations</h2>
@@ -82,7 +82,7 @@ const OptimizeOverview = () => {
       </div>
 
       {/* Energy Optimization Chart */}
-      <div className="bg-white shadow-lg rounded-lg p-6 mb-8">
+      <div className="bg-white rounded-lg p-6 mb-8">
         <h2 className="text-xl font-semibold mb-4">Energy Usage & Savings Over Time</h2>
         <BarChart width={800} height={300} data={optimizationData}>
           <XAxis dataKey="name" />
@@ -95,7 +95,7 @@ const OptimizeOverview = () => {
         </BarChart>
       </div>
 
-      <div className="big-card animate-fade-in bg-white shadow-lg rounded-lg p-6 mb-8 transition-transform hover:scale-105">
+      <div className="big-card bg-white rounded-lg p-6 mb-8">
   <h2 className="text-2xl font-semibold mb-4 text-center text-blue-800">Future Optimization Strategies</h2>
   
   <p className="text-lg mb-4 text-center">
@@ -103,7 +103,7 @@ const OptimizeOverview = () => {
   </p>
 
   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-    <div className="strategy-card bg-blue-100 p-4 rounded-lg shadow hover:shadow-lg transition-shadow">
+    <div className="strategy-card bg-blue-100 p-4 rounded-lg">
       <h3 className="font-semibold text-blue-800">Integrating AI</h3>
       <p>Utilize AI for predictive energy management to optimize usage based on real-time data.</p>
     </div>
