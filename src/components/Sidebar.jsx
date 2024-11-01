@@ -1,13 +1,53 @@
+import { TooltipComponent } from '@syncfusion/ej2-react-popups';
 import React, { useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import { MdOutlineCancel, MdKeyboardArrowDown, MdKeyboardArrowUp } from 'react-icons/md';
-import { TooltipComponent } from '@syncfusion/ej2-react-popups';
-import { FiMonitor, FiSettings, FiAlertCircle, FiFileText, FiBarChart, FiHome } from 'react-icons/fi';
+import { FiMonitor, FiSettings, FiAlertCircle, FiFileText, FiHome, FiBook } from 'react-icons/fi';
 import { useStateContext } from '../contexts/ContextProvider';
 import logo from '../logo2.png';
 import { FaChartLine } from 'react-icons/fa';
 import { BsArrowLeftCircle, BsArrowRightCircle } from 'react-icons/bs';  // Icon for the toggle button
+import ReactDOM from 'react-dom';
 
+// DropdownMenu component for Monitor and Control items
+const DropdownMenu = ({ items, onClose }) => {
+  return ReactDOM.createPortal(
+    <div
+      className="absolute left-20 top-16 bg-white border border-gray-300 shadow-xl rounded-lg p-3 w-52"
+      style={{ zIndex: 9999 }}
+    >
+      {items.map((item, index) => (
+        <NavLink
+          key={index}
+          to={item.path}
+          onClick={onClose}
+          className="block py-2 px-4 text-gray-800 font-medium hover:bg-green-500 hover:text-white transition-colors duration-200 rounded"
+        >
+          {item.name}
+        </NavLink>
+      ))}
+    </div>,
+    document.body
+  );
+};
+
+// Links for Monitor and Control sections
+const monitorLinks = [
+  { name: 'Building Overview', path: '/monitor/overview' },
+  { name: 'Client', path: '/monitor/client' },
+  { name: 'Cooling/HVAC', path: '/monitor/usage' },
+  { name: 'Renewable Energy', path: '/monitor/performance' },
+  { name: 'Batteries', path: '/monitor/batteries' },
+  { name: 'Energy Storage', path: '/monitor/settings' },
+];
+
+const controlLinks = [
+  { name: 'UPS Battery Control', path: '/control/upsbattery' },
+  { name: 'Thermal Control', path: '/control/thermal' },
+  { name: 'LTO Battery Control', path: '/control/ltobattery' },
+  { name: 'Hot Water Control', path: '/control/watercontrol' },
+  { name: 'IOE Battery Control', path: '/control/ioebattery' },
+];
 
 const Sidebar = () => {
   const { currentColor, activeMenu, setActiveMenu, isCollapsed, toggleSidebar } = useStateContext();
@@ -29,6 +69,8 @@ const Sidebar = () => {
   // Toggle button for collapsing/expanding sidebar
   const handleToggle = () => {
     toggleSidebar(!isCollapsed);
+    setMonitorOpen(false); // Close dropdowns when toggling
+    setControlOpen(false);
   };
 
   return (
@@ -71,119 +113,79 @@ const Sidebar = () => {
               {!isCollapsed && <span className="text-white">Dashboard</span>}
             </NavLink>
 
-            <div className="mt-3">
-              <div className={`flex items-center justify-between p-3 ${normalLink}`} onClick={() => setMonitorOpen(!isMonitorOpen)}>
-                <div className="flex items-center gap-5"
-                  onMouseEnter={() => setHoveredIcon('monitor')}
-                  onMouseLeave={() => setHoveredIcon(null)}
+{/* Monitor Link */}
+<div className="mt-3">
+        <div 
+          className={`flex items-center justify-between p-3 ${normalLink}`} 
+          onClick={() => setMonitorOpen(!isMonitorOpen)}
+        >
+          <div 
+            className="flex items-center gap-5"
+            onMouseEnter={() => setHoveredIcon('monitor')}
+            onMouseLeave={() => setHoveredIcon(null)}
+          >
+            <FiMonitor style={hoveredIcon === 'monitor' ? rotateStyle : {}} className="text-xl text-white" />
+            {!isCollapsed && <span className="text-white">Monitor</span>}
+          </div>
+          {isMonitorOpen ? <MdKeyboardArrowUp className="text-white" /> : <MdKeyboardArrowDown className="text-white" />}
+        </div>
+
+        {/* Dropdown for Monitor */}
+        {(isMonitorOpen || (isCollapsed && hoveredIcon === 'monitor')) && (
+          !isCollapsed ? (
+            <div className="pl-5">
+              {monitorLinks.map((item, index) => (
+                <NavLink 
+                  key={index}
+                  to={item.path}
+                  className="block py-2 px-4 text-white font-medium hover:bg-green-500 transition-colors duration-200 rounded"
                 >
-                  <FiMonitor style={hoveredIcon === 'monitor' ? rotateStyle : {}} className="text-xl text-white" />
-                  {!isCollapsed && <span className="text-white">Monitor</span>}
-                </div>
-                {isMonitorOpen ? <MdKeyboardArrowUp className="text-white" /> : <MdKeyboardArrowDown className="text-white" />}
-              </div>
-
-              {/* Dropdown items visible when hovering over the icon */}
-              {(isCollapsed && hoveredIcon === 'monitor') && (
-                <div className="pl-5">
-                  <NavLink to="/monitor/overview" className={({ isActive }) => (isActive ? activeLink : normalLink)}>
-                    <span className="text-white">Building Overview</span>
-                  </NavLink>
-                  <NavLink to="/monitor/client" className={({ isActive }) => (isActive ? activeLink : normalLink)}>
-                    <span className="text-white">Client</span>
-                  </NavLink>
-                  <NavLink to="/monitor/usage" className={({ isActive }) => (isActive ? activeLink : normalLink)}>
-                    <span className="text-white">Cooling/HVAC</span>
-                  </NavLink>
-                  <NavLink to="/monitor/performance" className={({ isActive }) => (isActive ? activeLink : normalLink)}>
-                    <span className="text-white">Renewable Energy</span>
-                  </NavLink>
-                  <NavLink to="/monitor/errors" className={({ isActive }) => (isActive ? activeLink : normalLink)}>
-                    <span className="text-white">EV Charging</span>
-                  </NavLink>
-                  <NavLink to="/monitor/settings" className={({ isActive }) => (isActive ? activeLink : normalLink)}>
-                    <span className="text-white">Energy Storage</span>
-                  </NavLink>
-                </div>
-              )}
-
-              {isMonitorOpen && !isCollapsed && (
-                <div className="pl-5">
-                  <NavLink to="/monitor/overview" className={({ isActive }) => (isActive ? activeLink : normalLink)}>
-                    <span className="text-white">Building Overview</span>
-                  </NavLink>
-                  <NavLink to="/monitor/client" className={({ isActive }) => (isActive ? activeLink : normalLink)}>
-                    <span className="text-white">Client</span>
-                  </NavLink>
-                  <NavLink to="/monitor/usage" className={({ isActive }) => (isActive ? activeLink : normalLink)}>
-                    <span className="text-white">Cooling/HVAC</span>
-                  </NavLink>
-                  <NavLink to="/monitor/performance" className={({ isActive }) => (isActive ? activeLink : normalLink)}>
-                    <span className="text-white">Renewable Energy</span>
-                  </NavLink>
-                  <NavLink to="/monitor/batteries" className={({ isActive }) => (isActive ? activeLink : normalLink)}>
-                    <span className="text-white">Batteries</span>
-                  </NavLink>
-                  <NavLink to="/monitor/settings" className={({ isActive }) => (isActive ? activeLink : normalLink)}>
-                    <span className="text-white">Energy Storage</span>
-                  </NavLink>
-                </div>
-              )}
+                  {item.name}
+                </NavLink>
+              ))}
             </div>
+          ) : (
+            <DropdownMenu items={monitorLinks} onClose={() => setMonitorOpen(false)} />
+          )
+        )}
+      </div>
 
-            <div className="mt-3">
-              <div className={`flex items-center justify-between p-3 ${normalLink}`} onClick={() => setControlOpen(!isControlOpen)}>
-                <div className="flex items-center gap-5"
-                  onMouseEnter={() => setHoveredIcon('control')}
-                  onMouseLeave={() => setHoveredIcon(null)}
+      {/* Control Link */}
+      <div className="mt-3">
+        <div 
+          className={`flex items-center justify-between p-3 ${normalLink}`} 
+          onClick={() => setControlOpen(!isControlOpen)}
+        >
+          <div 
+            className="flex items-center gap-5"
+            onMouseEnter={() => setHoveredIcon('control')}
+            onMouseLeave={() => setHoveredIcon(null)}
+          >
+            <FiSettings style={hoveredIcon === 'control' ? rotateStyle : {}} className="text-xl text-white" />
+            {!isCollapsed && <span className="text-white">Control</span>}
+          </div>
+          {isControlOpen ? <MdKeyboardArrowUp className="text-white" /> : <MdKeyboardArrowDown className="text-white" />}
+        </div>
+
+        {/* Dropdown for Control */}
+        {(isControlOpen || (isCollapsed && hoveredIcon === 'control')) && (
+          !isCollapsed ? (
+            <div className="pl-5">
+              {controlLinks.map((item, index) => (
+                <NavLink 
+                  key={index}
+                  to={item.path}
+                  className="block py-2 px-4 text-white font-medium hover:bg-green-500 transition-colors duration-200 rounded"
                 >
-                  <FiSettings style={hoveredIcon === 'control' ? rotateStyle : {}} className="text-xl text-white" />
-                  {!isCollapsed && <span className="text-white">Control</span>}
-                </div>
-                {isMonitorOpen ? <MdKeyboardArrowUp className="text-white" /> : <MdKeyboardArrowDown className="text-white" />}
-              </div>
-
-              {/* Dropdown items visible when hovering over the icon */}
-              {(isCollapsed && hoveredIcon === 'control') && (
-                <div className="pl-5">
-                  <NavLink to="/control/upsbattery" className={({ isActive }) => (isActive ? activeLink : normalLink)}>
-                    <span className="text-white">UPS Battery Control</span>
-                  </NavLink>
-                  <NavLink to="/control/thermal" className={({ isActive }) => (isActive ? activeLink : normalLink)}>
-                    <span className="text-white">Thermal Control</span>
-                  </NavLink>
-                  <NavLink to="/control/ltobattery" className={({ isActive }) => (isActive ? activeLink : normalLink)}>
-                    <span className="text-white">LTO Battery Control</span>
-                  </NavLink>
-                  <NavLink to="/control/watercontrol" className={({ isActive }) => (isActive ? activeLink : normalLink)}>
-                    <span className="text-white">Hot Water Control</span>
-                  </NavLink>
-                  <NavLink to="/control/ioebattery" className={({ isActive }) => (isActive ? activeLink : normalLink)}>
-                    <span className="text-white">IOE Battery Control</span>
-                  </NavLink>
-                </div>
-              )}
-
-              {isControlOpen && !isCollapsed && (
-                <div className="pl-5">
-                   <NavLink to="/control/upsbattery" className={({ isActive }) => (isActive ? activeLink : normalLink)}>
-                    <span className="text-white">UPS Battery Control</span>
-                  </NavLink>
-                  <NavLink to="/control/thermal" className={({ isActive }) => (isActive ? activeLink : normalLink)}>
-                    <span className="text-white">Thermal Control</span>
-                  </NavLink>
-                  <NavLink to="/control/ltobattery" className={({ isActive }) => (isActive ? activeLink : normalLink)}>
-                    <span className="text-white">LTO Battery Control</span>
-                  </NavLink>
-                  <NavLink to="/control/watercontrol" className={({ isActive }) => (isActive ? activeLink : normalLink)}>
-                    <span className="text-white">Hot Water Control</span>
-                  </NavLink>
-                  <NavLink to="/control/ioebattery" className={({ isActive }) => (isActive ? activeLink : normalLink)}>
-                    <span className="text-white">IOE Battery Control</span>
-                  </NavLink>
-                </div>
-              )}
+                  {item.name}
+                </NavLink>
+              ))}
             </div>
+          ) : (
+            <DropdownMenu items={controlLinks} onClose={() => setControlOpen(false)} />
+          )
+        )}
+      </div>
             <NavLink
               to="/optimize"
               className={({ isActive }) => (isActive ? activeLink : normalLink)}
@@ -210,6 +212,15 @@ const Sidebar = () => {
             >
               <FiFileText style={hoveredIcon === 'reports' ? rotateStyle : {}} className="text-xl text-white" />
               {!isCollapsed && <span className="text-white">Reports</span>}
+            </NavLink>
+            <NavLink
+              to="/documentation"
+              className={({ isActive }) => (isActive ? activeLink : normalLink)}
+              onMouseEnter={() => setHoveredIcon('documentation')}
+              onMouseLeave={() => setHoveredIcon(null)}
+            >
+              <FiBook style={hoveredIcon === 'documentation' ? rotateStyle : {}} className="text-xl text-white" />
+              {!isCollapsed && <span className="text-white">Documentation</span>}
             </NavLink>
           </div>
            {/* Toggle Button for Sidebar */}

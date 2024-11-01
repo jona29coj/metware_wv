@@ -1,51 +1,15 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import chiller from '../pages/chiller.jpg';
 
 const chillerData = [
-  { name: 'Chiller 1', status: 'Operational', description: 'Cooling capacity: 200kW' },
-  { name: 'Chiller 2', status: 'Maintenance', description: 'Cooling capacity: 150kW' },
-  { name: 'Chiller 3', status: 'Faulty', description: 'Cooling capacity: 100kW' },
-  { name: 'Chiller 4', status: 'Operational', description: 'Cooling capacity: 250kW' },
-  { name: 'Chiller 5', status: 'Operational', description: 'Cooling capacity: 300kW' },
-  { name: 'Chiller 6', status: 'Maintenance', description: 'Cooling capacity: 175kW' },
+  { name: 'Chiller 1', status: 'Operational', cop: '4.0', condenserFlowrate: '100 m³/h', evaporatorFlowrate: '80 m³/h', image: chiller },
+  { name: 'Chiller 2', status: 'Maintenance', cop: '3.5', condenserFlowrate: '90 m³/h', evaporatorFlowrate: '70 m³/h', image: chiller },
+  { name: 'Chiller 3', status: 'Faulty', cop: '3.0', condenserFlowrate: '85 m³/h', evaporatorFlowrate: '65 m³/h', image: chiller },
+  { name: 'Chiller 4', status: 'Operational', cop: '4.2', condenserFlowrate: '105 m³/h', evaporatorFlowrate: '85 m³/h', image: chiller },
+  { name: 'Chiller 5', status: 'Operational', cop: '4.5', condenserFlowrate: '110 m³/h', evaporatorFlowrate: '90 m³/h', image: chiller },
+  { name: 'Chiller 6', status: 'Maintenance', cop: '3.8', condenserFlowrate: '95 m³/h', evaporatorFlowrate: '75 m³/h', image: chiller },
 ];
-
-const ChillerSVG = () => (
-  <svg
-    width="120"
-    height="160"
-    viewBox="0 0 150 200"
-    xmlns="http://www.w3.org/2000/svg"
-  >
-    {/* Chiller body */}
-    <rect x="20" y="40" width="110" height="140" fill="#3b82f6" stroke="#1e3a8a" strokeWidth="3" />
-
-    {/* Chiller top */}
-    <rect x="25" y="35" width="100" height="10" fill="#a3c1e1" />
-    
-    {/* Pipes */}
-    <rect x="10" y="190" width="130" height="10" fill="#1e3a8a" />
-    <rect x="30" y="140" width="5" height="25" fill="#1e3a8a" />
-    <rect x="115" y="140" width="5" height="25" fill="#1e3a8a" />
-    
-    {/* Enhanced details */}
-    <circle cx="40" cy="190" r="5" fill="#fbbf24" />
-    <circle cx="110" cy="190" r="5" fill="#fbbf24" />
-    
-    {/* Centered industrial fins for heat exchange */}
-    <g fill="#d1fae5">
-      <rect x="44" y="60" width="5" height="50" />
-      <rect x="54" y="60" width="5" height="50" />
-      <rect x="64" y="60" width="5" height="50" />
-      <rect x="74" y="60" width="5" height="50" />
-      <rect x="84" y="60" width="5" height="50" />
-      <rect x="94" y="60" width="5" height="50" />
-    </g>
-    
-    {/* Add a base */}
-    <rect x="20" y="180" width="110" height="10" fill="#1e3a8a" />
-  </svg>
-);
 
 const ChillerOverview = () => {
   const navigate = useNavigate();
@@ -53,11 +17,11 @@ const ChillerOverview = () => {
   const getStatusStyle = (status) => {
     switch (status) {
       case 'Operational':
-        return 'text-green-600';
+        return 'bg-green-100 text-green-600';
       case 'Maintenance':
-        return 'text-yellow-500';
+        return 'bg-yellow-100 text-yellow-600';
       case 'Faulty':
-        return 'text-red-600';
+        return 'bg-red-100 text-red-600';
       default:
         return '';
     }
@@ -65,31 +29,50 @@ const ChillerOverview = () => {
 
   return (
     <div className="grid grid-cols-1 gap-4 mb-4">
-      {/* Big Card for the entire Chillers section */}
-      <div className="bg-white shadow-md rounded-xl p-6">
+      <div className="bg-gray-100 shadow-md rounded-xl p-6">
         <h3 className="text-lg font-bold text-gray-800 mb-6">Chillers</h3>
 
-        {/* Chillers Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {chillerData.map((chiller, index) => (
             <div
               key={index}
-              className="bg-gray-100 shadow-lg rounded-lg p-4 flex flex-col justify-between"
+              className="bg-white shadow-lg rounded-lg p-4 flex flex-col justify-between hover:shadow-xl transition-shadow"
             >
               <div className="flex flex-col items-center">
-                <ChillerSVG />
-                <h3 className="text-xl font-bold mt-2 mb-1 text-center">{chiller.name}</h3>
-                <p className="mb-1 text-center">
-                  Status: <span className={getStatusStyle(chiller.status)}>{chiller.status}</span>
-                </p>
-                <p className="text-center text-sm text-gray-600">{chiller.description}</p>
+                <img
+                  src={chiller.image}
+                  alt={`${chiller.name} Image`}
+                  className="w-full h-40 object-cover rounded-t-lg mb-3"
+                />
+                <div className={`py-1 px-3 rounded-full ${getStatusStyle(chiller.status)}`}>
+                  {chiller.status}
+                </div>
+                <h3 className="text-xl font-semibold mt-2 mb-1 text-gray-800">{chiller.name}</h3>
               </div>
+
+              <div className="mt-4 mb-2 bg-white rounded-lg p-3 shadow-inner w-full">
+                <div className="grid grid-cols-1 gap-2 text-sm text-gray-700">
+                  <div className="flex justify-between">
+                    <span className="font-medium">COP:</span>
+                    <span>{chiller.cop}</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="font-medium">Condenser Flowrate:</span>
+                    <span>{chiller.condenserFlowrate}</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="font-medium">Evaporator Flowrate:</span>
+                    <span>{chiller.evaporatorFlowrate}</span>
+                  </div>
+                </div>
+              </div>
+
               <button
                 onClick={() => navigate(`/chiller/${index + 1}`)}
-                className="mt-2 bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 text-sm" >
+                className="mt-2 bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 text-sm"
+              >
                 View Details
               </button>
-
             </div>
           ))}
         </div>

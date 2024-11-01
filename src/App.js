@@ -3,11 +3,10 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { FiSettings } from 'react-icons/fi';
 import { TooltipComponent } from '@syncfusion/ej2-react-popups';
 import { Navbar, Sidebar, ThemeSettings } from './components';
-import { Ecommerce, Orders, Calendar, Employees, Stacked, Pyramid, Customers, Kanban, Line, Area, Bar, Pie, Financial, ColorPicker, ColorMapping, Editor } from './pages';
+import { Orders, Calendar, Employees, Stacked, Pyramid, Customers, Kanban, Line, Area, Bar, Pie, Financial, ColorPicker, ColorMapping, Editor } from './pages';
 import './App.css';
 import { useStateContext } from './contexts/ContextProvider';
 import MultiMeterGauge from './pages/MultiMeterGauge';
-import Dashboard from './pages/Dashboard';
 import IoTFleetStatus from './pages/IOTFleet';
 import ThreeDChiller from './pages/ThreeDChiller';
 import ChillerDetail from './pages/ChillerDetail';
@@ -29,6 +28,7 @@ import IOEBatteryControl from './pages/IOEBattery';
 import BatteriesMonitor from './pagesc/BatteriesMonitor';
 import PeakAnalysis from './pagesc/PeakAnalysis';
 import Reports from './pagesc/Reports';
+import Dashboard from './pages/Dashboard';
 
 
 const App = () => {
@@ -82,8 +82,8 @@ const App = () => {
 
               <Routes>
                 {/* dashboard  */}
-                <Route path="/dashboard" element={(<Ecommerce />)} />
-                <Route path="/ecommerce" element={(<Ecommerce />)} />
+                <Route path="/" element={(<Dashboard />)} />
+                <Route path="/dashboard" element={(<Dashboard />)} />
 
                 {/* pages  */}
                 <Route path="/orders" element={<Orders />} />

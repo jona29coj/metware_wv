@@ -1,65 +1,99 @@
 import React from 'react';
-import '../pages/evcharger.css';
+import evcharger from '../pages/ev.png';
 
-const EVchargers = () => {
+// EV Charger Overview Component
+const EVChargerOverview = () => {
+  // Data for the main statistics
+  const mainStats = [
+    { title: 'No. of chargers used', value: '00' },
+    { title: 'Total Sessions Today', value: '00' },
+    { title: 'Total Energy Used', value: '0 kWh' },
+  ];
+
+  // Data for EV Charger stations
+  const evChargerStats = [
+    { capacity: '3.3 KW', location: 'Pond area', energyConsumed: '0 kWh', status: 'Active' },
+    { capacity: '3.3 KW', location: 'Pond area', energyConsumed: '0 kWh', status: 'Idle' },
+    { capacity: '7 KW', location: 'Pond area', energyConsumed: '0 kWh', status: 'Unavailable' },
+    { capacity: '7 KW', location: 'MLCP 3rd floor', energyConsumed: '0 kWh', status: 'Active' },
+    { capacity: '7 KW', location: 'Pond area', energyConsumed: '0 kWh', status: 'Idle' },
+    { capacity: '7 KW', location: 'Pond area', energyConsumed: '0 kWh', status: 'Active' },
+  ];
+
+  // Helper function to determine color based on status
+  const getStatusColor = (status) => {
+    switch (status) {
+      case 'Active':
+        return 'bg-green-500';
+      case 'Idle':
+        return 'bg-yellow-500';
+      case 'Unavailable':
+        return 'bg-red-500';
+      default:
+        return 'bg-gray-400';
+    }
+  };
+
   return (
     <div className="grid grid-cols-1 gap-4 mb-4">
       {/* Big Card for the entire EV Chargers section */}
-      <div className="bg-white dark:bg-secondary-dark-bg rounded-xl shadow-md p-4">
-        <h3 className="text-lg font-bold text-gray-800 dark:text-gray-200 mb-6">EV Chargers</h3>
+      <div className="bg-gray-100 shadow-md rounded-xl p-6 relative">
+        <h3 className="text-lg font-bold text-gray-800 mb-6">EV Chargers</h3>
 
-        {/* Common Summary Card inside the big card */}
-        <div className="grid grid-cols-3 gap-4 mb-8">
-          <div className="summary-card p-4 bg-gray-100 dark:bg-gray-800 rounded-lg shadow-md flex flex-col items-center">
-            <h4 className="font-semibold text-gray-800 dark:text-gray-200">No. of Chargers Used</h4>
-            <p className="text-3xl font-bold text-green-600">00</p>
-          </div>
-          <div className="summary-card p-4 bg-gray-100 dark:bg-gray-800 rounded-lg shadow-md flex flex-col items-center">
-            <h4 className="font-semibold text-gray-800 dark:text-gray-200">Total Sessions Today</h4>
-            <p className="text-3xl font-bold text-blue-600">00</p>
-          </div>
-          <div className="summary-card p-4 bg-gray-100 dark:bg-gray-800 rounded-lg shadow-md flex flex-col items-center">
-            <h4 className="font-semibold text-gray-800 dark:text-gray-200">Total Energy Used</h4>
-            <p className="text-3xl font-bold text-red-600">00 kWh</p>
-          </div>
+        {/* Date Picker in the Top Right Corner */}
+        <input
+          type="date"
+          className="absolute top-6 right-6 border border-gray-300 rounded px-2 py-1 text-sm"
+        />
+
+        {/* Mini Cards for Main Statistics */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+          {mainStats.map((stat, index) => (
+            <div
+              key={index}
+              className="bg-white rounded-lg p-4 flex flex-col items-center"
+            >
+              <h4 className="text-xl font-bold">{stat.title}</h4>
+              <p className="text-2xl font-semibold text-gray-700">{stat.value}</p>
+            </div>
+          ))}
         </div>
 
-        {/* EV Chargers Cards */}
+        {/* EV Charger Station Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          {Array.from({ length: 6 }, (_, index) => (
-            <div key={index} className="ev-charger-card p-4 bg-gray-100 dark:bg-gray-800 rounded-lg shadow-md flex flex-col items-center">
-              {/* CSS-based detailed EV charging station */}
-              <div className="charging-station">
-                <div className="station-screen"></div>
-                <div className="station-base"></div>
-                <div className="station-cable"></div>
+          {evChargerStats.map((charger, index) => (
+            <div
+              key={index}
+              className="bg-white rounded-lg p-4 flex flex-col items-center relative"
+            >
+              {/* Status Indicator */}
+              <div className="absolute top-2 right-2 flex items-center">
+                <span
+                  className={`w-3 h-3 rounded-full ${getStatusColor(charger.status)} mr-2`}
+                ></span>
+                <span className="text-sm font-medium text-gray-600">{charger.status}</span>
               </div>
 
-              {/* Car Visual */}
-              <div className={`car-visual ${index % 2 === 0 ? 'connected' : 'disconnected'}`}>
-                <div className="car-body">
-                  <div className="car-window"></div>
-                  <div className="car-wheels">
-                    <div className="wheel front-wheel"></div>
-                    <div className="wheel back-wheel"></div>
-                  </div>
-                </div>
-              </div> {/* Car body visual */}
+              {/* Image Box */}
+              <div className="w-24 h-24 mb-3 border border-gray-300 bg-gray-100 rounded-full overflow-hidden flex justify-center items-center">
+                <img
+                  src={evcharger} // Replace with the correct path to your image
+                  alt="EV Charger"
+                  className="w-full h-full object-cover"
+                />
+              </div>
 
-              {/* Charger Details */}
-              <div className="text-center mt-2">
-                <h3 className="font-semibold text-gray-800 dark:text-gray-200 mb-1">EV Charger {index + 1}</h3>
-                <p className="text-gray-600 dark:text-gray-400 whitespace-nowrap">
-                  Location: Block E<br />
-                  Energy Consumed: 50&nbsp;kWh
+              {/* Capacity */}
+              <h4 className="text-xl font-semibold mt-1 text-gray-800">Capacity: {charger.capacity}</h4>
+
+              {/* Location and Energy Consumed */}
+              <div className="mt-2 bg-white rounded-lg p-2 w-full">
+                <p className="text-sm text-gray-600">
+                  <span className="font-medium">Location:</span> {charger.location}
                 </p>
-              </div>
-
-              {/* Status Indicator in a Card */}
-              <div className={`status-card p-2 mt-3 bg-gray-200 dark:bg-gray-700 rounded-lg shadow-md w-full text-center`}>
-                <span className={`status-indicator ${index % 2 === 0 ? 'connected' : 'disconnected'}`}>
-                  {index % 2 === 0 ? 'Status: Connected' : 'Status: Disconnected'}
-                </span>
+                <p className="text-sm text-gray-600">
+                  <span className="font-medium">Energy Consumed:</span> {charger.energyConsumed}
+                </p>
               </div>
             </div>
           ))}
@@ -69,4 +103,4 @@ const EVchargers = () => {
   );
 };
 
-export default EVchargers;
+export default EVChargerOverview;
