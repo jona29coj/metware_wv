@@ -17,7 +17,6 @@ import EVCharging from './pages/EVCharging';
 import EnergyStorage from './pages/EnergyStorage';
 import AlertsOverview from './pages/Alerts';
 import ChillerOverview from './pages/Chiller';
-import ChillerProcessFlow from './pages/ChillerProcessFlow';
 import ChillerComponent from './pages/ChillerComponent';
 import UPSControl from './pages/UPSControl';
 import ThermalControl from './pages/ThermalControl';
@@ -85,7 +84,6 @@ const App = () => {
                 <Route path="/optimize" element={<PeakAnalysis />} />
                 <Route path="/" element={<Dashboard />} />
                 <Route path="/chiller/:id" element={<ChillerDetail />} />
-                <Route path="/chiller/:id/process-flow" element={<ChillerProcessFlow />} />
                 <Route path="/test" element={<ChillerComponent />} />
                 <Route path="/control/upsbattery" element={<UPSControl />} />
                 <Route path="/control/thermal" element={<ThermalControl />} />
