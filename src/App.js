@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { FiSettings } from 'react-icons/fi';
 import { TooltipComponent } from '@syncfusion/ej2-react-popups';
 import { Navbar, Sidebar, ThemeSettings } from './components';
 import './App.css';
@@ -17,7 +16,6 @@ import EVCharging from './pages/EVCharging';
 import EnergyStorage from './pages/EnergyStorage';
 import AlertsOverview from './pages/Alerts';
 import ChillerOverview from './pages/Chiller';
-import ChillerComponent from './pages/ChillerComponent';
 import UPSControl from './pages/UPSControl';
 import ThermalControl from './pages/ThermalControl';
 import LTOControl from './pages/LTOControl';
@@ -84,7 +82,6 @@ const App = () => {
                 <Route path="/optimize" element={<PeakAnalysis />} />
                 <Route path="/" element={<Dashboard />} />
                 <Route path="/chiller/:id" element={<ChillerDetail />} />
-                <Route path="/test" element={<ChillerComponent />} />
                 <Route path="/control/upsbattery" element={<UPSControl />} />
                 <Route path="/control/thermal" element={<ThermalControl />} />
                 <Route path="/control/ltobattery" element={<LTOControl />} />
