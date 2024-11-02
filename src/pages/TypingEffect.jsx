@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
+import './TypingEffect.css';
 
 const TypingEffect = () => {
-  const slogan = "empower your savings: energize your impact!";
+  const slogan = "Empower Your Savings: Energize Your Impact!";
   const [displayedText, setDisplayedText] = useState('');
   const [isDeleting, setIsDeleting] = useState(false);
   const typingSpeed = 150; // Speed of typing in milliseconds
@@ -47,7 +48,7 @@ const TypingEffect = () => {
   }, [isDeleting, slogan]);
 
   return (
-    <h1 className="text-4xl font-bold text-green-600">{displayedText}</h1>
+    <h1 className="text-3xl font-bold text-white glow-effect">{displayedText}</h1>
   );
 };
 

@@ -71,7 +71,7 @@ const Reports = () => {
           <DatePicker
             selected={startDate}
             onChange={(date) => setStartDate(date)}
-            className="bg-gray-100 p-2 rounded shadow"
+            className="bg-white p-2 rounded shadow"
           />
         </div>
         <div>
@@ -79,7 +79,7 @@ const Reports = () => {
           <DatePicker
             selected={endDate}
             onChange={(date) => setEndDate(date)}
-            className="bg-gray-100 p-2 rounded shadow"
+            className="bg-white p-2 rounded shadow"
           />
         </div>
       </div>

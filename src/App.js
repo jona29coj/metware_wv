@@ -3,7 +3,6 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { FiSettings } from 'react-icons/fi';
 import { TooltipComponent } from '@syncfusion/ej2-react-popups';
 import { Navbar, Sidebar, ThemeSettings } from './components';
-import { Orders, Calendar, Employees, Stacked, Pyramid, Customers, Kanban, Line, Area, Bar, Pie, Financial, ColorPicker, ColorMapping, Editor } from './pages';
 import './App.css';
 import { useStateContext } from './contexts/ContextProvider';
 import MultiMeterGauge from './pages/MultiMeterGauge';
@@ -29,6 +28,7 @@ import BatteriesMonitor from './pagesc/BatteriesMonitor';
 import PeakAnalysis from './pagesc/PeakAnalysis';
 import Reports from './pagesc/Reports';
 import Dashboard from './pages/Dashboard';
+import Documentation from './pages/Documentation';
 
 
 const App = () => {
@@ -49,21 +49,6 @@ const App = () => {
     <div className={currentMode === 'Dark' ? 'dark' : ''}>
       <BrowserRouter>
         <div className="flex relative dark:bg-main-dark-bg">
-          <div className="fixed right-4 bottom-4" style={{ zIndex: '1000' }}>
-            <TooltipComponent
-              content="Settings"
-              position="Top"
-            >
-              <button
-                type="button"
-                onClick={() => setThemeSettings(true)}
-                style={{ background: currentColor, borderRadius: '50%' }}
-                className="text-3xl text-white p-3 hover:drop-shadow-xl hover:bg-light-gray"
-              >
-                <FiSettings />
-              </button>
-            </TooltipComponent>
-          </div>
           {activeMenu ? (
             <div className={`fixed sidebar dark:bg-secondary-dark-bg bg-white transition-all duration-300 ${isCollapsed ? 'w-20' : 'w-72'}`}>
               <Sidebar />
@@ -86,9 +71,6 @@ const App = () => {
                 <Route path="/dashboard" element={(<Dashboard />)} />
 
                 {/* pages  */}
-                <Route path="/orders" element={<Orders />} />
-                <Route path="/employees" element={<Employees />} />
-                <Route path="/customers" element={<Customers />} />
                 <Route path="/control" element={<MultiMeterGauge />} />
                 <Route path="/iotfleet" element={<IoTFleetStatus />} />
                 <Route path="/threed" element={<ThreeDChiller />} />
@@ -112,21 +94,7 @@ const App = () => {
                 <Route path="/control/ioebattery" element={<IOEBatteryControl />} />
                 <Route path="/monitor/batteries" element={<BatteriesMonitor />} />
                 <Route path="/reports" element={<Reports />} />
-                {/* apps  
-                <Route path="/kanban" element={<Kanban />} />
-                <Route path="/editor" element={<Editor />} />
-                <Route path="/calendar" element={<Calendar />} />
-                <Route path="/color-picker" element={<ColorPicker />} />
-
-                
-                <Route path="/line" element={<Line />} />
-                <Route path="/area" element={<Area />} />
-                <Route path="/bar" element={<Bar />} />
-                <Route path="/pie" element={<Pie />} />
-                <Route path="/financial" element={<Financial />} />
-                <Route path="/color-mapping" element={<ColorMapping />} />
-                <Route path="/pyramid" element={<Pyramid />} />
-                <Route path="/stacked" element={<Stacked />} /> */}
+                <Route path="/documentation" element={<Documentation />} />
               </Routes>
             </div>
           </div>

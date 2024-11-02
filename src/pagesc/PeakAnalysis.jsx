@@ -9,7 +9,7 @@ const PeakAnalysis = () => {
   const [startDate, setStartDate] = useState(new Date());
 
   return (
-    <div className="bg-white dark:bg-secondary-dark-bg p-8 rounded-lg shadow-lg space-y-8">
+    <div className="bg-gray-100 dark:bg-secondary-dark-bg p-8 rounded-lg shadow-lg space-y-8">
       {/* Peak Analysis Heading */}
       <div className="text-center mb-6">
         <h1 className="text-3xl font-extrabold text-gray-800 dark:text-gray-200">Peak Analysis</h1>
@@ -22,24 +22,25 @@ const PeakAnalysis = () => {
         <DatePicker
           selected={startDate}
           onChange={(date) => setStartDate(date)}
-          className="bg-gray-100 dark:bg-gray-700 p-2 rounded shadow focus:outline-none"
+          className="bg-white dark:bg-gray-700 p-2 rounded shadow focus:outline-none"
         />
       </div>
 
-      {/* Peak Analysis Chart */}
-      <div className="bg-gray-50 dark:bg-gray-800 p-6 rounded-lg shadow-lg">
-        <h2 className="text-xl font-semibold text-gray-700 dark:text-gray-300 mb-4">Energy Peak Consumption</h2>
-        <PeakAnalysisChart /> {/* Render the Peak Analysis chart here */}
-      </div>
-
-      {/* Mini Cards with Peak Analysis Info */}
-      <div className="grid grid-cols-3 gap-4">
+       {/* Mini Cards with Peak Analysis Info */}
+       <div className="grid grid-cols-3 gap-4">
         <MiniCard title="Peak Demand" value="300 kW" iconClass="fas fa-chart-line" />
         <MiniCard title="Average Demand" value="250 kW" iconClass="fas fa-chart-area" />
         <MiniCard title="Load Factor" value="83%" iconClass="fas fa-bolt" />
         <MiniCard title="Off-Peak Consumption" value="150 kWh" iconClass="fas fa-lightbulb" />
         <MiniCard title="Cost Impact" value="$400" iconClass="fas fa-dollar-sign" />
       </div>
+
+      {/* Peak Analysis Chart */}
+      <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg">
+        <h2 className="text-xl font-semibold text-gray-700 dark:text-gray-300 mb-4">Energy Peak Consumption</h2>
+        <PeakAnalysisChart /> {/* Render the Peak Analysis chart here */}
+      </div>
+
 {/* MVP Wise (KW) vs Apparent Power (kVA) Big Card */}
       <div className="bg-white dark:bg-gray-900 p-8 rounded-xl shadow-xl mt-10">
         <h2 className="text-2xl font-bold text-gray-700 dark:text-gray-200 mb-6 text-center">

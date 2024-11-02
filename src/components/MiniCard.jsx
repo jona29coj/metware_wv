@@ -2,7 +2,7 @@ import React from 'react';
 
 const MiniCard = ({ title, value, iconClass }) => {
   return (
-    <div className="p-4 rounded-lg shadow bg-gray-50 dark:bg-gray-700 flex items-center">
+    <div className="p-4 rounded-lg shadow bg-white dark:bg-gray-700 flex items-center">
       <div className="mr-4">
         <i className={`${iconClass} text-xl text-gray-600 dark:text-gray-300`}></i>
       </div>

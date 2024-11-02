@@ -29,14 +29,6 @@ const AlertsOverview = () => {
       timestamp: '2024-10-16 02:00 PM',
       icon: faCheckCircle,
     },
-    {
-      id: 4,
-      type: 'Warning',
-      message: 'Low battery level detected in Energy Storage Unit C.',
-      status: 'Active',
-      timestamp: '2024-10-15 11:15 AM',
-      icon: faExclamationTriangle,
-    },
   ];
 
   // Sample data for alert history
@@ -94,7 +86,7 @@ const AlertsOverview = () => {
 
   // Pagination states
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 3;
+  const itemsPerPage = 6;
 
   // Calculate the total number of pages
   const totalPages = Math.ceil(alertHistoryData.length / itemsPerPage);

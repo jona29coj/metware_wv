@@ -32,6 +32,9 @@ const RenewableEnergy = () => {
     tooltip: {
       pointFormat: '{series.name}: <b>{point.y} kWh</b>',
     },
+    credits: {
+      enabled: false, // Hide Highcharts credits
+    },
   };
 
   // Inverter Active Power chart options
@@ -67,6 +70,9 @@ const RenewableEnergy = () => {
       area: {
         fillOpacity: 0.5,
       },
+    },
+    credits: {
+      enabled: false, // Hide Highcharts credits
     },
   };
 
@@ -112,6 +118,9 @@ const RenewableEnergy = () => {
         borderWidth: 0,
       },
     },
+    credits: {
+      enabled: false, // Hide Highcharts credits
+    },
   };
 
   // Rooftop Solar chart options
@@ -143,6 +152,9 @@ const RenewableEnergy = () => {
     tooltip: {
       pointFormat: '{series.name}: <b>{point.y} kWh</b>',
     },
+    credits: {
+      enabled: false, // Hide Highcharts credits
+    },
   };
 
   // Phase Wise Generation chart options
@@ -173,6 +185,9 @@ const RenewableEnergy = () => {
     ],
     tooltip: {
       pointFormat: '{series.name}: <b>{point.y} kWh</b>',
+    },
+    credits: {
+      enabled: false, // Hide Highcharts credits
     },
   };
 
@@ -218,6 +233,9 @@ const RenewableEnergy = () => {
         borderWidth: 0,
       },
     },
+    credits: {
+      enabled: false, // Hide Highcharts credits
+    },
   };
 
   // Active Power chart options
@@ -249,6 +267,9 @@ const RenewableEnergy = () => {
     tooltip: {
       pointFormat: '{series.name}: <b>{point.y} kW</b>',
     },
+    credits: {
+      enabled: false, // Hide Highcharts credits
+    },
   };
 
   // Wind Speed chart options
@@ -279,6 +300,9 @@ const RenewableEnergy = () => {
     ],
     tooltip: {
       pointFormat: '{series.name}: <b>{point.y} m/s</b>',
+    },
+    credits: {
+      enabled: false, // Hide Highcharts credits
     },
   };
 

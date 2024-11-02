@@ -14,7 +14,7 @@ const Batteries = () => {
         
         {/* Battery Capacity Partition */}
         <div className="partition p-6 bg-gray-100 dark:bg-gray-800 rounded-lg shadow-md flex flex-col">
-          <h5 className="font-semibold text-gray-800 dark:text-gray-200 mb-4">Battery Capacity</h5>
+          <h5 className="font-semibold text-gray-800 dark:text-gray-200 mb-4">IOE</h5>
           <div className="flex justify-between items-center">
             <div className="battery-box">
               <div className="battery-level" style={{ height: '70%' }}></div>

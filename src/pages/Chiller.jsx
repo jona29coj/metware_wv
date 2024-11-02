@@ -29,14 +29,14 @@ const ChillerOverview = () => {
 
   return (
     <div className="grid grid-cols-1 gap-4 mb-4">
-      <div className="bg-gray-100 shadow-md rounded-xl p-6">
+      <div className="bg-white shadow-md rounded-xl p-6">
         <h3 className="text-lg font-bold text-gray-800 mb-6">Chillers</h3>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {chillerData.map((chiller, index) => (
             <div
               key={index}
-              className="bg-white shadow-lg rounded-lg p-4 flex flex-col justify-between hover:shadow-xl transition-shadow"
+              className="bg-gray-100 shadow-lg rounded-lg p-4 flex flex-col justify-between hover:shadow-xl transition-shadow"
             >
               <div className="flex flex-col items-center">
                 <img

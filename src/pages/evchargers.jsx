@@ -37,13 +37,14 @@ const EVChargerOverview = () => {
   return (
     <div className="grid grid-cols-1 gap-4 mb-4">
       {/* Big Card for the entire EV Chargers section */}
-      <div className="bg-gray-100 shadow-md rounded-xl p-6 relative">
+      <div className="bg-white shadow-md rounded-xl p-6 relative">
         <h3 className="text-lg font-bold text-gray-800 mb-6">EV Chargers</h3>
 
         {/* Date Picker in the Top Right Corner */}
         <input
           type="date"
           className="absolute top-6 right-6 border border-gray-300 rounded px-2 py-1 text-sm"
+          defaultValue={new Date().toISOString().split('T')[0]} // Sets the default date to today
         />
 
         {/* Mini Cards for Main Statistics */}
@@ -51,7 +52,7 @@ const EVChargerOverview = () => {
           {mainStats.map((stat, index) => (
             <div
               key={index}
-              className="bg-white rounded-lg p-4 flex flex-col items-center"
+              className="bg-gray-100 rounded-lg p-4 flex flex-col items-center"
             >
               <h4 className="text-xl font-bold">{stat.title}</h4>
               <p className="text-2xl font-semibold text-gray-700">{stat.value}</p>
@@ -64,7 +65,7 @@ const EVChargerOverview = () => {
           {evChargerStats.map((charger, index) => (
             <div
               key={index}
-              className="bg-white rounded-lg p-4 flex flex-col items-center relative"
+              className="bg-gray-100 rounded-lg p-4 flex flex-col items-center relative"
             >
               {/* Status Indicator */}
               <div className="absolute top-2 right-2 flex items-center">
@@ -75,7 +76,7 @@ const EVChargerOverview = () => {
               </div>
 
               {/* Image Box */}
-              <div className="w-24 h-24 mb-3 border border-gray-300 bg-gray-100 rounded-full overflow-hidden flex justify-center items-center">
+              <div className="w-24 h-24 mb-3 border border-gray-300 bg-white rounded-full overflow-hidden flex justify-center items-center">
                 <img
                   src={evcharger} // Replace with the correct path to your image
                   alt="EV Charger"

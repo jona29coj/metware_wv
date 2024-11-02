@@ -39,6 +39,9 @@ const BuildingOverview = () => {
         borderWidth: 0,
       },
     },
+    credits: {
+      enabled: false, // Hide Highcharts credits
+    },
   };
 
   // Data for Wheeled-in Energy chart
@@ -79,6 +82,9 @@ const BuildingOverview = () => {
         enableMouseTracking: true,
       },
     },
+    credits: {
+      enabled: false, // Hide Highcharts credits
+    },
   };
 
   // Data for Grid Energy Maximum (kWh) chart
@@ -115,6 +121,9 @@ const BuildingOverview = () => {
       area: {
         fillOpacity: 0.5,
       },
+    },
+    credits: {
+      enabled: false, // Hide Highcharts credits
     },
   };
 
@@ -156,6 +165,9 @@ const BuildingOverview = () => {
         enableMouseTracking: true,
       },
     },
+    credits: {
+      enabled: false, // Hide Highcharts credits
+    },
   };
 
   // Data for Daily Demand (kVA) chart
@@ -187,6 +199,9 @@ const BuildingOverview = () => {
     ],
     tooltip: {
       pointFormat: '{series.name}: <b>{point.y} kVA</b>',
+    },
+    credits: {
+      enabled: false, // Hide Highcharts credits
     },
   };
 
@@ -225,6 +240,9 @@ const BuildingOverview = () => {
     tooltip: {
       shared: true,
       pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.y} kWh</b><br/>',
+    },
+    credits: {
+      enabled: false, // Hide Highcharts credits
     },
   };
 
