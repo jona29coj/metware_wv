@@ -79,18 +79,11 @@ const Sidebar = () => {
         <>
           <div className="flex justify-center items-center bg-[#F0FFF0] p-3 mb-4">
             <Link to="/dashboard" className="flex items-center gap-3">
-              <img src={logo} alt="logo" className={`h-28.5 w-28.5 object-contain ${isCollapsed ? 'mx-auto' : ''}`} />
+              <img src={logo} alt="logo" className={`h-28.5 w-25 object-contain ${isCollapsed ? 'mx-auto' : 'mx-auto w-23'}`} />
             </Link>
           </div>
 
-          {!isCollapsed && (
-            <div className="bg-white shadow-md rounded-lg p-4 mb-4 mx-3">
-              <h3 className="text-lg font-semibold">Savings Overview</h3>
-              <p className="text-sm text-gray-600">Energy Savings: <span className="font-bold">100 kWh</span></p>
-              <p className="text-sm text-gray-600">Cost Savings: <span className="font-bold">$20</span></p>
-            </div>
-          )}
-
+        
           <TooltipComponent content="Menu" position="BottomCenter">
             <button
               type="button"
@@ -102,7 +95,7 @@ const Sidebar = () => {
             </button>
           </TooltipComponent>
 
-          <div className="mt-10">
+          <div className="mt-10 mx-auto">
             <NavLink
               to="/dashboard"
               className={({ isActive }) => (isActive ? activeLink : normalLink)}

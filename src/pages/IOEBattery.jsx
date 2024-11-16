@@ -1,7 +1,7 @@
 import { useState } from "react";
-import OverviewCard from "../pagesc/OverviewIOE";
-import InstantaneousControl from "../pagesc/InstantaneousIOE";
-import BatteryLogs from "../pagesc/BatteryLogs";
+import OverviewCard from "./OverviewIOE";
+import InstantaneousControl from "./InstantaneousIOE";
+import BatteryLogs from "./BatteryLogs";
 
 
 const IOEBatteryControl = () => {

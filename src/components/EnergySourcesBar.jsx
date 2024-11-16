@@ -1,127 +1,125 @@
 import React, { useEffect } from 'react';
 import Highcharts from 'highcharts';
-import Highcharts3D from 'highcharts/highcharts-3d';
 
-Highcharts3D(Highcharts); // Initialize 3D support
+const DailyEnergySourcesStackedAreaChart = () => {
+  // Hardcoded data for January
+  const januaryData = [
+    310, 295, 330, 305, 340, 370, 330, 320, 360, 375, 385, 390, 300, 310, 330, 305, 340, 360, 320, 310, 340, 355, 360, 375, 380, 390, 370, 360, 355, 365, 375
+  ];
 
-const EnergySourcesBarChart = ({ data }) => {
+  // Update the chart when component is mounted
   useEffect(() => {
-    Highcharts.chart('energy-sources-chart', {
+    Highcharts.chart('daily-energy-sources-chart', {
       chart: {
-        type: 'column',
-        options3d: {
-          enabled: true,
-          alpha: 15,
-          beta: 15,
-          depth: 400,
-          viewDistance: 20,
-          frame: {
-            bottom: { size: 0 }, // Remove bottom frame
-            back: { size: 0 },   // Remove back frame
-            left: { size: 0 },   // Remove left frame
-            right: { size: 0 },  // Remove right frame
-            top: { size: 0 },    // Remove top frame
-            front: { size: 0 },  // Remove front frame
-          },
+        type: 'area',
+        backgroundColor: '#ffffff',
+        style: {
+          fontFamily: 'Arial, sans-serif',
         },
-        backgroundColor: 'transparent',
-        margin: [50, 50, 50, 50],
       },
-      title: {
-        text: '',
-      },
+      title: null, // Remove chart title
       xAxis: {
-        categories: ['Energy Sources'],
-        visible: false,
+        categories: Array.from({ length: 31 }, (_, i) => `Day ${i + 1}`), // Days of the month
+        tickmarkPlacement: 'on',
+        labels: {
+          enabled: false, // Disable labels on the x-axis
+        },
       },
       yAxis: {
-        title: { text: null },
-        visible: false,
-        plotBands: [
-          {
-            from: 0,
-            to: 10, // Adjust based on your segment heights
-            color: 'rgba(200, 200, 200, 0.15)', // Light band color
-          },
-          {
-            from: 10,
-            to: 20,
-            color: 'rgba(200, 200, 200, 0.05)', // Alternate lighter band
-          },
-          {
-            from: 20,
-            to: 30,
-            color: 'rgba(200, 200, 200, 0.15)',
-          },
-          // Continue for each "floor" layer
-        ],
+        title: null, // Remove Y-axis title
+        labels: {
+          enabled: false, // Disable labels on the y-axis
+        },
+        gridLineWidth: 0, // Remove horizontal grid lines
       },
-      series: [{
-        name: 'Grid',
-        data: [30],
-        color: {
-          linearGradient: { x1: 0, y1: 0, x2: 1, y2: 1 },
-          stops: [
-            [0, '#007bff'],
-            [1, '#85d0f7'],
-          ],
-        },
-      }, {
-        name: 'Diesel',
-        data: [10],
-        color: {
-          linearGradient: { x1: 0, y1: 0, x2: 1, y2: 1 },
-          stops: [
-            [0, '#dc3545'],
-            [1, '#f799a3'],
-          ],
-        },
-      }, {
-        name: 'Wheeled in Solar',
-        data: [40],
-        color: {
-          linearGradient: { x1: 0, y1: 0, x2: 1, y2: 1 },
-          stops: [
-            [0, '#28a745'],
-            [1, '#a9e2b9'],
-          ],
-        },
-      }, {
-        name: 'Rooftop',
-        data: [20],
-        color: {
-          linearGradient: { x1: 0, y1: 0, x2: 1, y2: 1 },
-          stops: [
-            [0, '#ffc107'],
-            [1, '#ffe291'],
-          ],
-        },
-      }],
+      tooltip: {
+        shared: true,
+        backgroundColor: '#333333',
+        style: { color: '#ffffff' },
+        valueSuffix: ' kWh', // Add suffix in tooltip for clarity
+      },
       plotOptions: {
-        column: {
+        area: {
           stacking: 'normal',
-          depth: 250,
-          borderWidth: 1,
-          borderColor: '#cccccc',
-          shadow: true,
-          dataLabels: {
-            enabled: false, // Disable data labels
+          lineColor: '#ffffff',
+          lineWidth: 1,
+          marker: {
+            enabled: false, // Disable markers
+          },
+          states: {
+            hover: {
+              lineWidthPlus: 0,
+            },
           },
         },
       },
+      series: [
+        {
+          name: 'Grid',
+          data: januaryData,
+          color: {
+            linearGradient: { x1: 0, y1: 0, x2: 1, y2: 1 },
+            stops: [
+              [0, '#4a90e2'], // Brighter blue
+              [1, '#a8c9f0'], // Lighter blue
+            ],
+          },
+        },
+        {
+          name: 'Wheeled in Solar',
+          data: januaryData.map(d => d * 0.7), // Example modification for different energy source
+          color: {
+            linearGradient: { x1: 0, y1: 0, x2: 1, y2: 1 },
+            stops: [
+              [0, '#7ed321'], // Brighter green
+              [1, '#b7e67f'], // Lighter green
+            ],
+          },
+        },
+        {
+          name: 'Rooftop',
+          data: januaryData.map(d => d * 0.5), // Example modification for different energy source
+          color: {
+            linearGradient: { x1: 0, y1: 0, x2: 1, y2: 1 },
+            stops: [
+              [0, '#f5a623'], // Brighter orange
+              [1, '#f7cc8f'], // Lighter orange
+            ],
+          },
+        },
+        {
+          name: 'Diesel',
+          data: januaryData.map(d => d * 0.3), // Example modification for different energy source
+          color: {
+            linearGradient: { x1: 0, y1: 0, x2: 1, y2: 1 },
+            stops: [
+              [0, '#d0021b'], // Brighter red
+              [1, '#f18b8e'], // Lighter red
+            ],
+          },
+        },
+      ],
       legend: {
-        layout: 'vertical',
-        align: 'right',
-        verticalAlign: 'middle',
-        floating: true,
+        layout: 'horizontal',
+        align: 'center',
+        verticalAlign: 'bottom',
+        itemStyle: {
+          color: '#333333',
+          fontSize: '14px',
+        },
       },
       credits: {
-        enabled: false,
+        enabled: false, // Disable Highcharts credits
       },
     });
-  }, [data]);
+  }, []); // Empty dependency array to only run once when the component is mounted
 
-  return <div id="energy-sources-chart" style={{ height: '400px', width: '100%' }} />;
+  return (
+    <div>
+      {/* Chart */}
+      <div id="daily-energy-sources-chart" style={{ height: '400px', width: '100%' }} />
+    </div>
+  );
 };
 
-export default EnergySourcesBarChart;
+export default DailyEnergySourcesStackedAreaChart;

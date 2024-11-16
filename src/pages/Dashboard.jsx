@@ -1,121 +1,18 @@
 import React from 'react';
-import { useState } from 'react';
 import '../App.css';
 import 'react-datepicker/dist/react-datepicker.css';
 import Batteries from './Batteries';
 import WaterStorage from './WaterStorage';
-import Chiller from './Chiller';
 import '../pages/enerndbuist.css';
-import bgpic from '../pages/Picture1.png';
-import EnergySourcesBarChart from '../components/EnergySourcesBar';
-import ConsumptionPieChart from '../components/ConsumptionPie';
 import EVChargerOverview from './evchargers';
-import TypingEffect from './TypingEffect';
+import FacilityInformation from './FacilityInformation';
+import DailyEnergySourcesStackedAreaChart from '../components/EnergySourcesBar';
+import BuildingConsumptionChart from '../components/ConsumptionPie';
+import ChillerCard from './ChillerCard';
 
 const Dashboard = () => {
-
   return (
-<div className="min-h-screen flex flex-col bg-gray-100">
-  {/* Container with Common Background */}
-  <div className="bg-white shadow-lg rounded-lg p-8 mx-5 mt-5 space-y-10">
-    
-    {/* Enhanced Header with Typing Slogan Effect */}
-    <div className="flex flex-col items-center justify-center p-6 rounded-lg shadow-md border border-gray-300 bg-green-500">
-      <h1 className="text-3xl font-extrabold text-white">
-        <TypingEffect />
-      </h1>
-    </div>
-
-    {/* Mini Cards Section with Enhanced Styling */}
-    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-      
-      {/* Card 1: Facility Information */}
-      <div className="bg-gradient-to-r from-green-50 to-green-100 rounded-lg p-6 shadow-md border border-green-200 flex flex-col">
-        <h4 className="text-lg font-bold text-green-700 mb-2">
-          <i className="fas fa-building mr-2 text-blue-500"></i> Facility Information
-        </h4>
-        <div className="text-sm text-gray-700 space-y-1">
-          <p className="font-semibold">IIT Madras Research Park</p>
-          <p>BUA: 12 lakhs sq.ft.</p>
-          <p>Location: Chennai, India</p>
-          <p>Climate: Hot & Humid</p>
-        </div>
-      </div>
-
-      {/* Card 2: Elements Score */}
-      <div className="bg-gradient-to-r from-blue-50 to-blue-100 rounded-lg p-6 shadow-md border border-blue-200 flex flex-col">
-        <h4 className="text-lg font-bold text-blue-700 mb-2">
-          <i className="fas fa-tachometer-alt mr-2 text-blue-600"></i> Elements Score
-        </h4>
-        <div className="mt-4 mb-2">
-          <p className="text-sm font-bold text-gray-700">Building Score: 760</p>
-          <div className="w-full bg-gray-300 rounded-full h-2 my-1">
-            <div className="bg-blue-500 h-full rounded-full" style={{ width: '76%' }}></div>
-          </div>
-          <p className="text-xs text-gray-600">Efficiency & sustainability level.</p>
-        </div>
-        {/* CONNECT Button */}
-        <button className="mt-4 bg-blue-600 text-white rounded-md px-4 py-2 hover:bg-blue-700 transition-colors duration-200">
-          CONNECT
-        </button>
-      </div>
-
-      {/* Card 3: Savings */}
-      <div className="bg-gradient-to-r from-yellow-50 to-yellow-100 rounded-lg p-6 shadow-md border border-yellow-200 flex flex-col">
-        <h4 className="text-lg font-bold text-yellow-700 mb-2 flex items-center">
-          <i className="fas fa-coins mr-2 text-yellow-600"></i> Savings
-        </h4>
-        {/* Content Section */}
-        <div className="text-gray-700 space-y-1">
-          <div className="flex items-center">
-            <i className="fas fa-bolt text-green-600 mr-2"></i>
-            <p className='text-nowrap'>Energy Savings: 1.4K kWh</p>
-          </div>
-          <div className="flex items-center">
-            <i className="fas fa-dollar-sign text-blue-600 mr-2"></i>
-            <p>Cost Savings: $2K</p>
-          </div>
-          <div className="flex items-center">
-            <i className="fas fa-leaf text-green-500 mr-2"></i>
-            <p>Carbon Offset: 1.2 tons</p>
-          </div>
-        </div>
-
-        {/* Centered Circular Indicator with Right-aligned Text */}
-        <div className="flex items-center justify-center mt-2">
-          <div className="relative w-12 h-12">
-            <div className="w-full h-full rounded-full border-4 border-gray-300 flex items-center justify-center font-bold text-yellow-600 bg-white">
-              <div className="absolute inset-0 rounded-full border-t-4 border-yellow-500" style={{ transform: 'rotate(180deg)' }}></div>
-              50%
-            </div>
-          </div>
-          <p className="text-xs font-semibold text-gray-600 ml-2">Savings Achieved</p>
-        </div>
-      </div>
-
-      {/* Card 4: Renewable Usage */}
-      <div className="bg-gradient-to-r from-green-50 to-green-100 rounded-lg p-6 shadow-md border border-green-200 flex flex-col">
-        <h4 className="text-lg font-bold text-green-700 mb-2">
-          <i className="fas fa-solar-panel mr-2 text-green-600"></i> Renewable Usage
-        </h4>
-        <div className="flex items-center text-gray-700 space-x-4">
-          <p className="font-semibold">Solar: 60%</p>
-          <p className="font-semibold">Wind: 40%</p>
-        </div>
-        <div className="w-full bg-gray-300 rounded-full h-2 my-2">
-          <div className="bg-green-500 h-full rounded-full" style={{ width: '60%' }}></div>
-        </div>
-        <p className="text-xs text-gray-600">Breakdown of renewable sources.</p>
-      </div>
-    </div>
-  </div>
-
-
-
-
-
-
-  <div className="bg-gray-100 p-5 space-y-6">
+<div className="bg-gray-100 p-5 space-y-6">
   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
     
 {/* Energy Sources Card */}
@@ -206,9 +103,10 @@ const Dashboard = () => {
     <p className="font-bold">150 kg CO2</p>
   </div>
 </div>
-</div>
 
-<Chiller/>
+
+<ChillerCard />
+<FacilityInformation/>
 <EVChargerOverview/>
 <WaterStorage />
 <Batteries />
@@ -219,3 +117,66 @@ const Dashboard = () => {
 };
 
 export default Dashboard;
+
+{/*
+<div className="bg-white dark:bg-secondary-dark-bg rounded-lg p-4 border border-gray-300 dark:border-gray-600 mb-6">
+        <h4 className="text-lg font-semibold text-gray-800 dark:text-gray-200 mb-4">Energy Breakdown</h4>
+        <div className="space-y-4">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center">
+              <i className="fas fa-plug mr-2 text-blue-600"></i>
+              <span className="font-bold text-gray-800 dark:text-gray-200">Grid</span>
+            </div>
+            <span className="text-gray-800 dark:text-gray-200">30%</span>
+          </div>
+          <div className="flex items-center justify-between">
+            <div className="flex items-center">
+              <i className="fas fa-sun mr-2 text-yellow-600"></i>
+              <span className="font-bold text-gray-800 dark:text-gray-200">Wheeled in Solar</span>
+            </div>
+            <span className="text-gray-800 dark:text-gray-200">40%</span>
+          </div>
+          <div className="flex items-center justify-between">
+            <div className="flex items-center">
+              <i className="fas fa-leaf mr-2 text-green-600"></i>
+              <span className="font-bold text-gray-800 dark:text-gray-200">On-Site Solar</span>
+            </div>
+            <span className="text-gray-800 dark:text-gray-200">30%</span>
+          </div>
+        </div>
+</div>
+
+ {/* Building Consumption Summary 
+ <div className="bg-white dark:bg-secondary-dark-bg rounded-lg p-4 border border-gray-300 dark:border-gray-600 mb-6">
+  <h4 className="text-lg font-semibold text-gray-800 dark:text-gray-200 mb-4">Consumption Metrics</h4>
+  <div className="space-y-4">
+    <div className="flex items-center justify-between">
+      <div className="flex items-center">
+        <i className="fas fa-bolt mr-2 text-indigo-600"></i>
+        <span className="font-bold text-gray-800 dark:text-gray-200">Total Energy Consumed</span>
+      </div>
+      <span className="text-gray-800 dark:text-gray-200">12,500 kWh</span>
+    </div>
+    <div className="flex items-center justify-between">
+      <div className="flex items-center">
+        <i className="fas fa-sun mr-2 text-orange-600"></i>
+        <span className="font-bold text-gray-800 dark:text-gray-200">Peak Consumption Time</span>
+      </div>
+      <span className="text-gray-800 dark:text-gray-200">3:00 PM - 4:00 PM</span>
+    </div>
+    <div className="flex items-center justify-between">
+      <div className="flex items-center">
+        <i className="fas fa-chart-line mr-2 text-teal-600"></i>
+        <span className="font-bold text-gray-800 dark:text-gray-200">Average Daily Load</span>
+      </div>
+      <span className="text-gray-800 dark:text-gray-200">9,000 kWh</span>
+    </div>
+    <div className="flex items-center justify-between">
+      <div className="flex items-center">
+        <i className="fas fa-leaf mr-2 text-green-600"></i>
+        <span className="font-bold text-gray-800 dark:text-gray-200">Renewable Energy Contribution</span>
+      </div>
+      <span className="text-gray-800 dark:text-gray-200">15%</span>
+    </div>
+  </div>
+</div>*/}

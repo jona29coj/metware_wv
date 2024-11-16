@@ -39,7 +39,7 @@ const Batteries = () => {
           </div>
 
         {/* LTO Partition */}
-        <div className="partition p-6 bg-gray-200 dark:bg-gray-700 rounded-lg shadow-md flex flex-col">
+        <div className="partition p-6 bg-gray-100 dark:bg-gray-700 rounded-lg shadow-md flex flex-col">
           <h5 className="font-semibold text-gray-800 dark:text-gray-200 mb-4">LTO</h5>
           <div className="flex justify-between items-center">
             <div className="lto-box">
@@ -66,11 +66,11 @@ const Batteries = () => {
         <div className="partition p-6 bg-gray-100 dark:bg-gray-800 rounded-lg shadow-md flex flex-col">
           <h5 className="font-semibold text-gray-800 dark:text-gray-200 mb-4">Previous Cycle</h5>
           <div className="grid grid-cols-2 gap-4">
-            <div className="cycle-info bg-gray-200 dark:bg-gray-700 p-4 rounded-lg">
+            <div className="cycle-info bg-gray-100 dark:bg-gray-700 p-4 rounded-lg">
               <h6 className="font-semibold text-gray-800 dark:text-gray-200">Charge Time:</h6>
               <p className="text-gray-600 dark:text-gray-400">2024-10-10 08:00 AM</p>
             </div>
-            <div className="cycle-info bg-gray-200 dark:bg-gray-700 p-4 rounded-lg">
+            <div className="cycle-info bg-gray-100 dark:bg-gray-700 p-4 rounded-lg">
               <h6 className="font-semibold text-gray-800 dark:text-gray-200">Discharge Time:</h6>
               <p className="text-gray-600 dark:text-gray-400">2024-10-10 09:00 AM</p>
             </div>
@@ -83,7 +83,7 @@ const Batteries = () => {
         </div>
 
         {/* UPS Partition */}
-        <div className="partition p-6 bg-gray-300 dark:bg-gray-600 rounded-lg shadow-md flex flex-col">
+        <div className="partition p-6 bg-gray-100 dark:bg-gray-600 rounded-lg shadow-md flex flex-col">
           <h5 className="font-semibold text-gray-800 dark:text-gray-200 mb-4">UPS</h5>
           <div className="flex justify-between items-center">
             <div className="ups-box">
