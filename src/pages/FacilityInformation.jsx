@@ -33,32 +33,6 @@ const FacilityUsageCard = () => {
   return (
     <div className="bg-white shadow-lg rounded-lg p-6 mb-6">
       <div className="flex justify-between items-center mb-4">
-        <h3 className="text-xl font-semibold text-gray-700">Facility Usage</h3>
-
-        {/* Date Input on the Right */}
-        <div className="text-right">
-          <input
-            type="date"
-            value={selectedDate}
-            onChange={handleDateChange}
-            className="bg-white border border-gray-300 rounded px-4 py-2 text-sm"
-          />
-        </div>
-      </div>
-
-      {/* Facility Usage Information */}
-      <div className="mb-6">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
-          {facilityUsageData.map((item) => (
-            <div key={item.label} className="bg-gray-100 p-4 rounded-lg shadow-sm">
-              <h5 className="text-md font-semibold text-gray-800">{item.label}</h5>
-              <p className="text-sm text-gray-600">Energy: {item.energy}</p>
-              <p className="text-sm text-gray-600">Percentage: {item.percentage}</p>
-            </div>
-          ))}
-        </div>
-      </div>
-
       {/* Top Clients */}
       <div>
         <h4 className="text-lg font-semibold text-gray-700">Top Clients</h4>
@@ -71,6 +45,7 @@ const FacilityUsageCard = () => {
           ))}
         </ul>
       </div>
+    </div>
     </div>
   );
 };

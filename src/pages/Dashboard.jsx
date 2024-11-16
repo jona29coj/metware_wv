@@ -6,16 +6,99 @@ import WaterStorage from './WaterStorage';
 import '../pages/enerndbuist.css';
 import EVChargerOverview from './evchargers';
 import FacilityInformation from './FacilityInformation';
-import DailyEnergySourcesStackedAreaChart from '../components/EnergySourcesBar';
-import BuildingConsumptionChart from '../components/ConsumptionPie';
 import ChillerCard from './ChillerCard';
+import EnergySourcesBarChart from '../components/EnergySourcesBar';
+import ConsumptionPieChart from '../components/ConsumptionPie';
 
 const Dashboard = () => {
   return (
-<div className="bg-gray-100 p-5 space-y-6">
+<div className="min-h-screen flex flex-col bg-gray-100">
+  {/* Container with Common Background */}
+  
+{/* Container for Mini Cards */}
+<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 p-5">
+
+  {/* Mini Card 1: Facility Information */}
+  <div className="bg-white rounded-lg shadow-sm p-4">
+    <h4 className="text-base font-semibold text-gray-700 mb-2">
+      <i className="fas fa-building text-gray-500 mr-2"></i> Facility Information
+    </h4>
+    <div className="text-sm text-gray-600 space-y-1 ml-2">
+      <p className="font-medium">IIT Madras Research Park</p>
+      <p>BUA: <span className="font-semibold">12 lakhs sq.ft.</span></p>
+      <p>Location: <span className="font-semibold">Chennai, India</span></p>
+      <p>Climate: <span className="font-semibold">Hot & Humid</span></p>
+    </div>
+  </div>
+
+  {/* Mini Card 2: Elements Score */}
+  <div className="bg-white rounded-lg shadow-sm p-4">
+    <h4 className="text-base font-semibold text-gray-700 mb-2">
+      <i className="fas fa-tachometer-alt text-gray-500 mr-2"></i> Elements Score
+    </h4>
+    <div className="text-sm text-gray-600 space-y-2 ml-2">
+      <p className="font-medium text-gray-900">Building Score: <span className="text-blue-600">760</span></p>
+      <div className="w-full bg-gray-300 rounded-full h-1 my-1">
+        <div className="bg-blue-400 h-full rounded-full" style={{ width: '76%' }}></div>
+      </div>
+      <p className="text-xs text-gray-600">Efficiency & sustainability level.</p>
+    </div>
+    <button className="mt-2 bg-blue-600 text-white rounded-md px-3 py-2 text-sm hover:bg-blue-700 transition-colors duration-200 ml-2">
+      CONNECT
+    </button>
+  </div>
+
+  {/* Mini Card 3: Savings */}
+  <div className="bg-white rounded-lg shadow-sm p-4">
+    <h4 className="text-base font-semibold text-gray-700 mb-2">
+      <i className="fas fa-coins text-gray-500 mr-2"></i> Savings
+    </h4>
+    <div className="text-sm text-gray-600 space-y-2 ml-1">
+      <div className="flex items-center">
+        <i className="fas fa-bolt text-gray-500 mr-1"></i>
+        <p>Energy Savings: <span className="font-semibold">1.4K kWh</span></p>
+      </div>
+      <div className="flex items-center">
+        <i className="fas fa-dollar-sign text-gray-500 mr-1"></i>
+        <p>Cost Savings: <span className="font-semibold">$2K</span></p>
+      </div>
+      <div className="flex items-center">
+        <i className="fas fa-leaf text-gray-500 mr-1"></i>
+        <p>Carbon Offset: <span className="font-semibold">1.2 tons</span></p>
+      </div>
+    </div>
+    <div className="flex items-center justify-center mt-2 text-xs text-gray-600">
+      <div className="relative w-10 h-10">
+        <div className="w-full h-full rounded-full border-2 border-gray-300 flex items-center justify-center text-xs font-medium text-gray-600 bg-white">
+          <div className="absolute inset-0 rounded-full border-t-2 border-blue-500" style={{ transform: 'rotate(180deg)' }}></div>
+          50%
+        </div>
+      </div>
+      <p className="text-xs text-gray-600 ml-2">Savings Achieved</p>
+    </div>
+  </div>
+
+  {/* Last Mini Card: Peak Consumption Data */}
+  <div className="flex-1 p-4 bg-white rounded-lg">
+    <h4 className="text-base font-semibold text-gray-700 mb-2">
+      <i className="fas fa-bolt text-gray-500 mr-2"></i> Peak Consumption
+    </h4>
+    <ul className="text-sm text-gray-600 space-y-1 ml-1">
+      <li><i className="fas fa-clock text-gray-500 mr-1"></i> Peak Load Time: <span className="font-semibold">5:00 PM</span></li>
+      <li><i className="fas fa-tachometer-alt text-gray-500 mr-1"></i> Peak Demand: <span className="font-semibold">500 kW</span></li>
+      <li><i className="fas fa-calendar-day text-gray-500 mr-1"></i> Daily Peak Consumption: <span className="font-semibold">8,400 kWh</span></li>
+      <li><i className="fas fa-calendar-week text-gray-500 mr-1"></i> Weekly Peak Consumption: <span className="font-semibold">58,800 kWh</span></li>
+    </ul>
+  </div>
+
+</div>
+
+
+{/* Move the Energy Sources and Building Consumption Cards Up */}
+<div className="bg-gray-100 p-5 space-y-6 mt-[-30px]"> {/* Reduce margin-top to pull cards up */}
   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
     
-{/* Energy Sources Card */}
+    {/* Energy Sources Card */}
 <div className="bg-white dark:bg-secondary-dark-bg rounded-xl shadow-lg p-6 flex flex-col relative">
   <div className="flex justify-between items-center mb-4" style={{ zIndex: 1 }}>
     <h3 className="text-lg font-bold text-gray-800 dark:text-gray-200">Energy Sources</h3>
@@ -103,7 +186,7 @@ const Dashboard = () => {
     <p className="font-bold">150 kg CO2</p>
   </div>
 </div>
-
+</div>
 
 <ChillerCard />
 <FacilityInformation/>

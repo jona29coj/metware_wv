@@ -2,28 +2,41 @@ import React from "react";
 import "./ChillerCard.css";
 
 const Chiller = ({ title, cop, loadingPercentage }) => {
-    const liquidHeight = 120 * (loadingPercentage / 100);
-    const liquidY = 190 - liquidHeight;
-  
-    return (
-      <div className="chiller-card">
-        <h4 className="chiller-title">{title}</h4>
-        <svg xmlns="http://www.w3.org/2000/svg" width="400" height="300" viewBox="0 0 400 300">
-          <rect x="50" y="50" width="300" height="160" rx="20" ry="20" fill="#D3D3D3" stroke="black" strokeWidth="2" />
-          <rect x="70" y="70" width="260" height="120" rx="10" ry="10" fill="white" stroke="black" strokeWidth="2" />
-          <rect x="70" y={liquidY} width="260" height={liquidHeight} fill="#2E6A8E" />
-          <rect x="160" y="20" width="80" height="30" rx="5" ry="5" fill="#A9A9A9" stroke="black" strokeWidth="2" />
-          <rect x="75" y="210" width="20" height="40" fill="#B0B0B0" stroke="black" strokeWidth="2" />
-          <ellipse cx="85" cy="265" rx="12" ry="8" fill="#D3D3D3" stroke="black" strokeWidth="2" />
-          <rect x="100" y="255" width="200" height="10" fill="#D3D3D3" stroke="black" strokeWidth="2" />
-          <rect x="305" y="210" width="20" height="40" fill="#B0B0B0" stroke="black" strokeWidth="2" />
-        </svg>
-        <div className="chiller-cop">
-          <span>COP:</span> {cop}
-        </div>
+  const liquidHeight = 120 * (loadingPercentage / 100);
+  const liquidY = 190 - liquidHeight;
+
+  return (
+    <div className="chiller-card">
+      <h4 className="chiller-title">{title}</h4>
+      <svg xmlns="http://www.w3.org/2000/svg" width="400" height="300" viewBox="0 0 400 300">
+        {/* Main Chiller Body */}
+        <rect x="50" y="50" width="300" height="160" rx="20" ry="20" fill="#D3D3D3" stroke="black" strokeWidth="2" />
+        <rect x="70" y="70" width="260" height="120" rx="10" ry="10" fill="white" stroke="black" strokeWidth="2" />
+        <rect x="70" y={liquidY} width="260" height={liquidHeight} fill="#2E6A8E" />
+
+        {/* Top Section */}
+        <rect x="130" y="20" width="140" height="30" rx="5" ry="5" fill="#D3D3D3" stroke="black" strokeWidth="2" />
+        <rect x="140" y="10" width="120" height="40" rx="5" ry="5" fill="#A9A9A9" stroke="black" strokeWidth="2" />
+
+        {/* Bottom Section */}
+        <rect x="80" y="210" width="20" height="40" fill="#B0B0B0" stroke="black" strokeWidth="2" />
+        <rect x="300" y="210" width="20" height="40" fill="#B0B0B0" stroke="black" strokeWidth="2" />
+        <ellipse cx="90" cy="265" rx="12" ry="8" fill="#D3D3D3" stroke="black" strokeWidth="2" />
+        <ellipse cx="310" cy="265" rx="12" ry="8" fill="#D3D3D3" stroke="black" strokeWidth="2" />
+        <rect x="90" y="255" width="220" height="10" rx="5" fill="#D3D3D3" stroke="black" strokeWidth="2" />
+
+        {/* Bottom Pipes */}
+        <rect x="110" y="260" width="40" height="5" fill="#B0B0B0" stroke="black" strokeWidth="2" />
+        <rect x="250" y="260" width="40" height="5" fill="#B0B0B0" stroke="black" strokeWidth="2" />
+      </svg>
+      <div className="chiller-cop">
+        <span>COP:</span> {cop}
       </div>
-    );
-  };  
+    </div>
+  );
+};
+
+  
 
 const ChillersCard = () => {
   const phase1Chillers = [
