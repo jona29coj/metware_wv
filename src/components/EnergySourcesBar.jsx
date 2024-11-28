@@ -11,109 +11,68 @@ const EnergySourcesBarChart = ({ data }) => {
         type: 'column',
         options3d: {
           enabled: true,
-          alpha: 15,
+          alpha: 10,
           beta: 15,
-          depth: 400,
-          viewDistance: 20,
+          depth: 100,
+          viewDistance: 25,
           frame: {
-            bottom: { size: 0 }, // Remove bottom frame
-            back: { size: 0 },   // Remove back frame
-            left: { size: 0 },   // Remove left frame
-            right: { size: 0 },  // Remove right frame
-            top: { size: 0 },    // Remove top frame
-            front: { size: 0 },  // Remove front frame
+            bottom: { size: 0 },
+            back: { size: 0 },
+            left: { size: 0 },
+            right: { size: 0 },
+            top: { size: 0 },
+            front: { size: 0 },
           },
         },
         backgroundColor: 'transparent',
         margin: [50, 50, 50, 50],
       },
       title: {
-        text: '',
+        text: null,
       },
       xAxis: {
         categories: ['Energy Sources'],
         visible: false,
       },
       yAxis: {
-        title: { text: null },
         visible: false,
-        plotBands: [
-          {
-            from: 0,
-            to: 10, // Adjust based on your segment heights
-            color: 'rgba(200, 200, 200, 0.15)', // Light band color
-          },
-          {
-            from: 10,
-            to: 20,
-            color: 'rgba(200, 200, 200, 0.05)', // Alternate lighter band
-          },
-          {
-            from: 20,
-            to: 30,
-            color: 'rgba(200, 200, 200, 0.15)',
-          },
-          // Continue for each "floor" layer
-        ],
       },
-      series: [{
-        name: 'Grid',
-        data: [30],
-        color: {
-          linearGradient: { x1: 0, y1: 0, x2: 1, y2: 1 },
-          stops: [
-            [0, '#007bff'],
-            [1, '#85d0f7'],
-          ],
+      tooltip: {
+        pointFormat: '<b>{series.name}</b>: <b>{point.percentage:,.0f}%</b> ({point.y} kWh)',
+      },
+      series: [
+        {
+          name: 'Grid',
+          data: [30],
+          color: '#3F51B5', // Green color for Grid
         },
-      }, {
-        name: 'Diesel',
-        data: [10],
-        color: {
-          linearGradient: { x1: 0, y1: 0, x2: 1, y2: 1 },
-          stops: [
-            [0, '#dc3545'],
-            [1, '#f799a3'],
-          ],
+        {
+          name: 'Wheeled in Solar',
+          data: [40],
+          color: '#4CAF50', // Blue color for Wheeled in Solar
         },
-      }, {
-        name: 'Wheeled in Solar',
-        data: [40],
-        color: {
-          linearGradient: { x1: 0, y1: 0, x2: 1, y2: 1 },
-          stops: [
-            [0, '#28a745'],
-            [1, '#a9e2b9'],
-          ],
+        {
+          name: 'Rooftop',
+          data: [20],
+          color: '#FFC107', // Yellow color for Rooftop
         },
-      }, {
-        name: 'Rooftop',
-        data: [20],
-        color: {
-          linearGradient: { x1: 0, y1: 0, x2: 1, y2: 1 },
-          stops: [
-            [0, '#ffc107'],
-            [1, '#ffe291'],
-          ],
+        {
+          name: 'Diesel',
+          data: [10],
+          color: '#FF5722', // Orange color for Diesel
         },
-      }],
+      ],
       plotOptions: {
         column: {
           stacking: 'normal',
-          depth: 250,
-          borderWidth: 1,
-          borderColor: '#cccccc',
+          depth: 120,
+          borderWidth: 0,
+          borderColor: '#444444',
           shadow: true,
-          dataLabels: {
-            enabled: false, // Disable data labels
-          },
         },
       },
       legend: {
-        layout: 'vertical',
-        align: 'right',
-        verticalAlign: 'middle',
-        floating: true,
+        enabled: false, // Disable the legend
       },
       credits: {
         enabled: false,

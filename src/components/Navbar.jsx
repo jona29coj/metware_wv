@@ -1,88 +1,93 @@
-import React, { useEffect } from 'react';
-import { AiOutlineMenu } from 'react-icons/ai';
-import { FiShoppingCart } from 'react-icons/fi';
-import { BsChatLeft } from 'react-icons/bs';
-import { RiNotification3Line } from 'react-icons/ri';
-import { MdKeyboardArrowDown } from 'react-icons/md';
-import { TooltipComponent } from '@syncfusion/ej2-react-popups';
-
-import avatar from '../data/avatar.jpg';
-import { Notification, UserProfile } from '.';
-import { useStateContext } from '../contexts/ContextProvider';
-
-const NavButton = ({ title, customFunc, icon, color, dotColor }) => (
-  <TooltipComponent content={title} position="BottomCenter">
-    <button
-      type="button"
-      onClick={() => customFunc()}
-      style={{ color }}
-      className="relative text-xl p-3 focus:outline-none hover:bg-transparent bg-transparent"
-    >
-      <span
-        style={{ background: dotColor }}
-        className="absolute inline-flex rounded-full h-2 w-2 right-2 top-2"
-      />
-      {icon}
-    </button>
-  </TooltipComponent>
-);
-
+import React, { useState, useEffect } from 'react';
+import { FaBell, FaSearch, FaAngleUp, FaAngleDown } from 'react-icons/fa';
 
 const Navbar = () => {
-  const { currentColor, screenSize, setScreenSize, handleClick, isClicked, toggleSidebar } = useStateContext();
+  const [isNavbarVisible, setIsNavbarVisible] = useState(true);
+  const [isScrolled, setIsScrolled] = useState(false);
 
+  // Toggle the visibility of the navbar
+  const toggleNavbar = () => {
+    setIsNavbarVisible((prev) => !prev);
+  };
+
+  // Detect scrolling
+  const handleScroll = () => {
+    if (window.scrollY > 100) {
+      setIsScrolled(true); // User has scrolled down
+      setIsNavbarVisible(false); // Hide navbar on scroll down
+    } else {
+      setIsScrolled(false); // User is at the top of the page
+      setIsNavbarVisible(true); // Show navbar when at the top
+    }
+  };
+
+  // Set up the scroll event listener
   useEffect(() => {
-    const handleResize = () => setScreenSize(window.innerWidth);
+    window.addEventListener('scroll', handleScroll);
 
-    window.addEventListener('resize', handleResize);
-    handleResize();
-
-    return () => window.removeEventListener('resize', handleResize);
-  }, [setScreenSize]);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
 
   return (
-    <div className="flex justify-between p-2 md:ml-6 md:mr-6 relative mb-[-1]">
-      <div className="flex items-center">
-        {/* Menu button now collapses/expands the sidebar */}
-        <NavButton
-          title="Menu"
-          customFunc={toggleSidebar}  // Call the toggleSidebar function
-          color={currentColor}
-          icon={<AiOutlineMenu />}
-        />
-        
-        {/* Search Bar */}
-        <div className="relative flex items-center w-full max-w-xs mx-4">
-          <input
-            type="text"
-            placeholder="Search..."
-            className="border rounded-full py-2 px-4 pl-10 focus:outline-none focus:ring-2 focus:ring-blue-500"
-          />
-          <div className="absolute left-3 text-gray-400">
-            🔍 {/* Replace with your search icon */}
+    <div>
+      {/* Navbar */}
+      <div
+        className={`transition-all duration-300 fixed top-0 left-0 right-0 z-50 bg-white shadow-md ${
+          isNavbarVisible ? 'py-3' : 'py-0 opacity-0 pointer-events-none'
+        } ml-56 ${isScrolled ? 'shadow-lg' : ''}`}
+      >
+        <div className="flex items-center justify-between px-6">
+          {/* Search Bar with Search Button inside */}
+          <div className="relative flex items-center">
+            <input
+              type="text"
+              placeholder="Search..."
+              className="px-4 py-2 w-56 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 pr-10"
+            />
+            {/* Search Button inside the input field */}
+            <button
+              className="absolute right-2 text-gray-500 hover:text-blue-500 focus:outline-none"
+              aria-label="Search"
+            >
+              <FaSearch className="text-xl" />
+            </button>
+          </div>
+
+          {/* Notification Bell */}
+          <div className="flex items-center space-x-4">
+            <FaBell className="text-gray-600 text-xl cursor-pointer hover:text-blue-500" />
+
+            {/* Enhanced User Profile */}
+            <div className="flex items-center space-x-3 cursor-pointer">
+              {/* Placeholder Avatar */}
+              <img
+                src="https://via.placeholder.com/40"
+                alt="User Avatar"
+                className="w-10 h-10 rounded-full border border-gray-300"
+              />
+              <div className="flex flex-col text-left">
+                <p className="text-sm font-semibold text-gray-800">John Doe</p>
+                <p className="text-xs text-gray-500">Admin</p>
+              </div>
+            </div>
           </div>
         </div>
       </div>
 
-      <div className="flex">
-        <NavButton title="Notification" dotColor="rgb(254, 201, 15)" customFunc={() => handleClick('notification')} color={currentColor} icon={<RiNotification3Line />} />
-        
-        <TooltipComponent content="Profile" position="BottomCenter">
-          <div
-            className="flex items-center gap-2 cursor-pointer p-1 hover:bg-light-gray rounded-lg"
-            onClick={() => handleClick('userProfile')}
-          >
-            <img className="rounded-full w-8 h-8" src={avatar} alt="user-profile" />
-            <p>
-              <span className="text-gray-400 text-14">Hi,</span>{' '}
-              <span className="text-gray-400 font-bold ml-1 text-14">Michael</span>
-            </p>
-            <MdKeyboardArrowDown className="text-gray-400 text-14" />
-          </div>
-        </TooltipComponent>
-
-        {isClicked.notification && <Notification />}
-        {isClicked.userProfile && <UserProfile />}
+      {/* Toggle Button (Arrow) Positioned Further to the Top */}
+      <div
+        className={`fixed transition-all duration-300 ${
+          isNavbarVisible ? 'top-16' : 'top-0'
+        } right-6 transform cursor-pointer ${isScrolled ? 'opacity-100' : 'opacity-0'}`}
+        onClick={toggleNavbar}
+      >
+        {isNavbarVisible ? (
+          <FaAngleUp className="text-gray-600 text-2xl hover:text-blue-500" />
+        ) : (
+          <FaAngleDown className="text-gray-600 text-2xl hover:text-blue-500" />
+        )}
       </div>
     </div>
   );

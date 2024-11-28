@@ -1,9 +1,7 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { TooltipComponent } from '@syncfusion/ej2-react-popups';
-import { Navbar, Sidebar, ThemeSettings } from './components';
+import { Sidebar, Navbar } from './components'; // Import Navbar here
 import './App.css';
-import { useStateContext } from './contexts/ContextProvider';
 import MultiMeterGauge from './pages/MultiMeterGauge';
 import IoTFleetStatus from './pages/IOTFleet';
 import ThreeDChiller from './pages/ThreeDChiller';
@@ -25,47 +23,26 @@ import Reports from './pages/Reports';
 import Dashboard from './pages/Dashboard';
 import Documentation from './pages/Documentation';
 
-
 const App = () => {
-  const { setCurrentColor, setCurrentMode, currentMode, activeMenu, currentColor, themeSettings, setThemeSettings, isCollapsed } = useStateContext();
-
-  useEffect(() => {
-    const currentThemeColor = localStorage.getItem('colorMode');
-    const currentThemeMode = localStorage.getItem('themeMode');
-    if (currentThemeColor && currentThemeMode) {
-      setCurrentColor(currentThemeColor);
-      setCurrentMode(currentThemeMode);
-    }
-  }, []);
-
-  
-
   return (
-    <div className={currentMode === 'Dark' ? 'dark' : ''}>
+    <div className="bg-main-bg min-h-screen">
       <BrowserRouter>
-        <div className="flex relative dark:bg-main-dark-bg">
-          {activeMenu ? (
-            <div className={`fixed sidebar dark:bg-secondary-dark-bg bg-white transition-all duration-300 ${isCollapsed ? 'w-20' : 'w-72'}`}>
-              <Sidebar />
-            </div>
-          ) : (
-            <div className="w-0 dark:bg-secondary-dark-bg">
-              <Sidebar />
-            </div>
-          )}
-          <div className={`dark:bg-main-dark-bg bg-main-bg min-h-screen transition-all duration-300 ${activeMenu ? (isCollapsed ? 'md:ml-20' : 'md:ml-72') : 'ml-0'} w-full`}>
-            <div className="fixed md:static bg-main-bg dark:bg-main-dark-bg navbar w-full top-0 z-10"> {/* Added z-10 to ensure navbar is on top */}
-              <Navbar />
-            </div>
-            <div className="mt-1"> {/* Added margin top to ensure main content is below the navbar */}
-              {themeSettings && (<ThemeSettings />)}
+        <div className="flex relative">
+          {/* Fixed Sidebar */}
+          <div className="w-56 fixed sidebar bg-white shadow-md">
+        <Sidebar />
+      </div>
 
+          {/* Main Content */}
+          <div className="bg-main-bg min-h-screen ml-56 w-full">
+            {/* Navbar */}
+            <Navbar />
+
+            {/* Content */}
+            <div className="pt-16"> {/* Add padding-top based on navbar height */}
               <Routes>
-                {/* dashboard  */}
-                <Route path="/" element={(<Dashboard />)} />
-                <Route path="/dashboard" element={(<Dashboard />)} />
-
-                {/* pages  */}
+                <Route path="/" element={<Dashboard />} />
+                <Route path="/dashboard" element={<Dashboard />} />
                 <Route path="/control" element={<MultiMeterGauge />} />
                 <Route path="/iotfleet" element={<IoTFleetStatus />} />
                 <Route path="/threed" element={<ThreeDChiller />} />
@@ -77,7 +54,6 @@ const App = () => {
                 <Route path="/energy-storage" element={<EnergyStorage />} />
                 <Route path="/alerts" element={<AlertsOverview />} />
                 <Route path="/optimize" element={<PeakAnalysis />} />
-                <Route path="/" element={<Dashboard />} />
                 <Route path="/chiller/:id" element={<ChillerDetail />} />
                 <Route path="/control/upsbattery" element={<UPSControl />} />
                 <Route path="/control/thermal" element={<ThermalControl />} />

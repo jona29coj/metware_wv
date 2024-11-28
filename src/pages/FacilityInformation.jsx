@@ -1,53 +1,144 @@
-import React, { useState } from 'react';
+import React, { useRef } from "react";
+import { Line } from "react-chartjs-2";
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend,
+} from "chart.js";
 
-const FacilityUsageCard = () => {
-  const [selectedDate, setSelectedDate] = useState(new Date().toISOString().slice(0, 10)); // Default to current date
+// Register necessary chart components
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend
+);
 
-  // Sample data
-  const facilityUsageData = [
-    { label: 'Chiller', energy: '17770 kWh', percentage: '47.66%' },
-    { label: 'Client', energy: '17032 kWh', percentage: '45.68%' },
-    { label: 'Others', energy: '2437 kWh', percentage: '6.54%' },
-    { label: 'Common Area', energy: '48 kWh', percentage: '0.13%' },
-  ];
+const TopClients = ({ isSidebarCollapsed }) => {
+  const chartRefs = useRef([]);
 
+  // Top Clients Data
   const topClientsData = [
-    { name: 'Pfizer', energy: '4585 kWh' },
-    { name: 'SGRI', energy: '3122 kWh' },
-    { name: 'Tata Communications', energy: '930 kWh' },
-    { name: 'ARCI', energy: '666 kWh' },
+    {
+      name: "Pfizer",
+      energy: 4585,
+      trends: [4300, 4400, 4500, 4585, 4630, 4700, 4750, 4800, 4850, 4900, 4950, 5000],
+    },
+    {
+      name: "SGRI",
+      energy: 3122,
+      trends: [3000, 3050, 3100, 3122, 3200, 3250, 3300, 3350, 3400, 3450, 3500, 3550],
+    },
+    {
+      name: "Tata Communications",
+      energy: 930,
+      trends: [900, 920, 925, 930, 940, 950, 960, 970, 980, 990, 1000, 1020],
+    },
+    {
+      name: "ARCI",
+      energy: 666,
+      trends: [650, 660, 665, 666, 670, 675, 680, 685, 690, 695, 700, 710],
+    },
   ];
 
-  // Format date to ddmmyyyy
-  const formatDate = (dateString) => {
-    const [year, month, day] = dateString.split('-');
-    return `${day}${month}${year}`;
+  // Line Chart Data for Trends
+  const trendChartData = {
+    labels: [
+      "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec",
+    ],
+    datasets: topClientsData.map((client, index) => ({
+      label: client.name,
+      data: client.trends,
+      borderColor: [ "#3F51B5","#4CAF50", "#FFC107", "#FF5722"][index], // Line colors
+      backgroundColor: [ "#3F51B5","#4CAF50", "#FFC107", "#FF5722"][index], // Legend fill color
+      borderWidth: 2,
+      tension: 0.3, // Smooth curves
+      pointBackgroundColor: ["#3F51B5","#4CAF50", "#FFC107", "#FF5722"][index], // Point colors
+      pointRadius: 4,
+    })),
   };
 
-  // Handle date change
-  const handleDateChange = (event) => {
-    const date = event.target.value;
-    setSelectedDate(date);
+  // Chart Options
+  const chartOptions = {
+    responsive: true,
+    maintainAspectRatio: false, // Allows for custom width and height
+    plugins: {
+      legend: {
+        position: "top",
+        labels: {
+          font: { size: 12 },
+          boxWidth: 20, // Custom width for legend blocks
+          boxHeight: 10, // Custom height for legend blocks
+          padding: 10, // Spacing between legend items
+          usePointStyle: false, // Use rectangular blocks
+        },
+      },
+      tooltip: { enabled: true },
+    },
+    scales: {
+      x: {
+        grid: { display: false },
+        ticks: {
+          color: "#6B7280", // Grey color for x-axis labels
+        },
+      },
+      y: {
+        grid: { color: "#E5E7EB" },
+        ticks: {
+          color: "#6B7280", // Grey color for y-axis labels
+          precision: 0,
+        },
+      },
+    },
   };
 
   return (
-    <div className="bg-white shadow-lg rounded-lg p-6 mb-6">
-      <div className="flex justify-between items-center mb-4">
-      {/* Top Clients */}
-      <div>
-        <h4 className="text-lg font-semibold text-gray-700">Top Clients</h4>
-        <ul className="mt-4">
-          {topClientsData.map((client) => (
-            <li key={client.name} className="flex justify-between p-2 border-b">
-              <span className="text-gray-700">{client.name}</span>
-              <span className="text-gray-600">{client.energy}</span>
-            </li>
-          ))}
-        </ul>
+    <div className="p-6 bg-white rounded-lg shadow-md">
+      {/* Outer Common Card for Top Clients */}
+      <h4 className="text-lg font-bold text-gray-700 mb-6">Top Clients</h4>
+
+      {/* Grid Layout for Client Partitions */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+        {topClientsData.map((client) => (
+          <div
+            key={client.name}
+            className="bg-white p-6 rounded-lg shadow-md flex flex-col justify-between border border-gray-300"
+          >
+            {/* Client Info Section */}
+            <h5 className="text-xl font-semibold text-gray-800 mb-2">{client.name}</h5>
+            <p className="text-sm text-gray-600">Energy Consumption: {client.energy} kWh</p>
+          </div>
+        ))}
       </div>
-    </div>
+
+      {/* Common Trend Line Chart Section */}
+      <div
+        className="w-full"
+        style={{
+          maxWidth: "100%",
+          height: "400px", // Fixed height for the chart container
+        }}
+      >
+        <Line
+          data={trendChartData}
+          options={chartOptions}
+          style={{
+            height: "400px", // Fixed height
+            width: "100%", // Chart fills parent container
+          }}
+          ref={(ref) => (chartRefs.current[0] = ref?.chartInstance)}
+        />
+      </div>
     </div>
   );
 };
 
-export default FacilityUsageCard;
+export default TopClients;

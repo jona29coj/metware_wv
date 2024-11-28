@@ -1,0 +1,62 @@
+/* Container for the 3D building-like structure */
+.facility-visualization-container {
+    position: relative;
+    width: 350px;
+    height: 300px;
+    perspective: 1000px; /* Adds depth for the 3D effect */
+    margin: 2rem auto;
+  }
+  
+  /* Building layers representing the different sections */
+  .building-layer {
+    position: absolute;
+    width: 100%;
+    height: 80%;
+    background: linear-gradient(to bottom, #f44336, #ffccbc); /* Example gradient for color */
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
+    transform-origin: bottom; /* Stacks from the bottom */
+  }
+  
+  /* Top layer (smallest section) */
+  .building-layer.top {
+    z-index: 3;
+    height: 20%; /* Small top section */
+    transform: translateZ(40px); /* Lift for 3D effect */
+  }
+  
+  /* Middle layer (larger section) */
+  .building-layer.middle {
+    z-index: 2;
+    height: 30%; /* Larger middle section */
+    background: linear-gradient(to bottom, #ffa726, #ffe0b2); /* Different gradient for middle layer */
+    transform: translateZ(30px); /* Lift for 3D effect */
+  }
+  
+  /* Base layer (largest section) */
+  .building-layer.base {
+    z-index: 1;
+    height: 50%; /* Largest bottom section */
+    background: linear-gradient(to bottom, #78909c, #cfd8dc); /* Different gradient for base layer */
+    transform: translateZ(20px); /* Lift for 3D effect */
+  }
+  
+  /* Content section with optional title */
+  .card-content {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    right: 20px;
+    z-index: 10;
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.9); /* Semi-transparent white background */
+    border-radius: 10px;
+    text-align: center;
+  }
+  
+  /* Title style for the facility overview card */
+  .card-title {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #333;
+  }
+  

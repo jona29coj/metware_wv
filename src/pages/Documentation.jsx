@@ -39,7 +39,7 @@ const Documentation = () => {
 
   return (
     <div className="bg-gray-100 rounded-2xl p-8 mx-5 my-3">
-      <h3 className="text-2xl font-bold text-gray-800 mb-6">Documentation</h3>
+      <h3 className="text-2xl font-bold text-gray-800 mb-6">Files</h3>
       <p className="text-gray-600 mb-8">Upload and organize files in relevant compartments.</p>
       
       {renderCompartment("System Reports", systemReports, setSystemReports)}

@@ -1,78 +1,80 @@
-/* Layout and Styles for Water Storage Information */
-.info-container {
+/* Cold Water Storage Background */
+.cold-bg {
+  background-color: #ebf8ff; /* Light Blue */
+}
+
+/* Hot Water Storage Background */
+.hot-bg {
+  background-color: #fee2e2; /* Light Red */
+}
+
+/* Storage Panel */
+.storage-panel {
+  padding: 16px;
+  border-radius: 12px;
+  transition: transform 0.2s ease;
+}
+
+/* Visual Section */
+.visual-section .tank-body {
+  width: 120px;
+  height: 150px;
+  border: 2px solid;
+  border-radius: 8px;
+  position: relative;
+  overflow: hidden;
+}
+
+.tank-body .water-level {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+}
+
+.water-level.cold-water {
+  background: linear-gradient(180deg, #d8ecff 0%, #007bff 100%);
+  height: 60%;
+}
+
+.water-level.hot-water {
+  background: linear-gradient(180deg, #fbcac9 0%, #ff4d4f 100%);
+  height: 70%;
+}
+
+.water-level.off {
+  background: #d3d3d3;
+  height: 100%;
+}
+
+/* Info Section */
+.info-section {
   display: flex;
   flex-direction: column;
-  gap: 8px; /* Space between info items */
-}
-
-.info-item {
-  display: flex;
   justify-content: space-between;
-  padding: 8px; /* Padding around the item */
-  border: 1px solid #e2e8f0; /* Light gray border */
-  border-radius: 4px; /* Rounded corners */
-  background-color: #ffffff; /* White background for contrast */
-  transition: background-color 0.2s; /* Transition for hover effect */
 }
 
-
-
-.info-label {
-  font-weight: bold; /* Bold text for labels */
-  color: #4a5568; /* Dark gray color */
+.info-details {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
 }
 
-.info-value {
-  color: #2d3748; /* Darker gray for values */
+.info-item .label {
+  font-size: 0.85rem;
+  color: #6b7280;
 }
 
-/* Tank Styling */
-.tank-body-cold {
-  width: 120px;
-  height: 150px;
-  border: 2px solid #007BFF;
-  border-radius: 5px;
-  overflow: hidden;
-  position: relative;
+.info-item .value {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #1f2937;
 }
 
-.tank-body-hot {
-  width: 120px;
-  height: 150px;
-  border: 2px solid red;
-  border-radius: 5px;
-  overflow: hidden;
-  position: relative;
-}
-
-/* Water Levels */
-.water-level {
-  position: absolute;
-  width: 100%;
-  bottom: 0;
-}
-
-.cold-water {
-  background: linear-gradient(180deg, lightblue 0%, blue 100%);
-  height: 50%;
-  animation: fillUp 5s infinite alternate ease-in-out;
-}
-
-.hot-water {
-  background: linear-gradient(180deg, lightcoral 0%, red 100%);
-  height: 60%;
-  animation: fillUp 5s infinite alternate ease-in-out;
-}
-
-/* Grayed-out Style for Off Status */
-.water-level.off {
-  background-color: #D3D3D3;
-  height: 100%;
-  animation: none;
-}
-
-/* Fill Animation */
-@keyframes fillUp {
-  0% { height: 30%; }
-  100% { height: 80%; }
+/* Status Label */
+.status-label {
+  font-size: 0.85rem;
+  font-weight: 500;
+  line-height: 1.5;
+  text-align: center;
+  padding: 0.25rem 0.5rem;
 }

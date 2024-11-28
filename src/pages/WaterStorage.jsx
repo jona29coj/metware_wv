@@ -1,84 +1,91 @@
-import React from 'react';
-import '../pages/waterstorage.css';
+import React, { useState } from 'react';
+import HWS from './HotWater.png';
+import CWS from './ColdWater.png';
 
 const WaterStorage = () => {
-  const coldWaterStatus = 'Running'; // Change to "Off" to see the gray-out effect
-  const hotWaterStatus = 'Off';
-
-  const getStatusStyle = (status) => {
-    return status === 'Running'
-      ? 'bg-green-100 text-green-600'
-      : 'bg-gray-200 text-gray-500';
-  };
+  const [coldWaterStatus, setColdWaterStatus] = useState('Running');
+  const [hotWaterStatus, setHotWaterStatus] = useState('Running');
 
   return (
     <div className="grid grid-cols-1 gap-6 mb-4">
       <div className="bg-white shadow-md rounded-xl p-6">
-        <h3 className="text-lg font-bold text-gray-800 mb-4">Water Storage</h3>
+        <h3 className="text-lg font-bold text-gray-800 mb-6">Thermal Storage</h3>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {/* Cold Water Storage */}
-          <div className="bg-blue-50 dark:bg-blue-900 rounded-lg shadow-md flex flex-col p-4">
-            <div className="flex flex-col items-center">
-              <h4 className="text-xl font-semibold mb-2 text-center text-gray-800 dark:text-gray-200">
-                Cold Water Storage
-              </h4>
-              <div className="tank-body-cold mb-4">
-                {coldWaterStatus === 'Running' ? (
-                  <div className="water-level cold-water"></div>
-                ) : (
-                  <div className="water-level off"></div>
-                )}
-              </div>
-              <div className={`py-1 px-3 rounded-full ${getStatusStyle(coldWaterStatus)}`}>
-                {coldWaterStatus === 'Running' ? 'Status: Running' : 'Status: Off'}
+          <div className="bg-blue-50 p-4 rounded-lg flex items-center gap-6">
+            <div className="relative flex justify-center items-center w-1/3">
+              {/* Water Tank Image */}
+              <div className="w-32 h-40 relative overflow-hidden">
+                <img
+                  src={CWS} // Replace with actual image URL or import
+                  alt="Cold Water Tank"
+                  className="w-full h-full object-contain"
+                />
               </div>
             </div>
-            <div className="info-container mt-4 grid grid-cols-1 gap-2">
-              <div className="info-item">
-                <span className="info-label">Charging Energy:</span>
-                <span className="info-value">0 kWh</span>
+            <div className="w-2/3 flex flex-col gap-4">
+              <h4 className="text-lg font-semibold text-gray-800">Cold Water Storage</h4>
+              <div className="flex items-center gap-2">
+                <div
+                  className={`w-4 h-4 rounded-full ${coldWaterStatus === 'Running' ? 'bg-green-600' : 'bg-gray-400'}`}
+                />
+                <p className="text-sm font-medium">
+                  {coldWaterStatus === 'Running' ? 'Running' : 'Off'}
+                </p>
               </div>
-              <div className="info-item">
-                <span className="info-label">Discharging Energy:</span>
-                <span className="info-value">0 kWh</span>
-              </div>
-              <div className="info-item">
-                <span className="info-label">Stored Water Temp:</span>
-                <span className="info-value">7°C</span>
+              <div className="grid grid-cols-2 gap-4">
+                <div className="text-sm">
+                  <p className="text-gray-500">Charging Energy</p>
+                  <p className="text-gray-900 font-semibold">0 kWh</p>
+                </div>
+                <div className="text-sm">
+                  <p className="text-gray-500">Discharging Energy</p>
+                  <p className="text-gray-900 font-semibold">0 kWh</p>
+                </div>
+                <div className="text-sm">
+                  <p className="text-gray-500">Stored Temp</p>
+                  <p className="text-gray-900 font-semibold">7°C</p>
+                </div>
               </div>
             </div>
           </div>
 
           {/* Hot Water Storage */}
-          <div className="bg-red-50 dark:bg-red-900 rounded-lg shadow-md flex flex-col p-4">
-            <div className="flex flex-col items-center">
-              <h4 className="text-xl font-semibold mb-2 text-center text-gray-800 dark:text-gray-200">
-                Hot Water Storage
-              </h4>
-              <div className="tank-body-hot mb-4">
-                {hotWaterStatus === 'Running' ? (
-                  <div className="water-level hot-water"></div>
-                ) : (
-                  <div className="water-level off"></div>
-                )}
-              </div>
-              <div className={`py-1 px-3 rounded-full ${getStatusStyle(hotWaterStatus)}`}>
-                {hotWaterStatus === 'Running' ? 'Status: Running' : 'Status: Off'}
+          <div className="bg-red-50 p-4 rounded-lg flex items-center gap-6">
+            <div className="relative flex justify-center items-center w-1/3">
+              {/* Water Tank Image */}
+              <div className="w-32 h-40 relative overflow-hidden">
+                <img
+                  src={HWS} // Replace with actual image URL or import
+                  alt="Hot Water Tank"
+                  className="w-full h-full object-contain"
+                />
               </div>
             </div>
-            <div className="info-container mt-4 grid grid-cols-1 gap-2">
-              <div className="info-item">
-                <span className="info-label">Charging Energy:</span>
-                <span className="info-value">0 kWh</span>
+            <div className="w-2/3 flex flex-col gap-4">
+              <h4 className="text-lg font-semibold text-gray-800">Hot Water Storage</h4>
+              <div className="flex items-center gap-2">
+                <div
+                  className={`w-4 h-4 rounded-full ${hotWaterStatus === 'Running' ? 'bg-green-600' : 'bg-gray-400'}`}
+                />
+                <p className="text-sm font-medium">
+                  {hotWaterStatus === 'Running' ? 'Running' : 'Off'}
+                </p>
               </div>
-              <div className="info-item">
-                <span className="info-label">Discharging Energy:</span>
-                <span className="info-value">0 kWh</span>
-              </div>
-              <div className="info-item">
-                <span className="info-label">Stored Water Temp:</span>
-                <span className="info-value">35°C</span>
+              <div className="grid grid-cols-2 gap-4">
+                <div className="text-sm">
+                  <p className="text-gray-500">Charging Energy</p>
+                  <p className="text-gray-900 font-semibold">0 kWh</p>
+                </div>
+                <div className="text-sm">
+                  <p className="text-gray-500">Discharging Energy</p>
+                  <p className="text-gray-900 font-semibold">0 kWh</p>
+                </div>
+                <div className="text-sm">
+                  <p className="text-gray-500">Stored Temp</p>
+                  <p className="text-gray-900 font-semibold">35°C</p>
+                </div>
               </div>
             </div>
           </div>
