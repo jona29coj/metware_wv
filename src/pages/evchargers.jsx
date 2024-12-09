@@ -1,5 +1,6 @@
 import React from 'react';
 import evcharger from '../pages/ev.png';
+import DateSelector from '../components/DateSelector';
 
 // EV Charger Overview Component
 const EVChargerOverview = () => {
@@ -38,14 +39,12 @@ const EVChargerOverview = () => {
     <div className="grid grid-cols-1 gap-4 mb-4">
       {/* Big Card for the entire EV Chargers section */}
       <div className="bg-white shadow-md rounded-xl p-6 relative">
-        <h3 className="text-lg font-bold text-gray-800 mb-6">EV Chargers</h3>
+        <div className='flex justify-between'>
+          <h3 className="text-lg font-bold text-gray-800 mb-6">EV Chargers</h3>
 
-        {/* Date Picker in the Top Right Corner */}
-        <input
-          type="date"
-          className="absolute top-6 right-6 border border-gray-300 rounded px-2 py-1 text-sm"
-          defaultValue={new Date().toISOString().split('T')[0]} // Sets the default date to today
-        />
+          {/* Date Picker in the Top Right Corner */}
+          <DateSelector/>
+        </div>  
 
         {/* Mini Cards for Main Statistics */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">

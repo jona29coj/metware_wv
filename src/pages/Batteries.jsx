@@ -108,7 +108,7 @@ const Batteries = () => {
               {/* Controls */}
               <div className="flex justify-between items-center mt-3">
                 <span className="flex items-center text-sm text-gray-600 dark:text-gray-400">
-                  <span className="bg-teal-600 w-3 h-3 rounded-full mr-2"></span>
+                  <span className="bg-green-500 w-3 h-3 rounded-full mr-2"></span>
                   Charging
                 </span>
                 <Link to="/control/ltobattery">

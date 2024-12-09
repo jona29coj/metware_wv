@@ -1,5 +1,6 @@
 import React from "react";
 import chiller from "./chiller2.png";
+import DateSelector from "../components/DateSelector";
 
 const Chiller = ({ title, cop, image }) => {
   return (
@@ -74,11 +75,7 @@ const ChillersCard = () => {
     <div className="bg-white shadow-md rounded-xl p-6 relative"> {/* Outer container remains white */}
       <div className="flex justify-between items-center mb-6">
         <h3 className="text-lg font-bold">Chillers</h3>
-        <input
-          type="date"
-          className="absolute top-6 right-6 border border-gray-300 rounded px-2 py-1 text-sm"
-          defaultValue={new Date().toISOString().split("T")[0]} // Sets the default date to today
-        />
+        <DateSelector/>
       </div>
 
       <div className="flex space-x-6">

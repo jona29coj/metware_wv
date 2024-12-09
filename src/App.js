@@ -30,6 +30,9 @@ const AppLayout = ({ children }) => {
   // Check if the current route is the Login page
   const isLoginPage = location.pathname === '/';
 
+  // Dynamic padding-top based on Navbar visibility
+  const navbarHeight = 52; // Adjust this value to match the reduced Navbar height
+
   return (
     <div className="bg-main-bg min-h-screen">
       <div className="flex relative">
@@ -40,15 +43,21 @@ const AppLayout = ({ children }) => {
           </div>
         )}
 
-        <div className={`bg-main-bg min-h-screen ${!isLoginPage ? 'ml-56' : ''} w-full`}>
+        <div
+          className={`bg-main-bg min-h-screen ${!isLoginPage ? 'ml-56' : ''} w-full`}
+          style={{
+            paddingTop: !isLoginPage ? `${navbarHeight}px` : '0',
+          }}
+        >
           {/* Render Navbar only if not on the Login page */}
           {!isLoginPage && <Navbar />}
-          <div className={`${!isLoginPage ? 'pt-16' : ''}`}>{children}</div>
+          <div>{children}</div>
         </div>
       </div>
     </div>
   );
 };
+
 
 const App = () => {
   return (

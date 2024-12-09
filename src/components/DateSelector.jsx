@@ -1,138 +1,61 @@
 import React, { useState } from "react";
+import { FaCalendarAlt } from "react-icons/fa";
 
 const DateSelector = () => {
-  const [selectedPeriod, setSelectedPeriod] = useState("today");
-  const [selectedDate, setSelectedDate] = useState(
-    new Date().toISOString().split("T")[0]
-  );
-  const [weekStartDate, setWeekStartDate] = useState(
-    new Date().toISOString().split("T")[0]
-  );
-  const [weekEndDate, setWeekEndDate] = useState(
-    new Date().toISOString().split("T")[0]
-  );
-  const [selectedMonth, setSelectedMonth] = useState(
-    new Date().toISOString().split("T")[0].slice(0, 7)
-  );
-  const [selectedYear, setSelectedYear] = useState(new Date().getFullYear());
+  const [selectedPeriod, setSelectedPeriod] = useState("day");
+  const [customDate, setCustomDate] = useState(new Date().toISOString().split("T")[0]);
+  const [showDatePicker, setShowDatePicker] = useState(false);
 
   const handlePeriodChange = (period) => {
     setSelectedPeriod(period);
-
-    // Reset to today's date if switching back to "Day"
-    if (period === "today") {
-      setSelectedDate(new Date().toISOString().split("T")[0]);
-    }
   };
 
-  const handleNavigation = (direction) => {
-    const currentDate = new Date(selectedDate);
+  const toggleDatePicker = () => setShowDatePicker(!showDatePicker);
 
-    if (selectedPeriod === "today") {
-      if (direction === "prev") {
-        currentDate.setDate(currentDate.getDate() - 1);
-      } else if (direction === "next") {
-        currentDate.setDate(currentDate.getDate() + 1);
-      }
-      setSelectedDate(currentDate.toISOString().split("T")[0]);
-    } else if (selectedPeriod === "week") {
-      const newStartDate = new Date(weekStartDate);
-      const newEndDate = new Date(weekEndDate);
-      if (direction === "prev") {
-        newStartDate.setDate(newStartDate.getDate() - 7);
-        newEndDate.setDate(newEndDate.getDate() - 7);
-      } else if (direction === "next") {
-        newStartDate.setDate(newStartDate.getDate() + 7);
-        newEndDate.setDate(newEndDate.getDate() + 7);
-      }
-      setWeekStartDate(newStartDate.toISOString().split("T")[0]);
-      setWeekEndDate(newEndDate.toISOString().split("T")[0]);
-    } else if (selectedPeriod === "month") {
-      const newMonth = new Date(selectedMonth);
-      if (direction === "prev") {
-        newMonth.setMonth(newMonth.getMonth() - 1);
-      } else if (direction === "next") {
-        newMonth.setMonth(newMonth.getMonth() + 1);
-      }
-      setSelectedMonth(newMonth.toISOString().split("T")[0].slice(0, 7)); // Format: YYYY-MM
-    } else if (selectedPeriod === "year") {
-      const newYear = new Date(selectedYear);
-      if (direction === "prev") {
-        newYear.setFullYear(newYear.getFullYear() - 1);
-      } else if (direction === "next") {
-        newYear.setFullYear(newYear.getFullYear() + 1);
-      }
-      setSelectedYear(newYear.getFullYear());
-    }
+  const handleCustomDateChange = (e) => {
+    setCustomDate(e.target.value);
+    setShowDatePicker(false);
   };
 
   return (
-    <div className="flex flex-col items-end space-y-2">
-      <div className="flex items-center space-x-2 bg-gray-200 dark:bg-gray-700 rounded-full p-1">
-        {["Day", "Week", "Month", "Year"].map((period) => (
+    <div className="relative flex items-center space-x-3">
+      {/* Period Selector */}
+      <div className="flex space-x-2">
+        {["Day", "Week", "Month"].map((period) => (
           <button
             key={period}
-            className={`px-3 py-1 text-xs font-medium rounded-full ${
+            className={`px-2 py-1 rounded-md border text-sm relative ${
               selectedPeriod === period.toLowerCase()
-                ? "bg-blue-500 text-white shadow"
-                : "text-gray-700 dark:text-gray-300"
+                ? "bg-blue-500 text-white"
+                : "border-gray-300 text-gray-600 hover:bg-gray-100"
             }`}
             onClick={() => handlePeriodChange(period.toLowerCase())}
           >
             {period}
+            {showDatePicker && selectedPeriod === period.toLowerCase() && (
+              <div
+                className="absolute top-[2.5rem] left-1/2 transform -translate-x-1/2 bg-white border border-gray-300 rounded shadow-lg z-50"
+              >
+                <input
+                  type="date"
+                  className="px-1 py-0.5 text-sm w-28 border rounded text-black"
+                  value={customDate}
+                  onChange={handleCustomDateChange}
+                />
+              </div>
+            )}
           </button>
         ))}
       </div>
 
-      <div className="flex items-center space-x-2 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-lg px-2 py-1 shadow-sm">
-        <button
-          onClick={() => handleNavigation("prev")}
-          className="text-gray-500 dark:text-gray-300 hover:text-gray-700 dark:hover:text-white"
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            className="h-5 w-5"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              d="M15 19l-7-7 7-7"
-            />
-          </svg>
-        </button>
-
-        <div className="text-xs font-medium text-gray-800 dark:text-gray-200">
-          {/* Display logic for the selected period */}
-          {selectedPeriod === "today" && selectedDate}
-          {selectedPeriod === "week" && `${weekStartDate} - ${weekEndDate}`}
-          {selectedPeriod === "month" && selectedMonth}
-          {selectedPeriod === "year" && selectedYear}
-        </div>
-
-        <button
-          onClick={() => handleNavigation("next")}
-          className="text-gray-500 dark:text-gray-300 hover:text-gray-700 dark:hover:text-white"
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            className="h-5 w-5"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              d="M9 5l7 7-7 7"
-            />
-          </svg>
-        </button>
-      </div>
+      {/* Calendar Icon */}
+      <button
+        onClick={toggleDatePicker}
+        className="text-gray-600 hover:text-blue-500"
+        title="Change Date"
+      >
+        <FaCalendarAlt size={18} />
+      </button>
     </div>
   );
 };
