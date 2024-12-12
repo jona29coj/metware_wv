@@ -36,7 +36,7 @@ const EVChargerOverview = () => {
   };
 
   return (
-    <div className="grid grid-cols-1 gap-4 mb-4">
+    <div className="grid grid-cols-1 gap-4 mb-4 opacity-50">
       {/* Big Card for the entire EV Chargers section */}
       <div className="bg-white shadow-md rounded-xl p-6 relative">
         <div className='flex justify-between'>

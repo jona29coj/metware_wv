@@ -47,6 +47,11 @@ const TopClients = ({ isSidebarCollapsed }) => {
       energy: 666,
       trends: [650, 660, 665, 666, 670, 675, 680, 685, 690, 695, 700, 710],
     },
+    {
+      name: "NewTech Industries", // New Client
+      energy: 1890,
+      trends: [1800, 1850, 1880, 1890, 1920, 1950, 1980, 2000, 2050, 2100, 2150, 2200], // New Client Trend Data
+    },
   ];
 
   // Line Chart Data for Trends
@@ -57,11 +62,11 @@ const TopClients = ({ isSidebarCollapsed }) => {
     datasets: topClientsData.map((client, index) => ({
       label: client.name,
       data: client.trends,
-      borderColor: [ "#3F51B5","#4CAF50", "#FFC107", "#FF5722"][index], // Line colors
-      backgroundColor: [ "#3F51B5","#4CAF50", "#FFC107", "#FF5722"][index], // Legend fill color
+      borderColor: ["#3F51B5", "#4CAF50", "#FFC107", "#FF5722", "#00BCD4"][index], // Line colors
+      backgroundColor: ["#3F51B5", "#4CAF50", "#FFC107", "#FF5722", "#00BCD4"][index], // Legend fill color
       borderWidth: 2,
       tension: 0.3, // Smooth curves
-      pointBackgroundColor: ["#3F51B5","#4CAF50", "#FFC107", "#FF5722"][index], // Point colors
+      pointBackgroundColor: ["#3F51B5", "#4CAF50", "#FFC107", "#FF5722", "#00BCD4"][index], // Point colors
       pointRadius: 4,
     })),
   };
@@ -106,7 +111,7 @@ const TopClients = ({ isSidebarCollapsed }) => {
       <h4 className="text-lg font-bold text-gray-700 mb-6">Top Clients</h4>
 
       {/* Grid Layout for Client Partitions */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6 mb-8">
         {topClientsData.map((client) => (
           <div
             key={client.name}

@@ -23,6 +23,7 @@ import Reports from './pages/Reports';
 import Dashboard from './pages/Dashboard';
 import Documentation from './pages/Documentation';
 import Login from './pages/Login';
+import ChillerDetailsPage from './pages/ChillerDetail';
 
 const AppLayout = ({ children }) => {
   const location = useLocation();
@@ -86,6 +87,8 @@ const App = () => {
           <Route path="/monitor/batteries" element={<BatteriesMonitor />} />
           <Route path="/reports" element={<Reports />} />
           <Route path="/documentation" element={<Documentation />} />
+          <Route path="/chiller-details/:chillerId" element={<ChillerDetailsPage />} />
+
         </Routes>
       </AppLayout>
     </BrowserRouter>

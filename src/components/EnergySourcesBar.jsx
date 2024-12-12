@@ -25,46 +25,36 @@ const EnergySourcesBarChart = ({ data }) => {
           },
         },
         backgroundColor: 'transparent',
-        margin: [50, 50, 50, 50],
+        margin: [50, 50, 80, 50], // Increased bottom margin for the legend
       },
       title: {
-        text: null,
+        text: null, // Remove default title
       },
       xAxis: {
-        categories: ['Energy Sources'],
         visible: false,
       },
       yAxis: {
         visible: false,
       },
       tooltip: {
-        pointFormat: '<b>{series.name}</b>: <b>{point.percentage:,.0f}%</b> ({point.y} kWh)',
+        headerFormat: '', // Remove the title
+        pointFormat: '<b>{series.name}: {point.y} MW</b>', // Display source and value
       },
       series: [
         {
           name: 'Grid',
-          data: [30],
-          color: '#355F2E', // Deep green for Grid
-        },
-        {
-          name: 'Wind',
-          data: [30],
-          color: '#0A3981', // Blue for Wind
+          data: [120],
+          color: '#F44336', // Red for Grid (strong and attention-grabbing)
         },
         {
           name: 'Wheeled in Solar',
-          data: [40],
-          color: '#E85C0D', // Orange for Solar
-        },
-        {
-          name: 'Rooftop',
-          data: [20],
-          color: '#8D493A', // Brown for Rooftop
+          data: [90], // Increased value for Wheeled in Solar
+          color: '#2196F3', // Blue for Solar (clear and bright)
         },
         {
           name: 'Diesel',
-          data: [10],
-          color: '#FFDE4D', // Yellow for Diesel
+          data: [40],
+          color: '#FFEB3B', // Yellow for Diesel (vibrant and noticeable)
         },
       ],
       plotOptions: {
@@ -74,6 +64,20 @@ const EnergySourcesBarChart = ({ data }) => {
           borderWidth: 0,
           borderColor: '#444444',
           shadow: true,
+          dataLabels: {
+            enabled: true,
+            color: '#FFFFFF', // White color for percentage labels
+            style: {
+              fontWeight: 'bold',
+            },
+            formatter: function () {
+              return `${Math.round(this.percentage)}%`; // Display percentages as integers
+            },
+            align: 'center', // Align horizontally
+            verticalAlign: 'middle', // Align vertically
+            x: -10, // Move slightly to the left
+            y: 7, // Move slightly down
+          },
         },
       },
       legend: {
