@@ -39,6 +39,7 @@ const EVChargerOverview = () => {
     <div className="grid grid-cols-1 gap-4 opacity-50">
       {/* Big Card for the entire EV Chargers section */}
       <div className="bg-white shadow-md rounded-xl p-6 relative group">
+        
         {/* Hover Tooltip for Entire Section */}
         <div className="absolute inset-0 flex justify-center items-center group-hover:opacity-100 opacity-0 transition-opacity">
           <p className="text-sm bg-gray-900 text-white py-2 px-4 rounded-lg shadow-lg">
@@ -50,8 +51,8 @@ const EVChargerOverview = () => {
           <h3 className="text-lg font-bold text-gray-800 pb-6">EV Chargers</h3>
 
           {/* Date Picker in the Top Right Corner */}
-          <DateSelector/>
-        </div>  
+          <DateSelector />
+        </div>
 
         {/* Mini Cards for Main Statistics */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 pb-4">
@@ -71,15 +72,8 @@ const EVChargerOverview = () => {
           {evChargerStats.map((charger, index) => (
             <div
               key={index}
-              className="bg-gray-100 rounded-lg p-4 flex flex-col items-center relative shadow-md group"
+              className="bg-gray-100 rounded-lg p-4 flex flex-col items-center relative shadow-md"
             >
-              {/* Hover Tooltip for Charger */}
-              <div className="absolute inset-0 flex justify-center items-center group-hover:opacity-100 opacity-0 transition-opacity">
-                <p className="text-sm bg-gray-900 text-white py-2 px-4 rounded-lg shadow-lg">
-                  Section Not Available
-                </p>
-              </div>
-
               {/* Status Indicator */}
               <div className="absolute top-2 right-2 flex items-center">
                 <span
