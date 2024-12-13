@@ -25,7 +25,7 @@ const EnergySourcesBarChart = ({ data }) => {
           },
         },
         backgroundColor: 'transparent',
-        margin: [50, 50, 80, 50], // Increased bottom margin for the legend
+        margin: [30, 0, 0, 0],  //Increased bottom margin for the legend
       },
       title: {
         text: null, // Remove default title
@@ -44,17 +44,17 @@ const EnergySourcesBarChart = ({ data }) => {
         {
           name: 'Grid',
           data: [120],
-          color: '#F44336', // Red for Grid (strong and attention-grabbing)
+          color: '#800000', // #F44336Red for Grid (strong and attention-grabbing)
         },
         {
           name: 'Wheeled in Solar',
           data: [90], // Increased value for Wheeled in Solar
-          color: '#2196F3', // Blue for Solar (clear and bright)
+          color: '#FFEB3B', // Blue for Solar (clear and bright)
         },
         {
           name: 'Diesel',
           data: [40],
-          color: '#FFEB3B', // Yellow for Diesel (vibrant and noticeable)
+          color: '#074799', // Yellow for Diesel (vibrant and noticeable)
         },
       ],
       plotOptions: {
@@ -89,7 +89,17 @@ const EnergySourcesBarChart = ({ data }) => {
     });
   }, [data]);
 
-  return <div id="energy-sources-chart" style={{ height: '370px', width: '300px' }} />;
+  // Adjust container style to move the chart higher
+  return (
+    <div
+      id="energy-sources-chart"
+      style={{
+        height: '320px',
+        width: '210px',
+        marginTop: '-80px', // Move chart upward
+      }}
+    />
+  );
 };
 
 export default EnergySourcesBarChart;

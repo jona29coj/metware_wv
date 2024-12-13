@@ -12,6 +12,9 @@ import FacilityInfo from "../dcomponents/FacilityInfo";
 import ElementsScore from "../dcomponents/ElementsScore";
 import EnergySources from "../dcomponents/EnergySources";
 import FacilityUsage from "../dcomponents/FacilityUsage";
+import WheeledInSolar from "../dcomponents/WheeledInSolar";
+import PeakDemand from "../dcomponents/PeakDemand";
+import EnergyConsumption from "../dcomponents/EnergyConsumption";
 
 const Dashboard = () => {
   return (
@@ -43,6 +46,9 @@ const Dashboard = () => {
     {/* Remaining Cards */}
     <ChillerCard />
     <FacilityInformation />
+    <WheeledInSolar />
+    <PeakDemand />
+    <EnergyConsumption />
     <WaterStorage />
     <Batteries />
     <EVChargerOverview />

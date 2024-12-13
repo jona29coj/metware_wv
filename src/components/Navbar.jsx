@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { FaBell, FaSearch, FaAngleUp, FaAngleDown } from 'react-icons/fa';
+import userprofile from "../components/userprofile.png";
 
 const Navbar = () => {
   const [isNavbarVisible, setIsNavbarVisible] = useState(true);
@@ -57,12 +58,11 @@ const Navbar = () => {
             <FaBell className="text-gray-600 text-xl cursor-pointer hover:text-blue-500" />
             <div className="flex items-center space-x-3 cursor-pointer">
               <img
-                src="https://via.placeholder.com/40"
+                src={userprofile}
                 alt="User Avatar"
-                className="w-9 h-9 rounded-full border border-gray-300"
+                className="w-9 h-9 rounded-full"
               />
               <div className="flex flex-col text-left">
-                <p className="text-sm font-semibold text-gray-800">John Doe</p>
                 <p className="text-xs text-gray-500">Admin</p>
               </div>
             </div>

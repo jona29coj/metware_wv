@@ -23,7 +23,7 @@ import Reports from './pages/Reports';
 import Dashboard from './pages/Dashboard';
 import Documentation from './pages/Documentation';
 import Login from './pages/Login';
-import ChillerDetailsPage from './pages/ChillerDetail';
+import ChillerDetails from './pages/ChillerDetail';
 
 const AppLayout = ({ children }) => {
   const location = useLocation();
@@ -70,7 +70,7 @@ const App = () => {
           <Route path="/control" element={<MultiMeterGauge />} />
           <Route path="/iotfleet" element={<IoTFleetStatus />} />
           <Route path="/threed" element={<ThreeDChiller />} />
-          <Route path="/chillerdetail" element={<ChillerDetail />} />
+          <Route path="/chillerdetail" element={<ChillerDetails />} />
           <Route path="/monitor/overview" element={<BuildingOverview />} />
           <Route path="/monitor/client" element={<Client />} />
           <Route path="/monitor/performance" element={<RenewableEnergy />} />
@@ -87,7 +87,6 @@ const App = () => {
           <Route path="/monitor/batteries" element={<BatteriesMonitor />} />
           <Route path="/reports" element={<Reports />} />
           <Route path="/documentation" element={<Documentation />} />
-          <Route path="/chiller-details/:chillerId" element={<ChillerDetailsPage />} />
 
         </Routes>
       </AppLayout>

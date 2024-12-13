@@ -7,34 +7,15 @@ import { useStateContext } from '../contexts/ContextProvider';
 import logo from '../logo2.png';
 import { FaChartLine } from 'react-icons/fa';
 
-// DropdownMenu component for Monitor and Control items
-const DropdownMenu = ({ items }) => {
-  return (
-    <div
-      className="absolute left-20 top-16 bg-white border border-gray-300 shadow-xl rounded-lg p-3 w-52"
-      style={{ zIndex: 9999 }}
-    >
-      {items.map((item, index) => (
-        <NavLink
-          key={index}
-          to={item.path}
-          className="block py-2 px-4 text-gray-800 font-medium hover:bg-green-500 hover:text-white transition-colors duration-200 rounded"
-        >
-          {item.name}
-        </NavLink>
-      ))}
-    </div>
-  );
-};
+
 
 // Links for Monitor and Control sections
 const monitorLinks = [
   { name: 'Building Overview', path: '/monitor/overview' },
   { name: 'Client', path: '/monitor/client' },
-  { name: 'Cooling/HVAC', path: '/monitor/usage' },
+  { name: 'Cooling/HVAC', path: '/chillerdetail' },
   { name: 'Renewable Energy', path: '/monitor/performance' },
   { name: 'Batteries', path: '/monitor/batteries' },
-  { name: 'Energy Storage', path: '/monitor/settings' },
 ];
 
 const controlLinks = [
@@ -46,9 +27,13 @@ const controlLinks = [
 ];
 
 const Sidebar = () => {
-  const { currentColor, activeMenu } = useStateContext();
   const [isMonitorOpen, setMonitorOpen] = useState(false);
   const [isControlOpen, setControlOpen] = useState(false);
+
+    // Scroll to top function
+    const scrollToTop = () => {
+      window.scrollTo(0, 0); // This will immediately scroll to the top
+    };
 
   const activeLink =
     'flex items-center gap-5 pl-4 pt-3 pb-2.5 rounded-lg text-white text-md m-2 bg-green-600 shadow-md transition-all duration-300';
@@ -57,7 +42,6 @@ const Sidebar = () => {
 
   return (
     <div className="h-screen overflow-auto pb-10 bg-[#003F3F] w-full">
-      {activeMenu && (
         <>
           <div className="flex justify-center items-center bg-white p-3 mb-4">
             <Link to="/dashboard" className="flex items-center gap-3">
@@ -69,6 +53,7 @@ const Sidebar = () => {
             <NavLink
               to="/dashboard"
               className={({ isActive }) => (isActive ? activeLink : normalLink)}
+              onClick={scrollToTop}
             >
               <FiHome className="text-xl text-white" />
               <span className="text-white">Dashboard</span>
@@ -99,6 +84,7 @@ const Sidebar = () => {
                       key={index}
                       to={item.path}
                       className="block py-2 px-4 text-white font-medium hover:bg-green-500 transition-colors duration-200 rounded"
+                      onClick={scrollToTop}
                     >
                       {item.name}
                     </NavLink>
@@ -132,6 +118,8 @@ const Sidebar = () => {
                       key={index}
                       to={item.path}
                       className="block py-2 px-4 text-white font-medium hover:bg-green-500 transition-colors duration-200 rounded"
+                      onClick={scrollToTop}
+
                     >
                       {item.name}
                     </NavLink>
@@ -161,7 +149,6 @@ const Sidebar = () => {
             </NavLink>
           </div>
         </>
-      )}
     </div>
   );
 };

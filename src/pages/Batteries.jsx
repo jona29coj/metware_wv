@@ -10,56 +10,56 @@ const Batteries = () => {
       {/* Hover Tooltip for Entire Section */}
       <div className="absolute inset-0 flex justify-center items-center group-hover:opacity-100 opacity-0 transition-opacity">
         <p className="text-sm bg-gray-900 text-white py-2 px-4 rounded-lg shadow-lg">
-          Section not available for this client
+          Section Not Available
         </p>
       </div>
 
       {/* Title */}
-      <div className="flex justify-between items-center mb-8">
+      <div className="flex justify-between items-center pb-8">
         <h3 className="text-lg font-bold text-gray-800 dark:text-gray-200">
           Battery Storage
         </h3>
       </div>
 
       {/* Battery Row */}
-      <div className="flex flex-wrap justify-between space-x-6">
+      <div className="flex flex-wrap justify-between gap-6">
         {/* Battery Card */}
         {[
           {
             name: "IOE Battery",
             image: ioe,
-            charge: "8.24 kWh",
-            discharge: "124.35 kWh",
-            temperature: "35°C",
-            voltage: "48.5V",
-            status: "Charging",
-            statusColor: "bg-green-500",
-            cycleWarning: "High Discharge Rate",
-            cycleWarningColor: "text-red-600",
+            charge: "--",
+            discharge: "--",
+            temperature: "--",
+            voltage: "--",
+            status: "Not Operational",
+            statusColor: "bg-gray-400",
+            cycleWarning: "N/A",
+            cycleWarningColor: "text-gray-400",
           },
           {
             name: "LTO Battery",
             image: lithium,
-            charge: "15.00 kWh",
-            discharge: "98.00 kWh",
-            temperature: "28°C",
-            voltage: "55V",
-            status: "Discharging",
-            statusColor: "bg-blue-500",
-            cycleWarning: "Moderate Discharge Rate",
-            cycleWarningColor: "text-orange-600",
+            charge: "--",
+            discharge: "--",
+            temperature: "--",
+            voltage: "--",
+            status: "Not Operational",
+            statusColor: "bg-gray-400",
+            cycleWarning: "N/A",
+            cycleWarningColor: "text-gray-400",
           },
           {
             name: "UPS Battery",
             image: ups,
-            charge: "20.00 kWh",
-            discharge: "130.00 kWh",
-            temperature: "25°C",
-            voltage: "48V",
-            status: "Standby",
-            statusColor: "bg-yellow-500",
-            cycleWarning: "Low Discharge Rate",
-            cycleWarningColor: "text-green-600",
+            charge: "--",
+            discharge: "--",
+            temperature: "--",
+            voltage: "--",
+            status: "Not Operational",
+            statusColor: "bg-gray-400",
+            cycleWarning: "N/A",
+            cycleWarningColor: "text-gray-400",
           },
         ].map((battery) => (
           <div
@@ -67,9 +67,9 @@ const Batteries = () => {
             className="flex flex-col flex-1 bg-gray-50 dark:bg-gray-800 rounded-lg shadow-md p-6 space-y-6 max-w-[32%]"
           >
             {/* Top Section */}
-            <div className="flex space-x-6 items-start">
+            <div className="flex items-start">
               {/* Battery Image and Status */}
-              <div className="flex-none text-center">
+              <div className="flex-none text-center pr-6">
                 <img
                   src={battery.image}
                   alt={battery.name}
@@ -85,30 +85,26 @@ const Batteries = () => {
               </div>
 
               {/* Battery Details and Control Button */}
-              <div className="flex flex-col flex-grow space-y-3">
+              <div className="flex flex-col flex-grow pl-6 space-y-3">
                 <h5 className="text-center font-bold text-lg text-gray-800 dark:text-gray-200">
                   {battery.name}
                 </h5>
                 <div className="text-sm text-gray-600 dark:text-gray-400 space-y-1">
                   <p>
-                    <span className="font-semibold">Charge:</span>{" "}
-                    {battery.charge}
+                    <span className="font-semibold">Charge:</span> {battery.charge}
                   </p>
                   <p>
-                    <span className="font-semibold">Discharge:</span>{" "}
-                    {battery.discharge}
+                    <span className="font-semibold">Discharge:</span> {battery.discharge}
                   </p>
                   <p>
-                    <span className="font-semibold">Temperature:</span>{" "}
-                    {battery.temperature}
+                    <span className="font-semibold">Temperature:</span> {battery.temperature}
                   </p>
                   <p>
-                    <span className="font-semibold">Voltage:</span>{" "}
-                    {battery.voltage}
+                    <span className="font-semibold">Voltage:</span> {battery.voltage}
                   </p>
                 </div>
                 {/* Control Button aligned to the right */}
-                <div className="mt-3 flex justify-end">
+                <div className="pt-3 flex justify-end">
                   <Link
                     to={`/control/${battery.name.toLowerCase().replace(" ", "")}`}
                   >
@@ -121,12 +117,12 @@ const Batteries = () => {
             </div>
 
             {/* Previous Cycle */}
-            <div className="text-sm bg-gray-100 dark:bg-gray-700 p-4 rounded-md space-y-1">
+            <div className="text-sm bg-gray-100 dark:bg-gray-700 px-4 pb-4 rounded-md space-y-1">
               <p className="text-center font-medium text-gray-800 dark:text-gray-200 mb-2">
                 Previous Cycle
               </p>
-              <p>Charge Time: 08:00 AM</p>
-              <p>Discharge Time: 09:00 AM</p>
+              <p>Charge Time: --</p>
+              <p>Discharge Time: --</p>
               <p className={battery.cycleWarningColor}>{battery.cycleWarning}</p>
             </div>
           </div>

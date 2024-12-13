@@ -3,13 +3,13 @@ import HWS from './HotWater.png';
 import CWS from './ColdWater.png';
 
 const WaterStorage = () => {
-  const [coldWaterStatus, setColdWaterStatus] = useState('Running');
-  const [hotWaterStatus, setHotWaterStatus] = useState('Running');
+  const [coldWaterStatus, setColdWaterStatus] = useState('Not Operational');
+  const [hotWaterStatus, setHotWaterStatus] = useState('Not Operational');
 
   return (
-    <div className="relative">
+    <div className="relative opacity-50">
       {/* Grayed-Out Overlay */}
-      <div className="grid grid-cols-1 gap-6 mb-4 opacity-50 filter grayscale relative group">
+      <div className="grid grid-cols-1 gap-6 mb-4 relative group">
         <div className="bg-white shadow-md rounded-xl p-6">
           <h3 className="text-lg font-bold text-gray-800 mb-6">Thermal Storage</h3>
 
@@ -31,25 +31,23 @@ const WaterStorage = () => {
                 <div className="flex items-center gap-2">
                   <div
                     className={`w-4 h-4 rounded-full ${
-                      coldWaterStatus === 'Running' ? 'bg-green-600' : 'bg-gray-400'
+                      coldWaterStatus === 'Not Operational' ? 'bg-gray-400' : 'bg-green-600'
                     }`}
                   />
-                  <p className="text-sm font-medium">
-                    {coldWaterStatus === 'Running' ? 'Running' : 'Off'}
-                  </p>
+                  <p className="text-sm font-medium">{coldWaterStatus}</p>
                 </div>
                 <div className="grid grid-cols-2 gap-4">
                   <div className="text-sm">
                     <p className="text-gray-500">Charging Energy</p>
-                    <p className="text-gray-900 font-semibold">0 kWh</p>
+                    <p className="text-gray-900 font-semibold">--</p>
                   </div>
                   <div className="text-sm">
                     <p className="text-gray-500">Discharging Energy</p>
-                    <p className="text-gray-900 font-semibold">0 kWh</p>
+                    <p className="text-gray-900 font-semibold">--</p>
                   </div>
                   <div className="text-sm">
                     <p className="text-gray-500">Stored Temp</p>
-                    <p className="text-gray-900 font-semibold">7°C</p>
+                    <p className="text-gray-900 font-semibold">--</p>
                   </div>
                 </div>
               </div>
@@ -72,25 +70,23 @@ const WaterStorage = () => {
                 <div className="flex items-center gap-2">
                   <div
                     className={`w-4 h-4 rounded-full ${
-                      hotWaterStatus === 'Running' ? 'bg-green-600' : 'bg-gray-400'
+                      hotWaterStatus === 'Not Operational' ? 'bg-gray-400' : 'bg-green-600'
                     }`}
                   />
-                  <p className="text-sm font-medium">
-                    {hotWaterStatus === 'Running' ? 'Running' : 'Off'}
-                  </p>
+                  <p className="text-sm font-medium">{hotWaterStatus}</p>
                 </div>
                 <div className="grid grid-cols-2 gap-4">
                   <div className="text-sm">
                     <p className="text-gray-500">Charging Energy</p>
-                    <p className="text-gray-900 font-semibold">0 kWh</p>
+                    <p className="text-gray-900 font-semibold">--</p>
                   </div>
                   <div className="text-sm">
                     <p className="text-gray-500">Discharging Energy</p>
-                    <p className="text-gray-900 font-semibold">0 kWh</p>
+                    <p className="text-gray-900 font-semibold">--</p>
                   </div>
                   <div className="text-sm">
                     <p className="text-gray-500">Stored Temp</p>
-                    <p className="text-gray-900 font-semibold">35°C</p>
+                    <p className="text-gray-900 font-semibold">--</p>
                   </div>
                 </div>
               </div>
@@ -101,7 +97,7 @@ const WaterStorage = () => {
         {/* Tooltip */}
         <div className="absolute inset-0 flex justify-center items-center group-hover:opacity-100 opacity-0 transition-opacity">
           <p className="text-sm bg-gray-900 text-white py-2 px-4 rounded-lg shadow-lg">
-            Section not available for this client
+            Section Not Available
           </p>
         </div>
       </div>

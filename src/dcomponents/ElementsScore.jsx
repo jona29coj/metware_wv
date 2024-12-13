@@ -53,7 +53,7 @@ const ElementsScore = () => {
     </div>
 
     {/* Cost Savings */}
-    <div className="w-1/2 pl-2">
+    <div className="w-1/2 pl-3" style={{ transform: 'translateY(-8px)' }}>
       <p className="text-xs text-gray-500">Cost</p>
       <h5 className="text-lg font-semibold text-gray-900">₹ 2K</h5>
       <p className="text-xs text-gray-500 flex items-center whitespace-nowrap">
