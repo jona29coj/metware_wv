@@ -7,13 +7,6 @@ import ups from "../pages/UPS3.png";
 const Batteries = () => {
   return (
     <div className="relative bg-white dark:bg-secondary-dark-bg rounded-xl opacity-50 shadow-lg p-8 group">
-      {/* Hover Tooltip for Entire Section */}
-      <div className="absolute inset-0 flex justify-center items-center group-hover:opacity-100 opacity-0 transition-opacity">
-        <p className="text-sm bg-gray-900 text-white py-2 px-4 rounded-lg shadow-lg">
-          Section Not Available
-        </p>
-      </div>
-
       {/* Title */}
       <div className="flex justify-between items-center pb-8">
         <h3 className="text-lg font-bold text-gray-800 dark:text-gray-200">
@@ -64,7 +57,7 @@ const Batteries = () => {
         ].map((battery) => (
           <div
             key={battery.name}
-            className="flex flex-col flex-1 bg-gray-50 dark:bg-gray-800 rounded-lg shadow-md p-6 space-y-6 max-w-[32%]"
+            className="flex flex-col bg-gray-50 dark:bg-gray-800 rounded-lg shadow-md p-6 space-y-6 flex-grow"
           >
             {/* Top Section */}
             <div className="flex items-start">
@@ -106,7 +99,9 @@ const Batteries = () => {
                 {/* Control Button aligned to the right */}
                 <div className="pt-3 flex justify-end">
                   <Link
-                    to={`/control/${battery.name.toLowerCase().replace(" ", "")}`}
+                    to={`/control/${battery.name
+                      .toLowerCase()
+                      .replace(" ", "")}`}
                   >
                     <button className="py-2 px-4 bg-teal-600 text-white rounded-lg text-xs">
                       Control
@@ -117,7 +112,7 @@ const Batteries = () => {
             </div>
 
             {/* Previous Cycle */}
-            <div className="text-sm bg-gray-100 dark:bg-gray-700 px-4 pb-4 rounded-md space-y-1">
+            <div className="text-sm bg-gray-100 dark:bg-gray-700 px-4 py-4 rounded-md space-y-1">
               <p className="text-center font-medium text-gray-800 dark:text-gray-200 mb-2">
                 Previous Cycle
               </p>

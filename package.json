@@ -27,6 +27,7 @@
     "echarts-for-react": "^3.0.2",
     "highcharts": "^11.4.8",
     "highcharts-react-official": "^3.2.1",
+    "mqtt": "^5.10.3",
     "plotly.js": "^2.35.2",
     "react": "^18.3.1",
     "react-chartjs-2": "^5.2.0",
@@ -40,8 +41,7 @@
     "react-scripts": "5.0.0",
     "react-slider": "^2.0.6",
     "reactstrap": "^9.2.3",
-    "recharts": "^2.12.7",
-    "three": "^0.169.0"
+    "recharts": "^2.12.7"
   },
   "scripts": {
     "start": "react-scripts start",

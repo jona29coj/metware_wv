@@ -1,15 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { FaBell, FaSearch, FaAngleUp, FaAngleDown } from 'react-icons/fa';
+import { FaBell, FaSearch } from 'react-icons/fa';
 import userprofile from "../components/userprofile.png";
+import DateSelector from './DateSelector';
 
 const Navbar = () => {
-  const [isNavbarVisible, setIsNavbarVisible] = useState(true);
   const [isScrolled, setIsScrolled] = useState(false);
-
-  // Toggle the visibility of the navbar
-  const toggleNavbar = () => {
-    setIsNavbarVisible((prev) => !prev);
-  };
+  const [startDate, setStartDate] = useState(null);
+  const [endDate, setEndDate] = useState(null);
+  const [isSingleDay, setIsSingleDay] = useState(false); // Toggle between single day and date range
 
   // Detect scrolling
   const handleScroll = () => {
@@ -29,16 +27,22 @@ const Navbar = () => {
     };
   }, []);
 
+  // Handle date changes from DateSelector
+  const handleDateChange = (newStartDate, newEndDate) => {
+    setStartDate(newStartDate);
+    setEndDate(newEndDate);
+  };
+
   return (
     <div>
       {/* Navbar */}
       <div
         className={`transition-all duration-300 fixed top-0 left-0 right-0 z-50 bg-white shadow-md ${
-          isNavbarVisible ? 'py-2' : 'py-0 opacity-0 pointer-events-none'
-        } ml-56 ${isScrolled ? 'shadow-lg' : ''}`}
+          isScrolled ? 'shadow-lg' : ''
+        } ml-56 py-2`}
       >
         <div className="flex items-center justify-between px-6">
-          {/* Search Bar with Search Button inside */}
+          {/* Search Bar */}
           <div className="relative flex items-center">
             <input
               type="text"
@@ -53,9 +57,19 @@ const Navbar = () => {
             </button>
           </div>
 
-          {/* Notification Bell */}
-          <div className="flex items-center space-x-4">
+          {/* Notification Bell & Date Selector */}
+          <div className="flex items-center space-x-4 ml-auto">
+            {/* Date Selector */}
+            <DateSelector
+              isSingleDay={isSingleDay}
+              setIsSingleDay={setIsSingleDay}
+              onDateChange={handleDateChange}
+            />
+
+            {/* Notification Bell */}
             <FaBell className="text-gray-600 text-xl cursor-pointer hover:text-blue-500" />
+
+            {/* User Profile */}
             <div className="flex items-center space-x-3 cursor-pointer">
               <img
                 src={userprofile}
@@ -68,21 +82,9 @@ const Navbar = () => {
             </div>
           </div>
         </div>
-      </div>
 
-      {/* Toggle Button (Arrow) - Visible on Scroll */}
-      {isScrolled && (
-        <div
-          className={`fixed transition-all duration-300 top-12 right-6 transform cursor-pointer opacity-100`}
-          onClick={toggleNavbar}
-        >
-          {isNavbarVisible ? (
-            <FaAngleUp className="text-gray-600 text-2xl hover:text-blue-500" />
-          ) : (
-            <FaAngleDown className="text-gray-600 text-2xl hover:text-blue-500" />
-          )}
-        </div>
-      )}
+      
+      </div>
     </div>
   );
 };

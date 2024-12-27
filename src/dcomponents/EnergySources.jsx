@@ -8,53 +8,11 @@ const FacilityUsage = () => {
       {/* Header Section */}
       <div className="flex justify-between items-center pb-4">
         <h3 className="text-lg font-bold text-gray-800">Energy Sources</h3>
-        <DateSelector />
-      </div>
-
-      {/* Mini Cards Section */}
-      <div className="flex flex-col md:flex-row gap-4 pb-4">
-        <div className="flex-1 bg-white rounded-lg shadow-sm p-4 border border-gray-300">
-          <div className="flex justify-between items-center text-sm pb-2">
-            <span className="text-gray-500">Min Power Factor:</span>
-            <span className="font-semibold text-gray-800">0.90</span>
-          </div>
-          <div className="flex justify-between items-center text-sm">
-            <span className="text-gray-500">Avg Power Factor:</span>
-            <span className="font-semibold text-gray-800">0.98</span>
-          </div>
-        </div>
-
-        <div className="flex-1 bg-white rounded-lg shadow-sm p-4 border border-gray-300">
-          <div className="flex justify-between items-center text-sm pb-2">
-            <span className="text-gray-500">Total Energy Produced:</span>
-            <span className="font-semibold text-gray-800">250 MW</span>
-          </div>
-          <div className="flex justify-between items-center text-sm">
-            <span className="text-gray-500">Emission Reduction:</span>
-            <span className="font-semibold text-gray-800">164 t CO₂</span>
-          </div>
-        </div>
       </div>
 
        {/* Chart Section */}
        <div className="flex justify-center"> {/* Reduced padding-bottom */}
         <EnergySourcesBarChart />
-      </div>
-
-      {/* Legends Section */}
-      <div className="flex justify-center space-x-8"> {/* Moved legends up using translateY*/} 
-        <div className="flex items-center space-x-2">
-          <div className="w-5 h-5" style={{ backgroundColor: '#800000' }}></div>
-          <span className="text-sm text-gray-800">Grid</span>
-        </div>
-        <div className="flex items-center space-x-2">
-          <div className="w-5 h-5" style={{ backgroundColor: '#FFEB3B' }}></div>
-          <span className="text-sm text-gray-800">Wheeled in Solar</span>
-        </div>
-        <div className="flex items-center space-x-2">
-          <div className="w-5 h-5" style={{ backgroundColor: '#074799' }}></div>
-          <span className="text-sm text-gray-800">Diesel</span>
-        </div>
       </div>
     </div>
   );

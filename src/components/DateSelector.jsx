@@ -1,61 +1,112 @@
 import React, { useState } from "react";
-import { FaCalendarAlt } from "react-icons/fa";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import { FaCalendarAlt, FaCalendarCheck, FaArrowLeft, FaArrowRight } from "react-icons/fa";  // Calendar and Arrow icons
 
-const DateSelector = () => {
-  const [selectedPeriod, setSelectedPeriod] = useState("day");
-  const [customDate, setCustomDate] = useState(new Date().toISOString().split("T")[0]);
-  const [showDatePicker, setShowDatePicker] = useState(false);
+const DateSelector = ({ onDateChange }) => {
+  const [startDate, setStartDate] = useState(null);
+  const [endDate, setEndDate] = useState(null);
+  const [isRange, setIsRange] = useState(false);  // Toggle for date range mode
 
-  const handlePeriodChange = (period) => {
-    setSelectedPeriod(period);
+  // Adjust dates using arrow buttons
+  const adjustDate = (date, days) => {
+    const newDate = new Date(date);
+    newDate.setDate(newDate.getDate() + days);
+    return newDate;
   };
 
-  const toggleDatePicker = () => setShowDatePicker(!showDatePicker);
-
-  const handleCustomDateChange = (e) => {
-    setCustomDate(e.target.value);
-    setShowDatePicker(false);
+  // Handle date changes
+  const handleDateChange = (newStartDate, newEndDate) => {
+    setStartDate(newStartDate);
+    setEndDate(newEndDate);
+    onDateChange(newStartDate, newEndDate); // Notify parent about date changes
   };
 
   return (
-    <div className="relative flex items-center space-x-3">
-      {/* Period Selector */}
-      <div className="flex space-x-2">
-        {["Day", "Week", "Month"].map((period) => (
-          <button
-            key={period}
-            className={`px-2 py-1 rounded-md border text-sm relative ${
-              selectedPeriod === period.toLowerCase()
-                ? "bg-blue-500 text-white"
-                : "border-gray-300 text-gray-600 hover:bg-gray-100"
-            }`}
-            onClick={() => handlePeriodChange(period.toLowerCase())}
-          >
-            {period}
-            {showDatePicker && selectedPeriod === period.toLowerCase() && (
-              <div
-                className="absolute top-[2.5rem] left-1/2 transform -translate-x-1/2 bg-white border border-gray-300 rounded shadow-lg z-50"
-              >
-                <input
-                  type="date"
-                  className="px-1 py-0.5 text-sm w-28 border rounded text-black"
-                  value={customDate}
-                  onChange={handleCustomDateChange}
-                />
-              </div>
-            )}
-          </button>
-        ))}
-      </div>
-
-      {/* Calendar Icon */}
+    <div className="flex items-center space-x-3">
+      {/* Icon-based Toggle for Single Date or Date Range */}
       <button
-        onClick={toggleDatePicker}
-        className="text-gray-600 hover:text-blue-500"
-        title="Change Date"
+        onClick={() => setIsRange(!isRange)}
+        className="p-2 rounded-full bg-blue-500 text-white hover:bg-blue-600 focus:outline-none"
+        title={isRange ? "Select Range" : "Select Date"} // Tooltip for better accessibility
       >
-        <FaCalendarAlt size={18} />
+        {isRange ? <FaCalendarCheck size={20} /> : <FaCalendarAlt size={20} />}
       </button>
+
+      {/* Single Date Picker */}
+      {!isRange ? (
+        <div className="flex items-center space-x-1">
+          <FaArrowLeft
+            className="text-blue-500 hover:text-blue-700 cursor-pointer text-sm"
+            onClick={() =>
+              setStartDate((prev) => (prev ? adjustDate(prev, -1) : new Date()))
+            }
+          />
+          <DatePicker
+            selected={startDate}
+            onChange={(date) => handleDateChange(date, null)}
+            className="w-24 text-xs px-2 py-1 border rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+            placeholderText="Select Date"
+            dateFormat="dd/MM/yyyy"
+          />
+          <FaArrowRight
+            className="text-blue-500 hover:text-blue-700 cursor-pointer text-sm"
+            onClick={() =>
+              setStartDate((prev) => (prev ? adjustDate(prev, 1) : new Date()))
+            }
+          />
+        </div>
+      ) : (
+        // Date Range Picker
+        <div className="flex items-center space-x-2">
+          {/* Start Date Picker */}
+          <div className="flex items-center space-x-1">
+            <FaArrowLeft
+              className="text-blue-500 hover:text-blue-700 cursor-pointer text-sm"
+              onClick={() =>
+                setStartDate((prev) => (prev ? adjustDate(prev, -1) : new Date()))
+              }
+            />
+            <DatePicker
+              selected={startDate}
+              onChange={(date) => handleDateChange(date, endDate)}
+              className="w-24 text-xs px-2 py-1 border rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+              placeholderText="Start Date"
+              dateFormat="dd/MM/yyyy"
+            />
+            <FaArrowRight
+              className="text-blue-500 hover:text-blue-700 cursor-pointer text-sm"
+              onClick={() =>
+                setStartDate((prev) => (prev ? adjustDate(prev, 1) : new Date()))
+              }
+            />
+          </div>
+
+          {/* End Date Picker */}
+          <div className="flex items-center space-x-1">
+            <FaArrowLeft
+              className="text-blue-500 hover:text-blue-700 cursor-pointer text-sm"
+              onClick={() =>
+                setEndDate((prev) => (prev ? adjustDate(prev, -1) : new Date()))
+              }
+            />
+            <DatePicker
+              selected={endDate}
+              onChange={(date) => handleDateChange(startDate, date)}
+              className="w-24 text-xs px-2 py-1 border rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+              placeholderText="End Date"
+              dateFormat="dd/MM/yyyy"
+              minDate={startDate}
+            />
+            <FaArrowRight
+              className="text-blue-500 hover:text-blue-700 cursor-pointer text-sm"
+              onClick={() =>
+                setEndDate((prev) => (prev ? adjustDate(prev, 1) : new Date()))
+              }
+            />
+          </div>
+        </div>
+      )}
     </div>
   );
 };

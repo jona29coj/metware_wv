@@ -47,11 +47,6 @@ const EnergySourcesBarChart = ({ data }) => {
           color: '#800000', // #F44336Red for Grid (strong and attention-grabbing)
         },
         {
-          name: 'Wheeled in Solar',
-          data: [90], // Increased value for Wheeled in Solar
-          color: '#FFEB3B', // Blue for Solar (clear and bright)
-        },
-        {
           name: 'Diesel',
           data: [40],
           color: '#074799', // Yellow for Diesel (vibrant and noticeable)

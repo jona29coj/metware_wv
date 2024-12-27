@@ -9,21 +9,27 @@ ChartJS.register(ArcElement, Tooltip, Legend, ChartDataLabels);
 
 const FacilityUsageChart = () => {
   const data = {
-    labels: ['Clients', 'Chillers', 'Common Areas', 'Others'],
+    labels: ['Zone 1', 'Zone 2', 'Zone 3', 'Zone 4', 'Zone 5', 'Zone 6', 'Zone 7'],
     datasets: [
       {
-        data: [200, 15, 15, 20], // Values corresponding to the labels
+        data: [25, 20, 15, 10, 10, 10, 10], // Example values for each zone
         backgroundColor: [
-          '#800000', 
-          '#33B5FF', // Bright Blue (Chillers)
-          '#FFD700', // Bright Yellow (Common Areas)
-          '#28A745', // Bright Green (Others)
+          '#FF5733', // Bright Red (Zone 1)
+          '#33B5FF', // Bright Blue (Zone 2)
+          '#FFD700', // Bright Yellow (Zone 3)
+          '#28A745', // Bright Green (Zone 4)
+          '#8A2BE2', // Bright Purple (Zone 5)
+          '#FF69B4', // Bright Pink (Zone 6)
+          '#FF8C00', // Bright Orange (Zone 7)
         ],
         hoverBackgroundColor: [
-          '#B22222', 
+          '#FF8566', // Lighter Red
           '#66C2FF', // Lighter Blue
           '#FFEC8B', // Lighter Yellow
           '#5CD85C', // Lighter Green
+          '#B39CD6', // Lighter Purple
+          '#FFA4C1', // Lighter Pink
+          '#FFAD5C', // Lighter Orange
         ],
         borderWidth: 0, // Remove border for a clean look
       },

@@ -1,63 +1,77 @@
 import React, { useState } from "react";
-import { Line } from "react-chartjs-2";
-import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend } from 'chart.js';
+import Plot from 'react-plotly.js'; // Using Plotly for the chart
 import { useNavigate } from "react-router-dom";
 import DateSelector from "../components/DateSelector";
-import chiller from "../pages/chiller2.png";
+import chillerImage from "../pages/chiller2.png";
 
-// Registering Chart.js components
-ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
-
-// Chiller Component
-const Chiller = ({ title, cop, description, chartData, chillerId}) => {
-  const navigate = useNavigate(); // React Router hook for navigation
+const Chiller = ({ title, cop, description, chartData }) => {
+  const navigate = useNavigate();
 
   const onViewDetails = () => {
-    // Replace 'chillerId' with the actual chiller ID or identifier
     navigate(`/chillerdetail`);
   };
 
   return (
-    <div className="bg-white border border-gray-300 rounded-lg p-4 flex flex-col md:flex-row items-center md:items-start">
+    <div className="bg-white shadow-lg border border-gray-200 rounded-xl p-6 flex flex-col md:flex-row items-center justify-between mb-6 space-y-6 md:space-y-0">
       {/* Left Section: Image and Details */}
-      <div className="flex flex-col items-center w-full md:w-1/3 space-y-2">
+      <div className="flex flex-col items-center w-full md:w-1/3 space-y-3">
         <img
-          src={chiller} // Replace with the correct image path
+          src={chillerImage}
           alt={title}
-          className="w-24 h-24 md:w-36 md:h-36 object-contain"
+          className="w-20 h-20 md:w-28 md:h-28 object-contain border border-gray-200 rounded-md"
         />
-        <div className="text-sm text-gray-600 text-center">
-          <span className="font-medium">COP:</span> {cop}
+        <div className="text-sm text-gray-700">
+          <span className="font-medium">COP: </span>{cop}
         </div>
         <button
-          className="w-28 bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 mt-2"
-          onClick={onViewDetails} // Navigate on click
+          className="w-32 bg-gray-300 text-gray-800 py-2 rounded-lg hover:bg-gray-400 mt-4"
+          onClick={onViewDetails}
         >
           View Details
         </button>
-        <div className="text-xs text-gray-500 text-center">
+        <div className="text-xs text-gray-500 text-center mt-2">
           {description}
         </div>
       </div>
 
-      {/* Right Section: Chart */}
+      {/* Right Section: Plotly Chart */}
       <div className="w-full md:w-2/3 flex justify-center items-center p-4">
-        <Line
-          data={chartData}
-          options={{
-            maintainAspectRatio: false,
-            plugins: {
-              legend: { display: false },
+        <Plot
+          data={[
+            {
+              x: chartData.labels,
+              y: chartData.data,
+              type: 'scatter',
+              mode: 'lines+markers',
+              marker: { color: '#6b7280', size: 6 },
+              line: { color: '#6b7280', width: 2 },
             },
+          ]}
+          layout={{
+            margin: { t: 30, r: 20, b: 40, l: 40 },
+            xaxis: {
+              title: '',
+              showgrid: false,
+              zeroline: false,
+            },
+            yaxis: {
+              title: '',
+              showgrid: true,
+              zeroline: false,
+            },
+            showlegend: false,
+            plot_bgcolor: 'white',
+            paper_bgcolor: 'white',
           }}
-          className="w-full h-full"
+          useResizeHandler
+          style={{ width: '100%', height: '100%' }}
         />
       </div>
     </div>
   );
 };
 
-// Main Chillers Card Component
+// Main ChillersCard Component
 const ChillersCard = () => {
   const [isTooltipOpen, setIsTooltipOpen] = useState(false);
 
@@ -68,16 +82,7 @@ const ChillersCard = () => {
       cop: 3.5,
       chartData: {
         labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'],
-        datasets: [
-          {
-            label: 'Cooling Efficiency (%)',
-            data: [85, 90, 88, 91, 93, 89, 92],
-            borderColor: 'rgba(75, 192, 192, 1)',
-            backgroundColor: 'rgba(75, 192, 192, 0.2)',
-            tension: 0.4,
-            fill: true,
-          },
-        ],
+        data: [85, 90, 88, 91, 93, 89, 92],
       },
     },
     {
@@ -86,62 +91,36 @@ const ChillersCard = () => {
       cop: 4.0,
       chartData: {
         labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'],
-        datasets: [
-          {
-            label: 'Cooling Efficiency (%)',
-            data: [80, 85, 83, 87, 90, 88, 92],
-            borderColor: 'rgba(255, 99, 132, 1)',
-            backgroundColor: 'rgba(255, 99, 132, 0.2)',
-            tension: 0.4,
-            fill: true,
-          },
-        ],
+        data: [80, 85, 83, 87, 90, 88, 92],
       },
     },
   ];
 
   // Handle tooltip (pop-up) for comparison
   const handleCompareClick = () => {
-    setIsTooltipOpen(!isTooltipOpen); // Toggle the visibility of the tooltip
-  };
-
-  const combinedChartData = {
-    labels: chillers[0].chartData.labels, // Assuming both chillers have the same labels
-    datasets: chillers.map((chiller, index) => ({
-      label: chiller.title,
-      data: chiller.chartData.datasets[0].data,
-      borderColor: index === 0 ? 'rgba(75, 192, 192, 1)' : 'rgba(255, 99, 132, 1)',
-      backgroundColor: index === 0 ? 'rgba(75, 192, 192, 0.2)' : 'rgba(255, 99, 132, 0.2)',
-      tension: 0.4,
-      fill: true,
-    })),
+    setIsTooltipOpen(!isTooltipOpen);
   };
 
   return (
     <div className="bg-white shadow-md rounded-xl p-6 relative">
-  {/* Header */}
-  <div className="flex justify-between items-center mb-6">
-    <h3 className="text-lg font-bold">Chillers</h3>
-    <DateSelector />
-  </div>
+      {/* Header */}
+      <div className="flex justify-between items-center mb-6">
+        <h3 className="text-lg font-bold">Chillers</h3>
+        <DateSelector />
+      </div>
 
-  {/* Compare Button */}
-  <button
-    className="w-28 bg-green-600 text-white py-2 rounded-lg hover:bg-green-700 mb-4"
-    onClick={handleCompareClick} // Open tooltip on click
-  >
-    Compare
-  </button>
-
+      {/* Compare Button */}
+      <button
+        className="w-32 bg-gray-200 text-gray-700 py-2 rounded-lg hover:bg-gray-300 mb-4"
+        onClick={handleCompareClick}
+      >
+        Compare
+      </button>
 
       {/* Chiller Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {chillers.map((chillerData, chillerId) => (
-          <Chiller
-            key={chillerId}
-            {...chillerData}
-            onViewDetails={() => {}}
-          />
+          <Chiller key={chillerId} {...chillerData} />
         ))}
       </div>
 
@@ -151,21 +130,31 @@ const ChillersCard = () => {
           <div className="bg-white rounded-lg p-6 w-3/4 md:w-2/3 relative">
             <button
               className="absolute top-4 right-4 bg-red-600 text-white p-2 rounded-full"
-              onClick={handleCompareClick} // Close the tooltip on click
+              onClick={handleCompareClick} 
             >
               X
             </button>
             <h3 className="text-lg font-bold mb-4">Compare All Chillers</h3>
             <div className="w-full h-[400px]"> {/* Fixed height container */}
-              <Line
-                data={combinedChartData}
-                options={{
-                  maintainAspectRatio: false,
-                  plugins: {
-                    legend: { display: false },
-                  },
+              <Plot
+                data={chillers.map((chiller, index) => ({
+                  x: chiller.chartData.labels,
+                  y: chiller.chartData.data,
+                  type: 'scatter',
+                  mode: 'lines+markers',
+                  marker: { color: index === 0 ? '#6b7280' : '#4b5563', size: 6 },
+                  line: { color: index === 0 ? '#6b7280' : '#4b5563', width: 2 },
+                }))}
+                layout={{
+                  margin: { t: 30, r: 20, b: 40, l: 40 },
+                  xaxis: { title: '', showgrid: false, zeroline: false },
+                  yaxis: { title: '', showgrid: true, zeroline: false },
+                  showlegend: false,
+                  plot_bgcolor: 'white',
+                  paper_bgcolor: 'white',
                 }}
-                className="w-full h-full"  
+                useResizeHandler
+                style={{ width: '100%', height: '100%' }}
               />
             </div>
           </div>

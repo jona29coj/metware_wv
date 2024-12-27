@@ -24,6 +24,9 @@ import Dashboard from './pages/Dashboard';
 import Documentation from './pages/Documentation';
 import Login from './pages/Login';
 import ChillerDetails from './pages/ChillerDetail';
+import Test from './components/Live';
+import EnergyMeterSection from './pages/EnergyMeter';
+import Live from './components/Live';
 
 const AppLayout = ({ children }) => {
   const location = useLocation();
@@ -66,6 +69,7 @@ const App = () => {
       <AppLayout>
         <Routes>
           <Route path="/" element={<Login />} />
+          <Route path="/test" element={<Live />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/control" element={<MultiMeterGauge />} />
           <Route path="/iotfleet" element={<IoTFleetStatus />} />
@@ -87,6 +91,7 @@ const App = () => {
           <Route path="/monitor/batteries" element={<BatteriesMonitor />} />
           <Route path="/reports" element={<Reports />} />
           <Route path="/documentation" element={<Documentation />} />
+          <Route path="/energymeter" element={<EnergyMeterSection />} />
 
         </Routes>
       </AppLayout>
