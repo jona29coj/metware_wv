@@ -14,57 +14,115 @@ import WheeledInSolar from "../dcomponents/WheeledInSolar";
 import PeakDemand from "../dcomponents/PeakDemand";
 import EnergyConsumption from "../dcomponents/EnergyConsumption";
 import ElectricityUsage from "../dcomponents/ElectricityUsage";
-import FacilityUsageChart from "../components/FacilityUsageChart";
+import { FaTachometerAlt, FaBolt, FaRupeeSign } from "react-icons/fa"; // Importing icons
 import FacilityUsaget from "../dcomponents/FacilityUsaget";
+import LiveConsumption from "./LiveConsumptionChart";
+import EnergyMeter from "../dcomponents/EnergyMeter";
+import MeterInfo from "./EnergyMeter";
 
 const Dashboard = () => {
+  const energyMeters = [
+    {
+      name: "EM6400NG",
+      totalKW: 944.71,
+      maxKW: 1200,
+      consumption: 11438.48,
+      cost: 69774.72,
+      statusColor: "red",
+      overload: false,
+    },
+    {
+      name: "EM6450H",
+      totalKW: 1050.5,
+      maxKW: 1200,
+      consumption: 23438.48,
+      cost: 142974.72,
+      statusColor: "red",
+      overload: true,
+    },
+  ];
+
   return (
 <div className="min-h-screen flex flex-col bg-gray-100 p-5 gap-6">
   {/* Top Section */}
-  <div className="flex flex-col md:flex-row flex-wrap gap-5">
-  <div className="flex-1 grid grid-cols-1 md:grid-cols-3 gap-5">
-    {/* Mini Card 1 */}
-    <div className="bg-white shadow-md p-4 rounded-lg">
-      <h3 className="text-lg font-semibold text-gray-700">Energy Consumed</h3>
-      <p className="text-2xl font-bold text-green-600">15439 kWh</p>
-    </div>
+  <div className="flex justify-between gap-2 flex-wrap">
+      {/* Total Meters */}
+      <div className="flex items-center bg-white shadow-md p-2 rounded-md w-[16%]">
+        <div className="bg-blue-100 p-2 rounded-md text-blue-600">
+          <FaTachometerAlt className="w-5 h-5" />
+        </div>
+        <div className="ml-2">
+          <h3 className="text-xs font-medium text-gray-700">Total Meters</h3>
+          <p className="text-base font-bold text-gray-900">210</p>
+        </div>
+      </div>
 
-     {/* Mini Card 2 */}
-     <div className="bg-white shadow-md p-4 rounded-lg">
-      <h3 className="text-lg font-semibold text-gray-700">Peak Demand</h3>
-      <p className="text-2xl font-bold text-green-600">2192 kVA 00:00:01</p>
-    </div>
+      {/* Total Consumption */}
+      <div className="flex items-center bg-white shadow-md p-2 rounded-md w-[16%]">
+        <div className="bg-blue-100 p-2 rounded-md text-blue-600">
+          <FaBolt className="w-5 h-5" />
+        </div>
+        <div className="ml-2">
+          <h3 className="text-xs font-medium text-gray-700">Total Consumption</h3>
+          <p className="text-base font-bold text-gray-900">11,438.48 kWh</p>
+        </div>
+      </div>
 
-    {/* Mini Card 3 */}
-    <div className="bg-white shadow-md p-4 rounded-lg">
-      <h3 className="text-lg font-semibold text-gray-700">Today’s CO2 Reduction</h3>
-      <p className="text-2xl font-bold text-green-600">
-        0.86 Tons of CO2 Equivalent
-      </p>
+      {/* Total Cost */}
+      <div className="flex items-center bg-white shadow-md p-2 rounded-md w-[16%]">
+        <div className="bg-blue-100 p-2 rounded-md text-blue-600">
+          <FaRupeeSign className="w-5 h-5" />
+        </div>
+        <div className="ml-2">
+          <h3 className="text-xs font-medium text-gray-700">Total Cost</h3>
+          <p className="text-base font-bold text-gray-900">₹78,545.15</p>
+        </div>
+      </div>
+
+      {/* Power Load: Normal */}
+      <div className="flex items-center bg-white shadow-md p-2 rounded-md w-[16%]">
+        <div>
+          <h3 className="text-xs font-medium text-gray-700">
+            Power Load: <span className="text-blue-600">Normal</span>
+          </h3>
+          <p className="text-sm font-bold text-gray-900">8,594.74 kWh</p>
+          <p className="text-xs text-gray-600">₹52,427.92</p>
+        </div>
+      </div>
+
+      {/* Power Load: Peak */}
+      <div className="flex items-center bg-white shadow-md p-2 rounded-md w-[16%]">
+        <div>
+          <h3 className="text-xs font-medium text-gray-700">
+            Power Load: <span className="text-red-600">Peak</span>
+          </h3>
+          <p className="text-sm font-bold text-gray-900">2,843.74 kWh</p>
+          <p className="text-xs text-gray-600">₹26,117.23</p>
+        </div>
+      </div>
+
+      {/* Power Load: Off-Peak */}
+      <div className="flex items-center bg-white shadow-md p-2 rounded-md w-[16%]">
+        <div>
+          <h3 className="text-xs font-medium text-gray-700">
+            Power Load: <span className="text-orange-600">Off-Peak</span>
+          </h3>
+          <p className="text-sm font-bold text-gray-900">5,301 kWh</p>
+          <p className="text-xs text-gray-600">₹24,252.06</p>
+        </div>
+      </div>
     </div>
-  </div>
-</div>
 
 
 
   {/* Main Content Section */}
-  <div className="flex flex-col gap-6">
-    {/* Energy Sources and Facility Usage */}
-    <div className="flex flex-col md:flex-row gap-6">
-  <div className="w-full md:w-1/2">
-    <EnergySources />
-  </div>
-  <div className="w-full md:w-1/2">
-    <FacilityUsage />
-  </div>
-</div>
+  <LiveConsumption />
 
 
     {/* Remaining Cards */}
+    <MeterInfo />
     <ElectricityUsage />
-    <FacilityUsaget />
     <FacilityInformation />
-    <ChillerCard />
     <WheeledInSolar />
     <PeakDemand />
     <EnergyConsumption />
@@ -72,7 +130,7 @@ const Dashboard = () => {
     <Batteries />
     <EVChargerOverview />
   </div>
-</div>
+
 
   );
 };

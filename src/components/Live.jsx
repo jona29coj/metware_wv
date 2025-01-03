@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import mqtt from 'mqtt';
+import { BarChart, Bar, CartesianGrid, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts';
 
 function Live() {
   const [meters, setMeters] = useState({});
@@ -25,7 +26,14 @@ function Live() {
 
         setMeters((prevMeters) => ({
           ...prevMeters,
-          [data.energy_meter_id]: data.parameters,
+          [data.energy_meter_id]: {
+            ...(prevMeters[data.energy_meter_id] || {}),
+            parameters: data.parameters,
+            history: [
+              ...(prevMeters[data.energy_meter_id]?.history || []),
+              { ...data.parameters, timestamp: new Date().toLocaleTimeString() },
+            ].slice(-10), // Keep only the last 10 data points
+          },
         }));
       } catch (error) {
         console.error('Error parsing MQTT message:', error);
@@ -47,24 +55,70 @@ function Live() {
 
   const renderMeterCards = () => {
     const meterCards = [];
-    for (let i = 2; i <= 4; i++) {
+    for (let i = 2; i <= 6; i++) {
       const meterData = meters[i];
+      const history = meterData?.history || [];
+
+      // Filter out 'Unknown' entries
+      const filteredHistory = history.map((entry) =>
+        Object.fromEntries(Object.entries(entry).filter(([key]) => !key.includes('Unknown')))
+      );
+
       meterCards.push(
         <div
           key={i}
-          className="flex flex-col items-center bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 p-4 space-y-2"
+          className="bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 p-4 space-y-4"
         >
-          <h3 className="text-lg font-semibold text-gray-700">Energy Meter {i}</h3>
-          {meterData ? (
-            <div className="text-sm text-gray-600">
-              {Object.entries(meterData).map(([key, value]) => (
-                <p key={key}>
-                  <strong>{key}:</strong> {value}
-                </p>
-              ))}
+          {/* Meter Details Card */}
+          <div className="flex flex-col items-center">
+            <h3 className="text-lg font-semibold text-gray-700">Energy Meter {i}</h3>
+            {meterData?.parameters ? (
+              <div className="text-sm text-gray-600">
+                {Object.entries(meterData.parameters)
+                  .filter(([key]) => !key.includes('Unknown'))
+                  .map(([key, value]) => (
+                    <p key={key}>
+                      <strong>{key}:</strong> {value}
+                    </p>
+                  ))}
+              </div>
+            ) : (
+              <p className="text-sm text-gray-400">No data available</p>
+            )}
+          </div>
+
+          {/* Chart Card */}
+          {history.length > 0 && (
+            <div className="bg-gray-50 rounded-lg shadow-inner p-4">
+              <h4 className="text-md font-semibold text-gray-600 mb-4">Energy Trends</h4>
+              <ResponsiveContainer width="100%" height={300}>
+                <BarChart data={filteredHistory}>
+                  <CartesianGrid stroke="#ccc" />
+                  <XAxis dataKey="timestamp" tick={false} /> {/* X-Axis labels hidden */}
+                  <YAxis />
+                  <Tooltip 
+  content={({ payload, label }) => {
+    if (!payload || payload.length === 0) return null;
+    return (
+      <div className="bg-white p-2 shadow-md rounded">
+        {payload
+          .filter((entry) => entry.dataKey !== 'timestamp') // Exclude timestamp
+          .map((entry, index) => (
+            <p key={index} className="text-sm text-gray-700">
+              <strong>{entry.name}:</strong> {entry.value}
+            </p>
+          ))}
+      </div>
+    );
+  }}
+/>                  {Object.keys(filteredHistory[0] || {})
+                    .filter((key) => key !== 'timestamp')
+                    .map((key) => (
+                      <Bar key={key} dataKey={key} fill="#82ca9d" />
+                    ))}
+                </BarChart>
+              </ResponsiveContainer>
             </div>
-          ) : (
-            <p className="text-sm text-gray-400">No data available</p>
           )}
         </div>
       );

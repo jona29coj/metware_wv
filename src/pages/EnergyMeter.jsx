@@ -1,158 +1,148 @@
-import React, { useState } from "react";
-import {
-  LineChart,
-  Line,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  ResponsiveContainer,
-  BarChart,
-  Bar,
-  Legend,
-} from "recharts";
+import React from "react";
 
-// Dummy Data for Meters
-const energyMeters = [
-  { id: 1, activePower: 0.0, apparentPower: 10.5, powerFactor: 0.98, maxDemand: 9.0, reactivePower: 0.5, frequency: 50 },
-  { id: 2, activePower: 2.3, apparentPower: 12.4, powerFactor: 0.97, maxDemand: 11.2, reactivePower: 1.1, frequency: 50 },
-];
-
-// Dummy Data for Charts
-const energyConsumptionData = [
-  { time: "00:00", consumption: 50 },
-  { time: "03:00", consumption: 80 },
-  { time: "06:00", consumption: 120 },
-  { time: "09:00", consumption: 400 },
-  { time: "12:00", consumption: 800 },
-  { time: "15:00", consumption: 1000 },
-  { time: "18:00", consumption: 700 },
-  { time: "21:00", consumption: 300 },
-];
-
-const powerFactorTrendData = [
-  { time: "00:00", powerFactor: 0.95 },
-  { time: "06:00", powerFactor: 0.92 },
-  { time: "12:00", powerFactor: 0.97 },
-  { time: "18:00", powerFactor: 0.99 },
-  { time: "21:00", powerFactor: 0.96 },
-];
-
-const voltageData = [
-  { time: "00:00", R: 240, B: 238, Y: 245 },
-  { time: "06:00", R: 242, B: 239, Y: 247 },
-  { time: "12:00", R: 244, B: 240, Y: 246 },
-  { time: "18:00", R: 241, B: 239, Y: 243 },
-  { time: "21:00", R: 243, B: 238, Y: 245 },
-];
-
-const EnergyMeterSection = () => {
-  const [selectedMeterId, setSelectedMeterId] = useState(1);
-  const currentMeter = energyMeters.find((meter) => meter.id === selectedMeterId);
+// EnergyMeter Component
+const EnergyMeter = ({ name, totalKW, maxKW, consumption, cost }) => {
+  const percentage = (totalKW / maxKW) * 100;
 
   return (
-    <div style={{ padding: "20px", fontFamily: "'Arial', sans-serif", color: "#333" }}>
-      <h2 style={{ marginBottom: "20px", fontSize: "20px", fontWeight: "600" }}>Energy Meter Overview</h2>
+    <div
+      style={{
+        border: "2px solid #333",
+        borderRadius: "20px",
+        padding: "16px",
+        background: "linear-gradient(145deg, #e6f3ff, #cde9f8)", // Enhanced gradient
+        width: "220px",
+        height: "300px",
+        boxShadow: "inset 0 -4px 8px rgba(0, 0, 0, 0.2), 0 8px 16px rgba(0, 0, 0, 0.2)", // Enhanced shadow
+        textAlign: "center",
+        position: "relative",
+      }}
+    >
+      {/* Zone Label */}
+      <div
+        style={{
+          fontWeight: "bold",
+          fontSize: "16px",
+          color: "#222",
+          backgroundColor: "#fff",
+          borderRadius: "12px",
+          padding: "6px 12px",
+          position: "absolute",
+          top: "-14px",
+          left: "50%",
+          transform: "translateX(-50%)",
+          boxShadow: "0 2px 4px rgba(0, 0, 0, 0.2)",
+        }}
+      >
+        {name}
+      </div>
 
-      {/* Flex Layout for Details and Energy Utilization */}
-      <div style={{ display: "flex", gap: "20px", flexWrap: "wrap" }}>
-        {/* Meter Details Section */}
+      {/* Gauge */}
+      <div
+        style={{
+          position: "relative",
+          margin: "24px auto",
+          width: "120px",
+          height: "120px",
+          borderRadius: "50%",
+          background: `conic-gradient(${percentage > 75 ? "orange" : "green"} ${percentage}%, #ddd ${percentage}%)`,
+          border: "4px solid #fff", // Enhanced contrast for gauge
+          boxShadow: "0 0 6px rgba(0, 0, 0, 0.2)",
+        }}
+      >
         <div
           style={{
-            flex: "1 1 300px",
-            background: "#fff",
-            border: "1px solid #ddd",
-            borderRadius: "8px",
-            padding: "15px",
+            position: "absolute",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+            width: "90px",
+            height: "90px",
+            borderRadius: "50%",
+            background: "#e6f3ff",
+            border: "2px solid #ddd",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            boxShadow: "inset 0 0 6px rgba(0, 0, 0, 0.2)",
           }}
         >
-          <h3 style={{ fontSize: "16px", marginBottom: "10px", fontWeight: "600" }}>Meter Details</h3>
-          <p><strong>Active Power:</strong> {currentMeter.activePower} kW</p>
-          <p><strong>Apparent Power:</strong> {currentMeter.apparentPower} kVA</p>
-          <p><strong>Power Factor:</strong> {currentMeter.powerFactor}</p>
-          <p><strong>Maximum Demand:</strong> {currentMeter.maxDemand} kVA</p>
-          <p><strong>Reactive Power:</strong> {currentMeter.reactivePower} kVAr</p>
-          <p><strong>Frequency:</strong> {currentMeter.frequency} Hz</p>
-        </div>
-
-        {/* Energy Utilization Section */}
-        <div
-          style={{
-            flex: "1 1 300px",
-            background: "#fff",
-            border: "1px solid #ddd",
-            borderRadius: "8px",
-            padding: "15px",
-          }}
-        >
-          <h3 style={{ fontSize: "16px", marginBottom: "10px", fontWeight: "600" }}>Energy Utilization</h3>
-          <p><strong>Grid:</strong> 90%</p>
-          <p><strong>Diesel:</strong> 10% (60 L)</p>
+          <div>
+            <div
+              style={{
+                fontWeight: "bold",
+                fontSize: "18px",
+                color: percentage > 75 ? "orange" : "green",
+              }}
+            >
+              {totalKW.toFixed(2)} kW
+            </div>
+            <div style={{ fontSize: "12px", color: "#666" }}>Total</div>
+          </div>
         </div>
       </div>
 
-      {/* Consumption Summary Section */}
-      <div style={{ margin: "20px 0", display: "flex", gap: "20px" }}>
-        <div style={{ flex: "1", background: "#f1f9f9", padding: "10px", borderRadius: "8px", textAlign: "center" }}>
-          <h4>Today's Consumption</h4>
-          <p style={{ fontSize: "18px", fontWeight: "bold" }}>800 kWh</p>
+      {/* Readings Section */}
+      <div
+        style={{
+          marginTop: "20px",
+          fontSize: "12px",
+          color: "#333",
+          backgroundColor: "#fff",
+          borderRadius: "10px",
+          padding: "10px",
+          boxShadow: "inset 0 0 4px rgba(0, 0, 0, 0.1)",
+        }}
+      >
+        <div style={{ marginBottom: "8px" }}>
+          <strong>Consumption:</strong> {consumption.toLocaleString()} kWh
         </div>
-        <div style={{ flex: "1", background: "#f1f9f9", padding: "10px", borderRadius: "8px", textAlign: "center" }}>
-          <h4>Weekly Consumption</h4>
-          <p style={{ fontSize: "18px", fontWeight: "bold" }}>2500 kWh</p>
+        <div>
+          <strong>Cost:</strong> ₹{cost.toLocaleString()}
         </div>
-        <div style={{ flex: "1", background: "#f1f9f9", padding: "10px", borderRadius: "8px", textAlign: "center" }}>
-          <h4>Yearly Consumption</h4>
-          <p style={{ fontSize: "18px", fontWeight: "bold" }}>15,000 kWh</p>
-        </div>
-      </div>
-
-      {/* Energy Consumption Chart */}
-      <div style={{ margin: "20px 0", background: "#fff", border: "1px solid #ddd", borderRadius: "8px", padding: "20px" }}>
-        <h3 style={{ fontSize: "16px", marginBottom: "10px", fontWeight: "600" }}>Energy Consumption</h3>
-        <ResponsiveContainer width="100%" height={300}>
-          <BarChart data={energyConsumptionData}>
-            <CartesianGrid strokeDasharray="3 3" stroke="#ccc" />
-            <XAxis dataKey="time" tick={{ fontSize: 12 }} />
-            <YAxis tick={{ fontSize: 12 }} />
-            <Tooltip />
-            <Bar dataKey="consumption" fill="#8884d8" />
-          </BarChart>
-        </ResponsiveContainer>
-      </div>
-
-      {/* Power Factor Trend Chart */}
-      <div style={{ margin: "20px 0", background: "#fff", border: "1px solid #ddd", borderRadius: "8px", padding: "20px" }}>
-        <h3 style={{ fontSize: "16px", marginBottom: "10px", fontWeight: "600" }}>Power Factor Trend</h3>
-        <ResponsiveContainer width="100%" height={300}>
-          <LineChart data={powerFactorTrendData}>
-            <CartesianGrid strokeDasharray="3 3" stroke="#ccc" />
-            <XAxis dataKey="time" tick={{ fontSize: 12 }} />
-            <YAxis tick={{ fontSize: 12 }} />
-            <Tooltip />
-            <Line type="monotone" dataKey="powerFactor" stroke="#82ca9d" strokeWidth={2} />
-          </LineChart>
-        </ResponsiveContainer>
-      </div>
-
-      {/* Voltage Chart */}
-      <div style={{ margin: "20px 0", background: "#fff", border: "1px solid #ddd", borderRadius: "8px", padding: "20px" }}>
-        <h3 style={{ fontSize: "16px", marginBottom: "10px", fontWeight: "600" }}>Voltage</h3>
-        <ResponsiveContainer width="100%" height={300}>
-          <LineChart data={voltageData}>
-            <CartesianGrid strokeDasharray="3 3" stroke="#ccc" />
-            <XAxis dataKey="time" tick={{ fontSize: 12 }} />
-            <YAxis tick={{ fontSize: 12 }} />
-            <Tooltip />
-            <Legend />
-            <Line type="monotone" dataKey="R" stroke="#ff0000" strokeWidth={2} />
-            <Line type="monotone" dataKey="B" stroke="#0000ff" strokeWidth={2} />
-            <Line type="monotone" dataKey="Y" stroke="#ffaa00" strokeWidth={2} />
-          </LineChart>
-        </ResponsiveContainer>
       </div>
     </div>
   );
 };
 
-export default EnergyMeterSection;
+// MeterInfo Component
+const MeterInfo = () => {
+  // Sample data
+  const energyMeters = Array.from({ length: 10 }, (_, index) => ({
+    name: `Zone ${index + 1}`,
+    totalKW: Math.random() * 1200, // Random data for demo
+    maxKW: 1200,
+    consumption: Math.random() * 20000,
+    cost: Math.random() * 100000,
+  }));
+
+  return (
+    <div
+      style={{
+        padding: "24px",
+        background: "white",
+        borderRadius: "12px",
+        boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
+      }}
+    >
+              <h2 className="text-xl font-semibold pb-8">Energy Meters</h2>
+
+
+      {/* Responsive Grid */}
+      <div
+        style={{
+          display: "grid",
+          gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))",
+          gap: "24px",
+          justifyItems: "center",
+        }}
+      >
+        {energyMeters.map((meter, index) => (
+          <EnergyMeter key={index} {...meter} />
+        ))}
+      </div>
+    </div>
+  );
+};
+
+export default MeterInfo;
