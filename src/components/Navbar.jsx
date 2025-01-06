@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { FaBell, FaSearch } from 'react-icons/fa';
+import { FaBell, FaSearch, FaBolt, FaWater, FaCloud } from 'react-icons/fa'; // Added icons
 import userprofile from "../components/userprofile.png";
 import DateSelector from './DateSelector';
 
@@ -7,7 +7,8 @@ const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
-  const [isSingleDay, setIsSingleDay] = useState(false); // Toggle between single day and date range
+  const [isSingleDay, setIsSingleDay] = useState(false);
+  const [activeBlock, setActiveBlock] = useState('Energy'); // Track the active block
 
   // Detect scrolling
   const handleScroll = () => {
@@ -31,6 +32,11 @@ const Navbar = () => {
   const handleDateChange = (newStartDate, newEndDate) => {
     setStartDate(newStartDate);
     setEndDate(newEndDate);
+  };
+
+  // Handle block toggle
+  const handleBlockToggle = (block) => {
+    setActiveBlock(block); // Change the active block
   };
 
   return (
@@ -64,12 +70,6 @@ const Navbar = () => {
               <p>
                 Normal Rs./Unit: <span className="text-blue-600">₹6.10</span>
               </p>
-              <p>
-                Peak Rs./Unit: <span className="text-red-600">₹9.15</span>
-              </p>
-              <p>
-                OFF-Peak Rs./Unit: <span className="text-orange-600">₹4.58</span>
-              </p>
             </div>
           </div>
 
@@ -99,6 +99,49 @@ const Navbar = () => {
           </div>
         </div>
       </div>
+
+      {/* Toggling Options */}
+<div className="bg-gray-100 flex justify-between items-center">
+  {/* Energy Block */}
+  <div
+    className={`cursor-pointer flex items-center justify-center w-1/3 py-3 rounded-lg transform transition-all duration-300 ease-in-out ${
+      activeBlock === 'Energy'
+        ? 'bg-gradient-to-r from-yellow-400 to-yellow-600 text-white shadow-xl'
+        : 'bg-white text-gray-600 hover:bg-yellow-200'
+    }`}
+    onClick={() => handleBlockToggle('Energy')}
+  >
+    <FaBolt className="text-2xl mr-2" />
+    <p className="font-bold">Energy</p>
+  </div>
+
+  {/* Water Block */}
+  <div
+    className={`cursor-pointer flex items-center justify-center w-1/3 py-3 rounded-lg transform transition-all duration-300 ease-in-out ${
+      activeBlock === 'Water'
+        ? 'bg-gradient-to-r from-blue-400 to-blue-600 text-white shadow-xl'
+        : 'bg-white text-gray-600 hover:bg-blue-200'
+    }`}
+    onClick={() => handleBlockToggle('Water')}
+  >
+    <FaWater className="text-2xl mr-2" />
+    <p className="font-bold">Water</p>
+  </div>
+
+  {/* Air Block */}
+  <div
+    className={`cursor-pointer flex items-center justify-center w-1/3 py-3 rounded-lg transform transition-all duration-300 ease-in-out ${
+      activeBlock === 'Air'
+        ? 'bg-gradient-to-r from-gray-300 to-gray-500 text-white shadow-xl'
+        : 'bg-white text-gray-600 hover:bg-gray-200'
+    }`}
+    onClick={() => handleBlockToggle('Air')}
+  >
+    <FaCloud className="text-2xl mr-2" />
+    <p className="font-bold">Air</p>
+  </div>
+</div>
+
     </div>
   );
 };

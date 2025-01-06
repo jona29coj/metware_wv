@@ -4,17 +4,41 @@ import { BarChart, Bar, CartesianGrid, XAxis, YAxis, Tooltip, ResponsiveContaine
 
 function Live() {
   const [meters, setMeters] = useState({});
+  const topic = 'energy_meter/test';
+
+  // Fetch initial data
+  const fetchInitialData = async () => {
+    try {
+      const response = await fetch('https://your-api-endpoint.com/initial-data'); // Replace with your backend endpoint
+      const initialData = await response.json();
+      console.log('Fetched initial data:', initialData);
+
+      setMeters(
+        initialData.reduce((acc, data) => {
+          acc[data.energy_meter_id] = {
+            parameters: data.parameters,
+            history: data.history || [],
+          };
+          return acc;
+        }, {})
+      );
+    } catch (error) {
+      console.error('Error fetching initial data:', error);
+    }
+  };
 
   useEffect(() => {
+    fetchInitialData();
+
     const mqttClient = mqtt.connect('wss://broker.hivemq.com:8884/mqtt');
 
     mqttClient.on('connect', () => {
       console.log('Connected to MQTT broker!');
-      mqttClient.subscribe('energy_meter/test', (err) => {
+      mqttClient.subscribe(topic, (err) => {
         if (err) {
           console.error('Subscription error:', err);
         } else {
-          console.log('Successfully subscribed to topic "energy_meter/test"');
+          console.log(`Successfully subscribed to topic "${topic}"`);
         }
       });
     });
@@ -53,6 +77,7 @@ function Live() {
     };
   }, []);
 
+  // Render the meter cards dynamically
   const renderMeterCards = () => {
     const meterCards = [];
     for (let i = 2; i <= 6; i++) {
@@ -69,7 +94,7 @@ function Live() {
           key={i}
           className="bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 p-4 space-y-4"
         >
-          {/* Meter Details Card */}
+          {/* Meter Details */}
           <div className="flex flex-col items-center">
             <h3 className="text-lg font-semibold text-gray-700">Energy Meter {i}</h3>
             {meterData?.parameters ? (
@@ -87,7 +112,7 @@ function Live() {
             )}
           </div>
 
-          {/* Chart Card */}
+          {/* Energy Trends Chart */}
           {history.length > 0 && (
             <div className="bg-gray-50 rounded-lg shadow-inner p-4">
               <h4 className="text-md font-semibold text-gray-600 mb-4">Energy Trends</h4>
@@ -96,22 +121,23 @@ function Live() {
                   <CartesianGrid stroke="#ccc" />
                   <XAxis dataKey="timestamp" tick={false} /> {/* X-Axis labels hidden */}
                   <YAxis />
-                  <Tooltip 
-  content={({ payload, label }) => {
-    if (!payload || payload.length === 0) return null;
-    return (
-      <div className="bg-white p-2 shadow-md rounded">
-        {payload
-          .filter((entry) => entry.dataKey !== 'timestamp') // Exclude timestamp
-          .map((entry, index) => (
-            <p key={index} className="text-sm text-gray-700">
-              <strong>{entry.name}:</strong> {entry.value}
-            </p>
-          ))}
-      </div>
-    );
-  }}
-/>                  {Object.keys(filteredHistory[0] || {})
+                  <Tooltip
+                    content={({ payload }) => {
+                      if (!payload || payload.length === 0) return null;
+                      return (
+                        <div className="bg-white p-2 shadow-md rounded">
+                          {payload
+                            .filter((entry) => entry.dataKey !== 'timestamp') // Exclude timestamp
+                            .map((entry, index) => (
+                              <p key={index} className="text-sm text-gray-700">
+                                <strong>{entry.name}:</strong> {entry.value}
+                              </p>
+                            ))}
+                        </div>
+                      );
+                    }}
+                  />
+                  {Object.keys(filteredHistory[0] || {})
                     .filter((key) => key !== 'timestamp')
                     .map((key) => (
                       <Bar key={key} dataKey={key} fill="#82ca9d" />

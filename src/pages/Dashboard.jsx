@@ -44,43 +44,55 @@ const Dashboard = () => {
 
   return (
 <div className="min-h-screen flex flex-col bg-gray-100 p-5 gap-6">
-  {/* Top Section */}
-  <div className="flex justify-between gap-2 flex-wrap">
+{/* Top Section */}
+<div className="flex gap-4">
+  {/* First Mini Card */}
+  <div className="flex flex-1 bg-white shadow-md p-4 rounded-md">
+    {/* Row Layout */}
+    <div className="flex flex-1 justify-between items-center">
       {/* Total Meters */}
-      <div className="flex items-center bg-white shadow-md p-2 rounded-md w-[16%]">
+      <div className="flex items-center w-1/3">
         <div className="bg-blue-100 p-2 rounded-md text-blue-600">
-          <FaTachometerAlt className="w-5 h-5" />
+          <FaTachometerAlt className="w-6 h-6" />
         </div>
-        <div className="ml-2">
+        <div className="pl-2">
           <h3 className="text-xs font-medium text-gray-700">Total Meters</h3>
           <p className="text-base font-bold text-gray-900">210</p>
         </div>
       </div>
 
       {/* Total Consumption */}
-      <div className="flex items-center bg-white shadow-md p-2 rounded-md w-[16%]">
+      <div className="flex items-center w-1/3 border-l border-gray-200 pl-4">
         <div className="bg-blue-100 p-2 rounded-md text-blue-600">
-          <FaBolt className="w-5 h-5" />
+          <FaBolt className="w-6 h-6" />
         </div>
-        <div className="ml-2">
+        <div className="pl-2">
           <h3 className="text-xs font-medium text-gray-700">Total Consumption</h3>
-          <p className="text-base font-bold text-gray-900">11,438.48 kWh</p>
+          <p className="text-base font-bold text-gray-900 text-nowrap">
+            11,438.48 <span className="text-xs font-normal">kWh</span>
+          </p>
         </div>
       </div>
 
       {/* Total Cost */}
-      <div className="flex items-center bg-white shadow-md p-2 rounded-md w-[16%]">
+      <div className="flex items-center w-1/3 border-l border-gray-200 pl-4">
         <div className="bg-blue-100 p-2 rounded-md text-blue-600">
-          <FaRupeeSign className="w-5 h-5" />
+          <FaRupeeSign className="w-6 h-6" />
         </div>
         <div className="ml-2">
           <h3 className="text-xs font-medium text-gray-700">Total Cost</h3>
           <p className="text-base font-bold text-gray-900">₹78,545.15</p>
         </div>
       </div>
+    </div>
+  </div>
 
+  {/* Second Mini Card */}
+  <div className="flex flex-1 bg-white shadow-md p-4 rounded-md">
+    {/* Row Layout */}
+    <div className="flex flex-1 justify-between items-center">
       {/* Power Load: Normal */}
-      <div className="flex items-center bg-white shadow-md p-2 rounded-md w-[16%]">
+      <div className="flex items-center w-1/3">
         <div>
           <h3 className="text-xs font-medium text-gray-700">
             Power Load: <span className="text-blue-600">Normal</span>
@@ -91,7 +103,7 @@ const Dashboard = () => {
       </div>
 
       {/* Power Load: Peak */}
-      <div className="flex items-center bg-white shadow-md p-2 rounded-md w-[16%]">
+      <div className="flex items-center w-1/3 border-l border-gray-200 pl-4">
         <div>
           <h3 className="text-xs font-medium text-gray-700">
             Power Load: <span className="text-red-600">Peak</span>
@@ -102,7 +114,7 @@ const Dashboard = () => {
       </div>
 
       {/* Power Load: Off-Peak */}
-      <div className="flex items-center bg-white shadow-md p-2 rounded-md w-[16%]">
+      <div className="flex items-center w-1/3 border-l border-gray-200 pl-4">
         <div>
           <h3 className="text-xs font-medium text-gray-700">
             Power Load: <span className="text-orange-600">Off-Peak</span>
@@ -112,6 +124,12 @@ const Dashboard = () => {
         </div>
       </div>
     </div>
+  </div>
+</div>
+
+
+
+
 
 
 

@@ -134,19 +134,6 @@ const LiveConsumption = () => {
           width="100%"
         />
       </div>
-
-      {/* Info Section */}
-      <div className="mt-6 space-y-2">
-        <p className="text-gray-700">
-          Current Time: <span className="font-medium">4:14</span>
-        </p>
-        <p className="text-gray-700">
-          Power Load: <span className="font-medium">{activeRange}</span>
-        </p>
-        <p className="text-gray-700">
-          Meters: <span className="font-medium">195</span>
-        </p>
-      </div>
     </div>
   );
 };
