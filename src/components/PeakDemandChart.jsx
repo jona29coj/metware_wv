@@ -1,35 +1,98 @@
 import React from "react";
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from "recharts";
+import Highcharts from "highcharts";
+import HighchartsReact from "highcharts-react-official";
 
 const PeakDemandChart = () => {
-  const data = [
-    { month: "Jan", "2024": 560.88, "2023": 578.56 },
-    { month: "Feb", "2024": 555.0, "2023": 560.16 },
-    { month: "Mar", "2024": 556.8, "2023": 555.0 },
-    { month: "Apr", "2024": 555.0, "2023": 555.0 },
-    { month: "May", "2024": 577.68, "2023": 608.16 },
-    { month: "Jun", "2024": 613.44, "2023": 617.04 },
-    { month: "Jul", "2024": 615.12, "2023": 615.12 },
-    { month: "Aug", "2024": 604.08, "2023": 612.24 },
-    { month: "Sep", "2024": 628.56, "2023": 638.56 },
-    { month: "Oct", "2024": 641.52, "2023": 665.28 },
-    { month: "Nov", "2024": 602.4, "2023": 612.0 },
-    { month: "Dec", "2024": 555.0, "2023": 555.0 },
-  ];
+  const options = {
+    chart: {
+      type: "column",
+      backgroundColor: "white", // Set chart background to white
+    },
+    title: {
+      text: null,
+      align: "center",
+      style: {
+        fontSize: "18px",
+        fontWeight: "bold",
+      },
+    },
+    xAxis: {
+      categories: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+      title: {
+        text: "Months",
+        style: {
+          fontWeight: "bold",
+        },
+      },
+      gridLineWidth: 0, // Remove grid lines
+    },
+    yAxis: {
+      title: {
+        text: "Peak Demand (kW)",
+        style: {
+          fontWeight: "bold",
+        },
+      },
+      gridLineWidth: 0, // Remove grid lines
+    },
+    tooltip: {
+      shared: true,
+      backgroundColor: "white",
+      style: {
+        color: "#000", // Ensure tooltip text is visible on white background
+      },
+      borderRadius: 10,
+    },
+    plotOptions: {
+      column: {
+        borderRadius: 5,
+      },
+    },
+    series: [
+      {
+        name: "2024",
+        data: [560.88, 555.0, 556.8, 555.0, 577.68, 613.44, 615.12, 604.08, 628.56, 641.52, 602.4, 555.0],
+        color: "#1f77b4",
+      },
+      {
+        name: "2023",
+        type: "line",
+        data: [578.56, 560.16, 555.0, 555.0, 608.16, 617.04, 615.12, 612.24, 638.56, 665.28, 612.0, 555.0],
+        color: "#ff7f0e",
+        lineWidth: 3,
+        marker: {
+          enabled: true,
+          radius: 5,
+        },
+      },
+    ],
+    legend: {
+      align: "center",
+      verticalAlign: "bottom", // Move legend to the bottom
+      layout: "horizontal", // Keep legend layout horizontal
+    },
+    credits: {
+      enabled: false, // Disable the credits
+    },
+    responsive: {
+      rules: [
+        {
+          condition: {
+            maxWidth: 768,
+          },
+          chartOptions: {
+            legend: {
+              layout: "horizontal",
+              align: "center",
+              verticalAlign: "bottom",
+            },
+          },
+        },
+      ],
+    },
+  };
 
-  return (
-    <ResponsiveContainer width="100%" height="100%">
-      <LineChart data={data}>
-        <CartesianGrid strokeDasharray="3 3" />
-        <XAxis dataKey="month" />
-        <YAxis />
-        <Tooltip />
-        <Legend />
-        <Line type="monotone" dataKey="2024" stroke="#1f77b4" activeDot={{ r: 8 }} />
-        <Line type="monotone" dataKey="2023" stroke="#ff7f0e" activeDot={{ r: 8 }} />
-      </LineChart>
-    </ResponsiveContainer>
-  );
+  return <HighchartsReact highcharts={Highcharts} options={options} />;
 };
 
 export default PeakDemandChart;

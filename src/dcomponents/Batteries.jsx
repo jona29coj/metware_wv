@@ -1,8 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import ioe from "../pages/IOE2.png";
-import lithium from "../pages/Li.png";
-import ups from "../pages/UPS3.png";
+import ioe from "../sections/IOE2.png";
+import lithium from "../sections/Li.png";
+import ups from "../sections/UPS3.png";
 
 const Batteries = () => {
   return (

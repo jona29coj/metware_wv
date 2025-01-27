@@ -19,29 +19,6 @@ const ElectricityUsageGroupedChart = () => {
     { TOD1: 80000, TOD2: 100000, TOD3: 50000, TOD4: 25000 },
     { TOD1: 85000, TOD2: 110000, TOD3: 60000, TOD4: 30000 },
     { TOD1: 50000, TOD2: 80000, TOD3: 40000, TOD4: 20000 },
-    { TOD1: 40000, TOD2: 70000, TOD3: 30000, TOD4: 10000 },
-    { TOD1: 30000, TOD2: 60000, TOD3: 20000, TOD4: 5000 },
-    { TOD1: 47022, TOD2: 68748, TOD3: 25000, TOD4: 12000 },
-    { TOD1: 50000, TOD2: 70000, TOD3: 30000, TOD4: 20000 },
-    { TOD1: 40000, TOD2: 60000, TOD3: 20000, TOD4: 10000 },
-    { TOD1: 45000, TOD2: 55000, TOD3: 25000, TOD4: 15000 },
-    { TOD1: 60000, TOD2: 80000, TOD3: 40000, TOD4: 20000 },
-    { TOD1: 80000, TOD2: 100000, TOD3: 50000, TOD4: 25000 },
-    { TOD1: 85000, TOD2: 110000, TOD3: 60000, TOD4: 30000 },
-    { TOD1: 50000, TOD2: 80000, TOD3: 40000, TOD4: 20000 },
-    { TOD1: 40000, TOD2: 70000, TOD3: 30000, TOD4: 10000 },
-    { TOD1: 30000, TOD2: 60000, TOD3: 20000, TOD4: 5000 },
-    { TOD1: 47022, TOD2: 68748, TOD3: 25000, TOD4: 12000 },
-    { TOD1: 50000, TOD2: 70000, TOD3: 30000, TOD4: 20000 },
-    { TOD1: 40000, TOD2: 60000, TOD3: 20000, TOD4: 10000 },
-    { TOD1: 45000, TOD2: 55000, TOD3: 25000, TOD4: 15000 },
-    { TOD1: 60000, TOD2: 80000, TOD3: 40000, TOD4: 20000 },
-    { TOD1: 80000, TOD2: 100000, TOD3: 50000, TOD4: 25000 },
-    { TOD1: 85000, TOD2: 110000, TOD3: 60000, TOD4: 30000 },
-    { TOD1: 50000, TOD2: 80000, TOD3: 40000, TOD4: 20000 },
-    { TOD1: 40000, TOD2: 70000, TOD3: 30000, TOD4: 10000 },
-    { TOD1: 30000, TOD2: 60000, TOD3: 20000, TOD4: 5000 },
-    { TOD1: 47022, TOD2: 68748, TOD3: 25000, TOD4: 12000 },
   ];
 
   const chartData = fullChartData.slice(0, 31); // Display data for 31 days
@@ -55,7 +32,7 @@ const ElectricityUsageGroupedChart = () => {
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
-        backgroundColor: "#f7f9fc",
+        backgroundColor: "white",
         padding: "24px",
         borderRadius: "12px",
         boxShadow: "0 6px 18px rgba(0, 0, 0, 0.1)",
@@ -73,20 +50,11 @@ const ElectricityUsageGroupedChart = () => {
       >
         TOD
       </div>
-      
-      <div
-        style={{
-          alignSelf: "flex-end",
-          fontSize: "18px",
-          color: "#555",
-          paddingBottom: "16px",
-        }}
-      >
-      </div>
 
       <ResponsiveContainer width="95%" height={400}>
         <BarChart data={chartData}>
-          <CartesianGrid strokeDasharray="3 3" stroke="#ddd" />
+          {/* Completely remove the grid lines */}
+          <CartesianGrid stroke="none" />
           <XAxis
             dataKey="date"
             tick={{ fill: "#555", fontSize: 12 }}
@@ -96,7 +64,6 @@ const ElectricityUsageGroupedChart = () => {
             label={{
               value: "Day",
               position: "insideBottom",
-              offset: -5,
               fill: "#555",
               fontSize: 14,
             }}
