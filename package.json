@@ -9,6 +9,7 @@
     "@heroicons/react": "^1.0.6",
     "@nivo/bar": "^0.88.0",
     "@nivo/pie": "^0.88.0",
+    "@react-google-maps/api": "^2.20.5",
     "@react-three/drei": "^9.120.4",
     "@react-three/fiber": "^8.17.10",
     "apexcharts": "^4.3.0",

@@ -19,10 +19,8 @@ import logo from "../logo2.png";
 const links = {
   monitor: [
     { name: "Building Overview", path: "/monitor/overview" },
-    { name: "Client", path: "/monitor/client" },
-    { name: "Cooling/HVAC", path: "/chillerdetail" },
-    { name: "Renewable Energy", path: "/monitor/performance" },
-    { name: "Batteries", path: "/monitor/batteries" },
+    { name: "Zones", path: "/monitor/zones" },
+    { name: "Diesel", path: "/monitor/diesel" },
   ],
 };
 
@@ -108,7 +106,7 @@ const Sidebar = () => {
           { name: "Optimize", path: "#", icon: <FaChartLine /> },
           { name: "Alerts", path: "/alerts", icon: <FiAlertCircle /> },
           { name: "Reports", path: "/reports", icon: <FiFileText /> },
-          { name: "Files", path: "/documentation", icon: <FiBook /> },
+          { name: "Files", path: "/files", icon: <FiBook /> },
           { name: "Profile", path: "/profile", icon: <FiUser /> },
         ].map((item, index) => (
           <NavLink

@@ -5,6 +5,11 @@ import './App.css';
 import Dashboard from './sections/Dashboard/Dashboard';
 import AlertsOverview from './sections/Alerts';
 import Reports from './sections/Reports';
+import Profile from './sections/Profile';
+import Files from './sections/Files';
+import BuildingOverview from './sections/Monitor/BuildingOverview';
+import Diesel from './sections/Monitor/Diesel';
+import Zones from './sections/Monitor/Zones';
 
 const AppLayout = ({ children, activeBlock, setActiveBlock }) => {
   const location = useLocation();
@@ -60,6 +65,11 @@ const App = () => {
             path="/reports"
             element={<Reports />}
           />
+          <Route path="/profile" element={<Profile/>} />
+          <Route path="/files" element={<Files/>} />
+          <Route path="/monitor/overview" element={<BuildingOverview/>} />
+          <Route path="/monitor/zones" element={<Zones/>} />
+          <Route path="/monitor/diesel" element={<Diesel/>} />
         </Routes>
       </AppLayout>
     </BrowserRouter>
