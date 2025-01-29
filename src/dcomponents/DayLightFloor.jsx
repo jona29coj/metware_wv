@@ -17,29 +17,17 @@ const DaylightFloorPlanAnalysis = () => {
   ];
 
   return (
-    <div className="max-w-4xl mx-auto bg-white shadow-xl rounded-2xl p-6">
+    <div className="bg-white shadow-xl rounded-2xl p-6">
       {/* Title Section */}
       <div className="text-center mb-6">
         <h1 className="text-2xl font-bold">Daylight Factor Floor Plan Analysis</h1>
         <h2 className="text-lg font-medium mt-2">PLOT C-49</h2>
       </div>
 
-      {/* Inference Section */}
-      <div className="mb-6">
-        <h2 className="text-lg text-red-600 font-medium">Inference</h2>
-        <ul className="list-disc list-inside mt-2 text-gray-700">
-          <li>The daylight factor (DF) is carefully carried out for each floor.</li>
-          <li>
-            The analysis shows that all the indoor surface is getting 2.1% approx., which is below the average of
-            5% for precision work factories.
-          </li>
-        </ul>
-      </div>
-
-      {/* Floor Plan Images */}
-      <div className="grid grid-cols-3 gap-4 mb-6">
+      {/* Floor Plan Images in a Row */}
+      <div className="flex justify-between mb-6 flex-wrap">
         {floorPlans.map((plan) => (
-          <div key={plan.title} className="flex flex-col items-center">
+          <div key={plan.title} className="flex flex-col items-center w-1/6 p-2">
             <img src={plan.image} alt={plan.title} className="w-full h-40 object-cover rounded-lg" />
             <p className="text-sm text-gray-500 mt-2">{plan.title}</p>
           </div>

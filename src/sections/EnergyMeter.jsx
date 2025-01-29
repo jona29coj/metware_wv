@@ -17,7 +17,7 @@ const EnergyMeter = ({ name, consumption, cost, percentage }) => {
           }}
         >
           <span className="text-lg font-bold text-green-600">
-            {percentage.toFixed(0)}%
+            {Math.round(percentage)}%
           </span>
         </div>
       </div>
@@ -25,7 +25,7 @@ const EnergyMeter = ({ name, consumption, cost, percentage }) => {
       {/* Consumption */}
       <div className="mt-4">
         <div className="text-lg font-bold text-green-700">
-          {consumption.toFixed(1)} kWh
+          {Math.round(consumption)} kWh
         </div>
         <div className="text-xs text-gray-500">Consumption</div>
       </div>
@@ -33,7 +33,7 @@ const EnergyMeter = ({ name, consumption, cost, percentage }) => {
       {/* Cost */}
       <div>
         <div className="text-lg font-bold text-blue-700">
-          ₹{cost.toFixed(1)}
+          ₹{Math.round(cost)}
         </div>
         <div className="text-xs text-gray-500">Cost</div>
       </div>

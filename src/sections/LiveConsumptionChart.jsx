@@ -39,12 +39,15 @@ const LiveConsumption = () => {
     },
     xaxis: {
       categories: timeCategories[activeRange],
-      title: { text: "Time", style: { fontSize: "14px", color: "#666" } },
+      title: {
+        text: "Time",
+        style: { fontSize: "14px", color: "#666", fontWeight: "normal" }, // Set fontWeight to normal
+      },
     },
     yaxis: {
       title: {
         text: activeToggle === "Energy" ? "Energy (kWh)" : "Cost (₹)",
-        style: { fontSize: "14px", color: "#666" },
+        style: { fontSize: "14px", color: "#666", fontWeight: "normal" }, // Set fontWeight to normal
       },
     },
     colors:
@@ -66,6 +69,7 @@ const LiveConsumption = () => {
     },
     legend: { position: "top", horizontalAlign: "right" },
   };
+  
 
   const series =
     activeToggle === "Energy"
