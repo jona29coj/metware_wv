@@ -2,9 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { FaBell, FaSearch, FaBolt, FaWater, FaCloud } from 'react-icons/fa';
 import userprofile from "../components/userprofile.png";
 import DateSelector from './DateSelector';
+import { useLocation } from 'react-router-dom'; // Import useLocation
 
 const Navbar = ({ activeBlock, setActiveBlock }) => {
   const [isScrolled, setIsScrolled] = useState(false);
+  const location = useLocation(); // Get current route
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 100);
@@ -24,6 +26,9 @@ const Navbar = ({ activeBlock, setActiveBlock }) => {
     Water: 'from-blue-400 to-blue-600',
     Air: 'from-gray-300 to-gray-500',
   };
+
+  // Conditionally render block selector only on /dashboard route
+  const showBlocks = location.pathname === '/dashboard';
 
   return (
     <div>
@@ -60,21 +65,23 @@ const Navbar = ({ activeBlock, setActiveBlock }) => {
         </div>
       </div>
 
-      {/* Block Selector */}
-      <div className="bg-gray-100 flex justify-between items-center px-3 space-x-4">
-        {['Energy', 'Water', 'Air'].map((block) => (
-          <div
-            key={block}
-            className={`${blockClasses(block)} ${activeBlock === block ? blockStyles[block] : ''}`}
-            onClick={() => setActiveBlock(block)} // Update the active block
-          >
-            {block === 'Energy' && <FaBolt className="text-2xl pr-2" />}
-            {block === 'Water' && <FaWater className="text-2xl pr-2" />}
-            {block === 'Air' && <FaCloud className="text-2xl pr-2" />}
-            {block}
-          </div>
-        ))}
-      </div>
+      {/* Block Selector - Only on /dashboard route */}
+      {showBlocks && (
+        <div className="bg-gray-100 flex justify-between items-center px-3 space-x-4">
+          {['Energy', 'Water', 'Air'].map((block) => (
+            <div
+              key={block}
+              className={`${blockClasses(block)} ${activeBlock === block ? blockStyles[block] : ''}`}
+              onClick={() => setActiveBlock(block)} // Update the active block
+            >
+              {block === 'Energy' && <FaBolt className="text-2xl pr-2" />}
+              {block === 'Water' && <FaWater className="text-2xl pr-2" />}
+              {block === 'Air' && <FaCloud className="text-2xl pr-2" />}
+              {block}
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 };

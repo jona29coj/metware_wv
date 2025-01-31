@@ -13,6 +13,7 @@ import { FaTachometerAlt, FaBolt, FaRupeeSign } from "react-icons/fa";
 import LiveConsumption from "../LiveConsumptionChart";
 import MeterInfo from "../EnergyMeter";
 import ZoneUsageCard from "../../dcomponents/ZoneUsageCard";
+import DieselGeneration from "../../dcomponents/DieselGeneration";
 
 const EDashboard = () => {
   return (
@@ -88,24 +89,18 @@ const EDashboard = () => {
     </div>
   </div>
 </div>
-
-
-
-
-
-
-
     <LiveConsumption />
     <MeterInfo />
+    <DieselGeneration />
     <ElectricityUsage />
     <FacilityInformation />
     <ZoneUsageCard />
     <PeakDemand />
     <EnergyConsumption />
+    <WheeledInSolar />
     <WaterStorage />
     <Batteries />
     <EVChargerOverview />
-    <WheeledInSolar />
   </div>
 
 

@@ -10,6 +10,8 @@ import Files from './sections/Files';
 import BuildingOverview from './sections/Monitor/BuildingOverview';
 import Diesel from './sections/Monitor/Diesel';
 import Zones from './sections/Monitor/Zones';
+import Emd from './dcomponents/Emd';
+import Dgd from './dcomponents/Dgd';
 
 const ScrollToTop = () => {
   const { pathname } = useLocation();
@@ -62,6 +64,10 @@ const App = () => {
           <Route path="/monitor/overview" element={<BuildingOverview />} />
           <Route path="/monitor/zones" element={<Zones />} />
           <Route path="/monitor/diesel" element={<Diesel />} />
+          <Route path="/meter/:id" element={<Emd />} />
+          <Route path="/generator/:id" element={<Dgd />} />
+
+
         </Routes>
       </AppLayout>
     </BrowserRouter>
