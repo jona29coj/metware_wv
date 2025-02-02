@@ -5,14 +5,14 @@ const EnergyMeter = ({ name, consumption, id }) => {
   const navigate = useNavigate();
 
   return (
-    <div className="relative bg-white rounded-lg w-40 h-50 flex flex-col justify-between items-center text-center p-4 border border-gray-500">
+    <div className="relative bg-white rounded-lg w-full sm:w-40 md:w-48 h-50 flex flex-col justify-between items-center text-center p-4 border border-gray-500">
       {/* Zone Label */}
-      <div className="absolute top-[-10px] left-1/2 transform -translate-x-1/2 bg-green-500 text-white text-xs font-medium py-1 px-2 rounded-full">
+      <div className="absolute -top-2 left-1/2 transform -translate-x-1/2 bg-green-500 text-white text-xs font-medium py-1 px-2 rounded-full">
         {name}
       </div>
 
       {/* Consumption Highlight */}
-      <div className="mt-4 flex flex-col items-center">
+      <div className="pt-4 flex flex-col items-center">
         <div className="text-2xl font-bold text-gray-800">{Math.round(consumption)} kWh</div>
         <div className="text-xs text-gray-400">Consumption</div>
       </div>
@@ -37,8 +37,8 @@ const MeterInfo = () => {
 
   return (
     <div className="p-6 bg-white rounded-lg shadow-md flex flex-col">
-      <h2 className="text-lg font-bold mb-6">Energy Meters</h2>
-      <div className="grid grid-cols-5 gap-x-16 gap-y-6 justify-center mx-auto">
+        <h2 className="text-xl font-semibold pb-7">Energy Meters</h2>
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-x-7 gap-y-6 mx-auto">
         {energyMeters.map((meter) => (
           <EnergyMeter key={meter.id} {...meter} />
         ))}
@@ -48,4 +48,3 @@ const MeterInfo = () => {
 };
 
 export default MeterInfo;
-

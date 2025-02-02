@@ -4,8 +4,8 @@ import { Chart } from 'react-google-charts';
 const ZoneUsageCard = () => {
   const data = [
     ['Source', 'Target', 'Value'],
-    ['Diesel', 'Source', 20],  // Diesel is at the bottom
-    ['Grid', 'Source', 12],    // Grid is at the top
+    ['Diesel', 'Source', 8],  // Diesel is at the bottom
+    ['Grid', 'Source', 20],    // Grid is at the top
     ['Source', 'Zone 1', 8],
     ['Source', 'Zone 2', 4],
     ['Source', 'Zone 3', 6],

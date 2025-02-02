@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
-import { Sidebar, Navbar } from './components';
-import './App.css';
+import Sidebar from './components/Sidebar';
+import Navbar from './components/Navbar';
 import Dashboard from './sections/Dashboard/Dashboard';
 import AlertsOverview from './sections/Alerts';
 import Reports from './sections/Reports';
@@ -15,61 +15,75 @@ import Dgd from './dcomponents/Dgd';
 
 const ScrollToTop = () => {
   const { pathname } = useLocation();
-
   useEffect(() => {
-    window.scrollTo(0, 0); // Scroll to top when route changes
+    window.scrollTo(0, 0);
   }, [pathname]);
-
   return null;
-};
-
-const AppLayout = ({ children, activeBlock, setActiveBlock }) => {
-  const location = useLocation();
-  const isLoginPage = location.pathname === '/';
-  const navbarHeight = 52; // Adjust this value to match the reduced Navbar height
-
-  return (
-    <div className="bg-main-bg min-h-screen">
-      <div className="flex relative">
-        {!isLoginPage && (
-          <div className="w-56 fixed sidebar bg-white shadow-md">
-            <Sidebar />
-          </div>
-        )}
-        <div
-          className={`bg-main-bg min-h-screen ${!isLoginPage ? 'ml-56' : ''} w-full`}
-          style={{ paddingTop: !isLoginPage ? `${navbarHeight}px` : '0' }}
-        >
-          {!isLoginPage && <Navbar activeBlock={activeBlock} setActiveBlock={setActiveBlock} />}
-          <div>{children}</div>
-        </div>
-      </div>
-    </div>
-  );
 };
 
 const App = () => {
   const [activeBlock, setActiveBlock] = useState('Energy');
+  const [isCollapsed, setIsCollapsed] = useState(window.innerWidth < 1024);
+  const [refreshKey, setRefreshKey] = useState(0);
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth < 768) {
+        setIsCollapsed(true);
+      } else if (window.innerWidth < 1024) {
+        setIsCollapsed(true);
+      } else {
+        setIsCollapsed(false);
+      }
+    };
+
+    window.addEventListener('resize', handleResize);
+    handleResize();
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  const toggleSidebar = () => {
+    setIsCollapsed((prev) => !prev);
+    setRefreshKey((prevKey) => prevKey + 1); // Triggers re-render of components
+  };
 
   return (
     <BrowserRouter>
-      <ScrollToTop /> {/* Ensures scroll resets on route change */}
-      <AppLayout activeBlock={activeBlock} setActiveBlock={setActiveBlock}>
-        <Routes>
-          <Route path="/dashboard" element={<Dashboard activeBlock={activeBlock} />} />
-          <Route path="/alerts" element={<AlertsOverview />} />
-          <Route path="/reports" element={<Reports />} />
-          <Route path="/profile" element={<Profile />} />
-          <Route path="/files" element={<Files />} />
-          <Route path="/monitor/overview" element={<BuildingOverview />} />
-          <Route path="/monitor/zones" element={<Zones />} />
-          <Route path="/monitor/diesel" element={<Diesel />} />
-          <Route path="/meter/:id" element={<Emd />} />
-          <Route path="/generator/:id" element={<Dgd />} />
+      <ScrollToTop />
+      <div className="bg-main-bg min-h-screen flex">
+        {/* Sidebar */}
+        <div
+          className={`bg-white shadow-md transition-all duration-300 ${
+            isCollapsed ? 'w-16 absolute sm:relative' : 'w-56'
+          }`}
+        >
+          <Sidebar isCollapsed={isCollapsed} setIsCollapsed={toggleSidebar} />
+        </div>
 
-
-        </Routes>
-      </AppLayout>
+        {/* Main Content */}
+        <div key={refreshKey} className="flex-1 flex flex-col min-h-screen overflow-hidden max-w-full transition-all duration-300">
+          <Navbar 
+            activeBlock={activeBlock} 
+            setActiveBlock={setActiveBlock} 
+            isCollapsed={isCollapsed} 
+            setIsCollapsed={toggleSidebar} 
+          />
+          <div className="flex-1 overflow-auto max-w-full mt-[-10px]">
+            <Routes>
+              <Route path="/dashboard" element={<Dashboard activeBlock={activeBlock} />} />
+              <Route path="/alerts" element={<AlertsOverview />} />
+              <Route path="/reports" element={<Reports />} />
+              <Route path="/profile" element={<Profile />} />
+              <Route path="/files" element={<Files />} />
+              <Route path="/monitor/overview" element={<BuildingOverview />} />
+              <Route path="/monitor/zones" element={<Zones />} />
+              <Route path="/monitor/diesel" element={<Diesel />} />
+              <Route path="/meter/:id" element={<Emd />} />
+              <Route path="/generator/:id" element={<Dgd />} />
+            </Routes>
+          </div>
+        </div>
+      </div>
     </BrowserRouter>
   );
 };

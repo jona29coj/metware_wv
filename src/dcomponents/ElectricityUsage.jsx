@@ -11,6 +11,13 @@ import {
 } from "recharts";
 
 const ElectricityUsageGroupedChart = () => {
+  const ratePerUnit = {
+    TOD1: 5.0,
+    TOD2: 5.0,
+    TOD3: 7.0,
+    TOD4: 4.5,
+  };
+
   const fullChartData = [
     { TOD1: 50000, TOD2: 70000, TOD3: 30000, TOD4: 20000 },
     { TOD1: 40000, TOD2: 60000, TOD3: 20000, TOD4: 10000 },
@@ -21,10 +28,12 @@ const ElectricityUsageGroupedChart = () => {
     { TOD1: 50000, TOD2: 80000, TOD3: 40000, TOD4: 20000 },
   ];
 
-  const chartData = fullChartData.slice(0, 31); // Display data for 31 days
+  const chartData = fullChartData.slice(0, 31);
 
-  const currentMonth = new Date().toLocaleString("default", { month: "long" });
-  const currentYear = new Date().getFullYear();
+  const convertToRupees = (units, TOD) => {
+    if (!ratePerUnit[TOD]) return "N/A";
+    return Math.round(units * ratePerUnit[TOD]);
+  };
 
   return (
     <div
@@ -44,7 +53,6 @@ const ElectricityUsageGroupedChart = () => {
           alignSelf: "center",
           fontSize: "24px",
           fontWeight: "bold",
-          color: "",
           paddingBottom: "18px",
         }}
       >
@@ -53,52 +61,54 @@ const ElectricityUsageGroupedChart = () => {
 
       <ResponsiveContainer width="95%" height={400}>
         <BarChart data={chartData}>
-          {/* Completely remove the grid lines */}
           <CartesianGrid stroke="none" />
           <XAxis
             dataKey="date"
             tick={{ fill: "#555", fontSize: 12 }}
-            interval={0} // Show all labels
+            interval={0}
             textAnchor="end"
-            height={50} // Increase height for spacing
+            height={50}
             label={{
               value: "Day",
               position: "insideBottom",
               fill: "#555",
               fontSize: 14,
             }}
-            tickFormatter={(tick, index) => `${index + 1}`} // Label as "Day 1", "Day 2", etc.
+            tickFormatter={(tick, index) => `${index + 1}`}
           />
           <YAxis
             tick={{ fill: "#555", fontSize: 12 }}
-            tickCount={6} // Adjust number of ticks for spacing
-            tickFormatter={(value) => `${value / 1000}k`} // Format numbers
+            tickCount={6}
+            tickFormatter={(value) => `${Math.round(value / 1000)}k`}
             label={{
-              value: "Units Consumed",
+              value: "Amount",
               angle: -90,
               position: "insideLeft",
               fill: "#555",
               fontSize: 14,
+              dx: -20, // Adjust for spacing
             }}
           />
           <Tooltip
-            contentStyle={{
-              backgroundColor: "#fff",
-              border: "1px solid #ddd",
-              borderRadius: "8px",
-              boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
-            }}
-          />
+  contentStyle={{
+    backgroundColor: "#fff",
+    border: "1px solid #ddd",
+    borderRadius: "8px",
+    boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
+  }}
+  formatter={(value, name) => `₹500`}
+/>
+
           <Legend
             wrapperStyle={{
               color: "#555",
-              paddingTop: "10px", // Add padding to the top of the legends
+              paddingTop: "10px",
             }}
           />
-          <Bar dataKey="TOD1" fill="#1E90FF" name="TOD - 1 (05:00 AM - 11:00 AM)" />
-          <Bar dataKey="TOD2" fill="#28a745" name="TOD - 2 (11:00 AM - 05:00 PM)" />
-          <Bar dataKey="TOD3" fill="#ffc107" name="TOD - 3 (05:00 PM - 11:00 PM)" />
-          <Bar dataKey="TOD4" fill="#dc3545" name="TOD - 4 (11:00 PM - 05:00 AM)" />
+          <Bar dataKey="TOD1" fill="#8d86d8" name="TOD - 1 (05:00 AM - 11:00 AM)" value="90"/>
+          <Bar dataKey="TOD2" fill="#86cb9d" name="TOD - 2 (11:00 AM - 05:00 PM)" />
+          <Bar dataKey="TOD3" fill="#f8c55f" name="TOD - 3 (05:00 PM - 11:00 PM)" />
+          <Bar dataKey="TOD4" fill="#f76c6c" name="TOD - 4 (11:00 PM - 05:00 AM)" />
         </BarChart>
       </ResponsiveContainer>
     </div>
