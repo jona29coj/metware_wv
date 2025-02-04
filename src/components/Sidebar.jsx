@@ -21,7 +21,7 @@ const Sidebar = () => {
   const normalLink = `flex items-center gap-5 p-3 rounded-lg text-md text-gray-700 hover:bg-green-500 hover:text-white transition-all duration-300 m-2`;
 
   return (
-    <div className="h-screen fixed overflow-auto bg-white shadow-lg transition-all duration-300 w-56 lg:w-56 md:w-16 sm:w-16">
+    <div className="h-screen w-full overflow-auto bg-white shadow-lg transition-all duration-300">
       {/* Sidebar Header */}
       <div className="flex justify-center items-center bg-white p-5">
         <Link to="/">

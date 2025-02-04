@@ -54,7 +54,7 @@ const App = () => {
         {/* Sidebar */}
         <div
           className={`bg-white shadow-md transition-all duration-300 ${
-            isCollapsed ? 'w-[9%] absolute sm:relative' : 'w-[15.5%]'
+            isCollapsed ? 'w-[15%] absolute sm:relative' : 'w-[15.5%]'
           }`}
         >
           <Sidebar isCollapsed={isCollapsed} setIsCollapsed={toggleSidebar} />
