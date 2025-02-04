@@ -31,7 +31,7 @@ const Sidebar = () => {
 
       {/* Elements Score (Hidden on md and sm) */}
       <div className="flex flex-col items-center bg-white py-4 px-4 rounded-lg shadow border mx-4 mt-2 lg:flex md:hidden sm:hidden">
-        <h3 className="text-xs font-semibold text-gray-600 uppercase tracking-wider">
+        <h3 className="text-xs font-semibold text-gray-600 tracking-wider">
           Elements Score
         </h3>
         <p className="text-green-600 text-xl font-bold mt-1">760</p>

@@ -13,7 +13,6 @@ import LiveConsumption from "../LiveConsumption";
 import MeterInfo from "../EnergyMeter";
 import DieselGeneration from "../../dcomponents/DieselGeneration";
 import Edmc from "../../dcomponents/Edmc";
-import EnergySources from "../../dcomponents/EnergySources";
 import ZoneUsage from "../../dcomponents/ZoneUsage";
 
 const EDashboard = () => {
@@ -33,8 +32,6 @@ const EDashboard = () => {
 </div>
 
       
-      {/* Remaining components */}
-      <EnergySources />
       <ElectricityUsage />
       <MeterInfo />
       <DieselGeneration />

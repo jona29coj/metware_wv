@@ -23,14 +23,12 @@ const ScrollToTop = () => {
 
 const App = () => {
   const [activeBlock, setActiveBlock] = useState('Energy');
-  const [isCollapsed, setIsCollapsed] = useState(window.innerWidth < 1024);
+  const [isCollapsed, setIsCollapsed] = useState(window.innerWidth < 1024); // Set initial state for smaller than 'lg'
   const [refreshKey, setRefreshKey] = useState(0);
 
   useEffect(() => {
     const handleResize = () => {
-      if (window.innerWidth < 768) {
-        setIsCollapsed(true);
-      } else if (window.innerWidth < 1024) {
+      if (window.innerWidth < 1024) { // Use 1024px as breakpoint for 'lg'
         setIsCollapsed(true);
       } else {
         setIsCollapsed(false);
@@ -38,7 +36,7 @@ const App = () => {
     };
 
     window.addEventListener('resize', handleResize);
-    handleResize();
+    handleResize(); // Ensure it's set correctly on mount
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
@@ -53,15 +51,15 @@ const App = () => {
       <div className="bg-main-bg min-h-screen flex">
         {/* Sidebar */}
         <div
-          className={`bg-white shadow-md transition-all duration-300 ${
-            isCollapsed ? 'w-[15%] absolute sm:relative' : 'w-[15.5%]'
+          className={`bg-white shadow-md transition-all duration-300 fixed top-0 left-0 h-full ${
+            isCollapsed ? 'w-[9%]' : 'w-[15.5%]'
           }`}
         >
           <Sidebar isCollapsed={isCollapsed} setIsCollapsed={toggleSidebar} />
         </div>
 
         {/* Main Content */}
-        <div key={refreshKey} className="flex-1 flex flex-col min-h-screen overflow-hidden max-w-full transition-all duration-300">
+        <div key={refreshKey} className="flex-1 flex flex-col min-h-screen overflow-hidden max-w-full ml-[15.5%] transition-all duration-300">
           <Navbar 
             activeBlock={activeBlock} 
             setActiveBlock={setActiveBlock} 

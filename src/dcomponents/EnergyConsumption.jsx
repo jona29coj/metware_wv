@@ -34,9 +34,9 @@ const EnergyConsumptionChart = () => {
             y: hoursOfDay,
             type: "heatmap",
             colorscale: [
-              [0, "lightgreen"], // Light green for the lowest value
-              [0.5, "yellowgreen"], // Mid-level green shade
-              [1, "darkgreen"], // Dark green for the highest value
+              [0, "#00FF00"], // Green (low consumption)
+              [0.5, "#FFFF00"], // Yellow (moderate)
+              [1, "#FF0000"], // Red (high consumption)
             ],
             colorbar: { title: "Total Energy (kWh)", titleside: "right" },
             hovertemplate:
@@ -57,9 +57,9 @@ const EnergyConsumptionChart = () => {
             titlefont: { size: 14 },
             tickangle: 0,
             automargin: true,
-            tickmode: "array", // Explicitly show all ticks
-            tickvals: dayNumbers, // All day numbers (1–31)
-            ticktext: dayNumbers.map(String), // Ensure labels are strings
+            tickmode: "array",
+            tickvals: dayNumbers,
+            ticktext: dayNumbers.map(String),
           },
           yaxis: {
             title: "Hour",
@@ -71,13 +71,13 @@ const EnergyConsumptionChart = () => {
         }}
         config={{
           responsive: true,
-          displaylogo: false, // Disable the Plotly logo
-          staticPlot: false, // Allow hover but not zoom/pan
-          displayModeBar: false, // Hide the mode bar
-          scrollZoom: false, // Disable zoom
-          showAxisDragHandles: false, // Disable dragging axis
-          showSpikes: false, // Disable spikes on hover
-          editable: false, // Disable editing
+          displaylogo: false,
+          displayModeBar: false,
+          staticPlot: false,
+          scrollZoom: false,
+          showAxisDragHandles: false,
+          showSpikes: false,
+          editable: false,
         }}
         style={{ width: "100%", height: "100%" }}
       />
@@ -89,7 +89,6 @@ const EnergyConsumption = () => {
   return (
     <div className="bg-white shadow-lg rounded-lg p-6 w-full h-full">
       <h2 className="text-lg font-bold text-gray-700">Energy Consumption</h2>
-      {/* Chart Component */}
       <div className="flex-grow w-full h-[500px]">
         <EnergyConsumptionChart />
       </div>
