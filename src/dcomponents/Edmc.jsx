@@ -19,7 +19,7 @@ const Edmc = () => {
           {/* Cost */}
           <div className="flex flex-col justify-center items-center h-full">
           <h3 className="text-xxs md:text-xs text-gray-500 font-medium pb-2 relative lg:bottom-1 md:bottom-0">Cost</h3>
-            <p className="text-lg md:text-xl font-extrabold text-gray-900">₹78,545</p>
+            <p className="text-lg md:text-xl font-extrabold text-gray-900"><span className="text-xxxs md:text-xxs font-normal">₹</span> 78,545</p>
           </div>
         </div>
       </div>

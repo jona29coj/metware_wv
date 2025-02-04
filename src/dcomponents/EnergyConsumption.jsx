@@ -72,6 +72,12 @@ const EnergyConsumptionChart = () => {
         config={{
           responsive: true,
           displaylogo: false, // Disable the Plotly logo
+          staticPlot: false, // Allow hover but not zoom/pan
+          displayModeBar: false, // Hide the mode bar
+          scrollZoom: false, // Disable zoom
+          showAxisDragHandles: false, // Disable dragging axis
+          showSpikes: false, // Disable spikes on hover
+          editable: false, // Disable editing
         }}
         style={{ width: "100%", height: "100%" }}
       />
