@@ -34,10 +34,12 @@ const EnergyConsumptionChart = () => {
             y: hoursOfDay,
             type: "heatmap",
             colorscale: [
-              [0, "#00FF00"], // Green (low consumption)
-              [0.5, "#FFFF00"], // Yellow (moderate)
-              [1, "#FF0000"], // Red (high consumption)
+              [0, "#00ff00"], // Bright Green (low consumption)
+              [0.5, "#ffff00"], // Yellow (moderate)
+              [1, "#ff0000"], // Bright Red (high consumption)
             ],
+            
+                      
             colorbar: { title: "Total Energy (kWh)", titleside: "right" },
             hovertemplate:
               "Day: %{x}<br>Hour: %{y}<br>" +

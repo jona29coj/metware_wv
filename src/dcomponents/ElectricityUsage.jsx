@@ -105,10 +105,10 @@ const ElectricityUsageGroupedChart = () => {
               paddingTop: "10px",
             }}
           />
-          <Bar dataKey="TOD1" fill="#8d86d8" name="TOD - 1 (05:00 AM - 11:00 AM)" value="90"/>
-          <Bar dataKey="TOD2" fill="#86cb9d" name="TOD - 2 (11:00 AM - 05:00 PM)" />
-          <Bar dataKey="TOD3" fill="#f8c55f" name="TOD - 3 (05:00 PM - 11:00 PM)" />
-          <Bar dataKey="TOD4" fill="#f76c6c" name="TOD - 4 (11:00 PM - 05:00 AM)" />
+          <Bar dataKey="TOD1" fill="rgba(76, 175, 80, 0.7)" name="TOD - 1 (05:00 AM - 11:00 AM)" />
+          <Bar dataKey="TOD2" fill="rgba(76, 175, 80, 0.7)" name="TOD - 2 (11:00 AM - 05:00 PM)" />
+          <Bar dataKey="TOD3" fill="rgba(244, 67, 54, 0.7)" name="TOD - 3 (05:00 PM - 11:00 PM)" />
+          <Bar dataKey="TOD4" fill="rgba(255, 152, 0, 0.7)" name="TOD - 4 (11:00 PM - 05:00 AM)" />
         </BarChart>
       </ResponsiveContainer>
     </div>

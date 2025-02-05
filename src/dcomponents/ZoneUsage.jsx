@@ -60,19 +60,19 @@ const ZoneUsage = () => {
   };
 
   // Updated styles for cleaner mini cards
-  const cardStyles = "bg-white border border-gray-500 p-5 rounded-lg mb-5";
-  const cardTitleStyles = "font-semibold text-md text-gray-700 whitespace-nowrap"; // Prevent wrapping
-  const cardValueStyles = "text-2xl font-bold text-gray-900 whitespace-nowrap"; // Prevent wrapping
+  const cardStyles = "bg-white border border-gray-500 p-5 rounded-lg mb-5 flex flex-col justify-center items-center"; // Added flex and centered
+  const cardTitleStyles = "font-semibold text-md text-gray-700 whitespace-nowrap text-center"; // Centered title
+  const cardValueStyles = "text-2xl font-bold text-gray-900 whitespace-nowrap text-center"; // Centered value
 
   return (
     <div className="bg-white p-6 rounded-lg shadow-lg w-full">
       <h2 className="text-xl font-semibold pb-4">Zone Usage</h2>
 
-      <div className="flex items-center justify-between space-x-6">
+      <div className="flex items-center justify-between space-x-2"> {/* Reduced space-x to move the cards closer */}
         <div className="w-2/3">
           <HighchartsReact highcharts={Highcharts} options={zoneChartOptions} />
         </div>
-        <div className="w-1/3">
+        <div className="w-1/3"> {/* Optionally adjust width to fit better */}
           {/* Clean and modern mini cards with hover effect */}
           <div className={cardStyles}>
             <h3 className={cardTitleStyles}>Grid Consumption</h3>

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { MdKeyboardArrowDown, MdKeyboardArrowUp } from "react-icons/md";
-import { FiMonitor, FiSettings, FiAlertCircle, FiFileText, FiHome, FiBook, FiUser } from "react-icons/fi";
+import { FiMonitor, FiSettings, FiAlertCircle, FiFileText, FiHome, FiBook, FiUser, FiLock } from "react-icons/fi";
 import { FaChartLine } from "react-icons/fa";
 import logo from "../logo2.png";
 
@@ -70,9 +70,10 @@ const Sidebar = () => {
           )}
         </div>
 
-        {/* Disabled Control Section */}
-        <div className="flex items-center gap-5 p-3 rounded-lg text-md text-gray-400 cursor-not-allowed m-2">
-          <FiSettings className="text-xl" />
+        {/* Disabled Control Section with Lock Icon on Hover */}
+        <div className="group relative flex items-center gap-5 p-3 rounded-lg text-md text-gray-400 cursor-not-allowed m-2">
+          <FiSettings className="text-xl group-hover:hidden" />
+          <FiLock className="text-xl hidden group-hover:block" />
           <span className="lg:block md:hidden sm:hidden">Control</span>
         </div>
 
@@ -89,13 +90,20 @@ const Sidebar = () => {
             to={item.name === "Optimize" ? "#" : item.path}
             className={({ isActive }) =>
               item.name === "Optimize"
-                ? "flex items-center gap-5 p-3 rounded-lg text-gray-400 cursor-not-allowed m-2"
+                ? "group relative flex items-center gap-5 p-3 rounded-lg text-gray-400 cursor-not-allowed m-2"
                 : isActive
                 ? activeLink
                 : normalLink
             }
           >
-            {item.icon}
+            {item.name === "Optimize" ? (
+              <>
+                <FaChartLine className="text-xl group-hover:hidden" />
+                <FiLock className="text-xl hidden group-hover:block" />
+              </>
+            ) : (
+              item.icon
+            )}
             <span className="lg:block md:hidden sm:hidden">{item.name}</span>
           </NavLink>
         ))}
