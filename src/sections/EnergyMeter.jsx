@@ -6,18 +6,15 @@ const EnergyMeter = ({ name, consumption, id }) => {
 
   return (
     <div className="relative bg-white rounded-lg w-full sm:w-40 md:w-48 h-50 flex flex-col justify-between items-center text-center p-4 border border-gray-500">
-      {/* Zone Label */}
       <div className="absolute -top-2 left-1/2 transform -translate-x-1/2 bg-green-500 text-white text-xs font-medium py-1 px-2 rounded-full">
         {name}
       </div>
 
-      {/* Consumption Highlight */}
       <div className="pt-4 flex flex-col items-center">
         <div className="text-2xl font-bold text-gray-800">{Math.round(consumption)} kWh</div>
         <div className="text-xs text-gray-400">Consumption</div>
       </div>
 
-      {/* View Details Button */}
       <button
         onClick={() => navigate(`/meter/${id}`)}
         className="mt-2 text-blue-600 font-semibold text-xs hover:text-blue-800"
@@ -30,7 +27,7 @@ const EnergyMeter = ({ name, consumption, id }) => {
 
 const MeterInfo = () => {
   const energyMeters = Array.from({ length: 10 }, (_, index) => ({
-    id: index + 1, // Assign unique ID for routing
+    id: index + 1, 
     name: `Zone ${index + 1}`,
     consumption: Math.random() * 1000,
   }));

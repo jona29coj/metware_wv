@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { FaBell, FaSearch } from 'react-icons/fa';
 import userprofile from "../components/userprofile.png";
-import DateSelector from './DateSelector';
 import { useLocation } from 'react-router-dom';
 
 const Navbar = ({ activeBlock, setActiveBlock, isCollapsed }) => {
@@ -16,14 +15,12 @@ const Navbar = ({ activeBlock, setActiveBlock, isCollapsed }) => {
 
   return (
     <div>
-      {/* Navbar */}
       <div
         className={`transition-all fixed top-0 left-0 right-0 z-50 bg-white shadow-md py-2 px-3 ${
           isScrolled ? 'shadow-lg' : ''
         } ${isCollapsed ? 'ml-16' : 'ml-56'} transition-all duration-300`}
       >
         <div className="flex items-center justify-between flex-wrap">
-          {/* Search Bar */}
           <div className="relative flex items-center">
             <input
               type="text"
@@ -33,9 +30,7 @@ const Navbar = ({ activeBlock, setActiveBlock, isCollapsed }) => {
             <FaSearch className="absolute right-3 text-gray-500 text-sm cursor-pointer" />
           </div>
 
-          {/* Right-side Controls */}
           <div className="flex items-center space-x-4">
-            <DateSelector />
             <FaBell className="text-gray-600 text-xl cursor-pointer hover:text-blue-500" />
             <div className="flex items-center space-x-2">
               <img
@@ -49,7 +44,6 @@ const Navbar = ({ activeBlock, setActiveBlock, isCollapsed }) => {
         </div>
       </div>
 
-      {/* Adding margin to prevent overlap */}
       <div className="mt-16"></div>
     </div>
   );
