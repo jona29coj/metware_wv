@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import dg from "../sections/pictures/dg.png";
+import dg from "../sections/pictures/DieselUpd.png";
 
 const DieselGeneration = () => {
   const navigate = useNavigate(); // Navigation Hook
@@ -12,7 +12,7 @@ const DieselGeneration = () => {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {/* DG1 Section */}
         <div className="flex flex-col items-center text-center p-6 bg-gray-50 rounded-lg shadow-sm">
-          <img className="w-40 h-40 object-contain rounded-lg mb-4" src={dg} alt="DG1" />
+          <img className="w-50 h-40 object-contain rounded-lg mb-4" src={dg} alt="DG1" />
           <h2 className="font-bold text-2xl text-gray-800 mb-2">DG1</h2>
           <div className="text-gray-700 text-sm space-y-2">
             <p><strong>Status:</strong> <span className="text-green-600">Running</span></p>
@@ -30,7 +30,7 @@ const DieselGeneration = () => {
 
         {/* DG2 Section */}
         <div className="flex flex-col items-center text-center p-6 bg-gray-50 rounded-lg shadow-sm">
-          <img className="w-40 h-40 object-contain rounded-lg mb-4" src={dg} alt="DG2" />
+          <img className="w-50 h-40 object-contain rounded-lg mb-4" src={dg} alt="DG2" />
           <h2 className="font-bold text-2xl text-gray-800 mb-2">DG2</h2>
           <div className="text-gray-700 text-sm space-y-2">
             <p><strong>Status:</strong> <span className="text-yellow-600">Idle</span></p>

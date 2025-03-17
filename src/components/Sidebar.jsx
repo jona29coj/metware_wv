@@ -1,8 +1,7 @@
-import React, { useState } from "react";
-import { Link, NavLink } from "react-router-dom";
+import React, { useState, useEffect, useRef } from "react";
+import { Link, NavLink, useLocation } from "react-router-dom";
 import { MdKeyboardArrowDown, MdKeyboardArrowUp } from "react-icons/md";
-import { FiMonitor, FiSettings, FiAlertCircle, FiFileText, FiHome, FiBook, FiUser, FiLock } from "react-icons/fi";
-import { FaChartLine } from "react-icons/fa";
+import { FiMonitor, FiAlertCircle, FiFileText, FiHome, FiBook, FiUser } from "react-icons/fi";
 import logo from "../logo2.png";
 
 const links = {
@@ -13,55 +12,118 @@ const links = {
   ],
 };
 
-const Sidebar = () => {
-  const [dropdown, setDropdown] = useState({ monitor: false });
+const navItems = [
+  { name: "Alerts", path: "/alerts", icon: FiAlertCircle },
+  { name: "Reports", path: "/reports", icon: FiFileText },
+  { name: "Files", path: "/files", icon: FiBook },
+  { name: "Profile", path: "/profile", icon: FiUser },
+];
 
-  // Styles
-  const activeLink = `flex items-center gap-5 p-3 rounded-lg text-white text-md m-2 bg-green-600 shadow transition-all duration-300`;
-  const normalLink = `flex items-center gap-5 p-3 rounded-lg text-md text-gray-700 hover:bg-green-500 hover:text-white transition-all duration-300 m-2`;
+const Sidebar = ({ isCollapsed }) => {
+  const [dropdown, setDropdown] = useState({ monitor: false });
+  const location = useLocation();
+  const sidebarRef = useRef(null);
+
+  const linkClass = (isActive, isCollapsed) =>
+    `flex items-center gap-5 p-2 rounded-lg text-md m-2 transition-all duration-300 ${
+      isActive ? "bg-green-600 text-white shadow" : "text-gray-700 hover:bg-green-500 hover:text-white"
+    } ${isCollapsed ? "justify-center" : ""}`;
+
+  const toggleDropdown = (section) => {
+    setDropdown((prev) => ({ ...prev, [section]: !prev[section] }));
+  };
+
+  const closeAllDropdowns = () => {
+    setDropdown({ monitor: false });
+  };
+
+  useEffect(() => {
+    closeAllDropdowns();
+  }, [location]);
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (isCollapsed && sidebarRef.current && !sidebarRef.current.contains(event.target)) {
+        closeAllDropdowns();
+      }
+    };
+
+    document.addEventListener("click", handleClickOutside);
+    return () => {
+      document.removeEventListener("click", handleClickOutside);
+    };
+  }, [isCollapsed]);
+
+  const handleNavLinkClick = () => {
+    closeAllDropdowns();
+  };
 
   return (
-    <div className="h-screen w-full overflow-auto bg-white shadow-lg transition-all duration-300">
-      {/* Sidebar Header */}
+    <div ref={sidebarRef} className="h-full w-full overflow-visible bg-white shadow-lg transition-all duration-300 flex flex-col relative">
+      {/* Logo */}
       <div className="flex justify-center items-center bg-white p-5">
         <Link to="/">
-          <img src={logo} alt="logo" className="h-30 w-auto object-contain" />
+          <img src={logo} alt="logo" className="h-auto w-auto object-contain min-w-[49px]" />
         </Link>
       </div>
 
-      {/* Elements Score (Hidden on md and sm) */}
-      <div className="flex flex-col items-center bg-white py-4 px-4 rounded-lg shadow border mx-4 mt-2 lg:flex md:hidden sm:hidden">
-        <h3 className="text-xs font-semibold text-gray-600 tracking-wider">
-          Elements Score
-        </h3>
-        <p className="text-green-600 text-xl font-bold mt-1">760</p>
-      </div>
-
-      <div className="mt-8">
-        <NavLink to="/dashboard" className={({ isActive }) => (isActive ? activeLink : normalLink)}>
-          <FiHome className="text-xl" />
-          <span className="lg:block md:hidden sm:hidden">Dashboard</span>
+      {/* Sidebar Links */}
+      <div className="mt-8 flex flex-col w-full">
+        {/* Dashboard */}
+        <NavLink to="/dashboard" className={({ isActive }) => linkClass(isActive, isCollapsed)}>
+          <FiHome className="text-xl mx-auto lg:mx-0" />
+          <span className={`${isCollapsed ? "hidden" : "block"}`}>Dashboard</span>
         </NavLink>
 
-        {/* Dropdown for Monitor */}
-        <div className="mt-4">
+        {/* Monitor Section */}
+        <div className="relative">
           <div
-            className={`flex items-center justify-between p-3 ${normalLink} cursor-pointer`}
-            onClick={() => setDropdown((prev) => ({ ...prev, monitor: !prev.monitor }))}
+            className={`cursor-pointer ${linkClass(false, isCollapsed)} relative`}
+            onClick={() => toggleDropdown("monitor")}
           >
             <div className="flex items-center gap-5">
-              <FiMonitor className="text-xl" />
-              <span className="lg:block md:hidden sm:hidden">Monitor</span>
+              <FiMonitor className="text-xl mx-auto lg:mx-0" />
+              {!isCollapsed && <span>Monitor</span>}
+              {!isCollapsed && (dropdown.monitor ? <MdKeyboardArrowUp /> : <MdKeyboardArrowDown />)}
             </div>
-            {!dropdown.monitor ? <MdKeyboardArrowDown className="lg:block md:hidden sm:hidden" /> : <MdKeyboardArrowUp className="lg:block md:hidden sm:hidden" />}
           </div>
-          {dropdown.monitor && (
-            <div className="pl-6 mt-2 space-y-2">
+
+          {/* Dropdown when expanded */}
+          {!isCollapsed && dropdown.monitor && (
+            <div className="ml-6 mt-2 flex flex-col">
               {links.monitor.map((item, index) => (
                 <NavLink
                   key={index}
                   to={item.path}
-                  className="block py-2 px-4 text-gray-600 hover:bg-green-500 hover:text-white rounded"
+                  className={({ isActive }) =>
+                    `block py-2 px-4 rounded transition-all duration-300 ${
+                      isActive ? "text-white bg-green-600" : "text-gray-600 hover:bg-green-500 hover:text-white"
+                    }`
+                  }
+                  onClick={handleNavLinkClick}
+                >
+                  {item.name}
+                </NavLink>
+              ))}
+            </div>
+          )}
+
+          {/* Tooltip when collapsed */}
+          {isCollapsed && dropdown.monitor && (
+            <div className="absolute left-full top-1/2 transform -translate-y-1/2 ml-2 bg-white shadow-xl rounded-lg w-48 p-2 z-[99999] border border-gray-300">
+              {/* Arrow pointing to the Monitor button */}
+              <div className="absolute -left-2 top-1/2 transform -translate-y-1/2 w-0 h-0 border-t-8 border-b-8 border-r-8 border-transparent border-r-gray-300"></div>
+
+              {links.monitor.map((item, index) => (
+                <NavLink
+                  key={index}
+                  to={item.path}
+                  className={({ isActive }) =>
+                    `block py-2 px-4 rounded transition-all duration-300 ${
+                      isActive ? "text-white bg-green-600" : "text-gray-600 hover:bg-green-500 hover:text-white"
+                    }`
+                  }
+                  onClick={handleNavLinkClick}
                 >
                   {item.name}
                 </NavLink>
@@ -70,41 +132,11 @@ const Sidebar = () => {
           )}
         </div>
 
-        {/* Disabled Control Section with Lock Icon on Hover */}
-        <div className="group relative flex items-center gap-5 p-3 rounded-lg text-md text-gray-400 cursor-not-allowed m-2">
-          <FiSettings className="text-xl group-hover:hidden" />
-          <FiLock className="text-xl hidden group-hover:block" />
-          <span className="lg:block md:hidden sm:hidden">Control</span>
-        </div>
-
-        {/* Static Links */}
-        {[
-          { name: "Optimize", path: "#", icon: <FaChartLine /> },
-          { name: "Alerts", path: "/alerts", icon: <FiAlertCircle /> },
-          { name: "Reports", path: "/reports", icon: <FiFileText /> },
-          { name: "Files", path: "/files", icon: <FiBook /> },
-          { name: "Profile", path: "/profile", icon: <FiUser /> },
-        ].map((item, index) => (
-          <NavLink
-            key={index}
-            to={item.name === "Optimize" ? "#" : item.path}
-            className={({ isActive }) =>
-              item.name === "Optimize"
-                ? "group relative flex items-center gap-5 p-3 rounded-lg text-gray-400 cursor-not-allowed m-2"
-                : isActive
-                ? activeLink
-                : normalLink
-            }
-          >
-            {item.name === "Optimize" ? (
-              <>
-                <FaChartLine className="text-xl group-hover:hidden" />
-                <FiLock className="text-xl hidden group-hover:block" />
-              </>
-            ) : (
-              item.icon
-            )}
-            <span className="lg:block md:hidden sm:hidden">{item.name}</span>
+        {/* Other nav items */}
+        {navItems.map(({ name, path, icon: Icon }, index) => (
+          <NavLink key={index} to={path} className={({ isActive }) => linkClass(isActive, isCollapsed)}>
+            <Icon className="text-xl mx-auto lg:mx-0" />
+            {!isCollapsed && <span>{name}</span>}
           </NavLink>
         ))}
       </div>

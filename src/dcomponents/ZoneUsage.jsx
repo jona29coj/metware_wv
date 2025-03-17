@@ -33,23 +33,20 @@ const ZoneUsage = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const width = mountRef.current.clientWidth;
-    const height = mountRef.current.clientHeight;
+    const mount = mountRef.current;
+    const width = mount.clientWidth;
+    const height = mount.clientHeight;
 
     const scene = new THREE.Scene();
     scene.background = new THREE.Color(0xffffff);
-    const camera = new THREE.PerspectiveCamera(50, width / height, 2.5, 1000);
+    const camera = new THREE.PerspectiveCamera(30, width / height, 2.5, 1000);
     const renderer = new THREE.WebGLRenderer({ antialias: true });
     renderer.setSize(width, height);
-    mountRef.current.appendChild(renderer.domElement);
+    mount.appendChild(renderer.domElement);
 
     const controls = new OrbitControls(camera, renderer.domElement);
-    controls.enableDamping = true;
-    controls.dampingFactor = 0.25;
-    controls.screenSpacePanning = false;
-    controls.minDistance = 5;
-    controls.maxDistance = 20;
-    controls.maxPolarAngle = Math.PI / 2;
+    controls.enabled = false; // Disable orbit controls
+    controls.enableZoom = false; // Disable zoom controls
 
     const raycaster = new THREE.Raycaster();
     const mouse = new THREE.Vector2();
@@ -82,39 +79,41 @@ const ZoneUsage = () => {
       return cube;
     });
 
-    camera.position.set(5, 1, 7.5);
-    controls.update();
+    // Set a better camera perspective
+    camera.position.set(8, 0, 9);
+    camera.lookAt(0, 0, 0);
 
     const handleMouseMove = (event) => {
-      const rect = mountRef.current.getBoundingClientRect();
-      mouse.x = ((event.clientX - rect.left) / rect.width) * 2 - 1;
-      mouse.y = -((event.clientY - rect.top) / rect.height) * 2 + 1;
+      setTimeout(() => {
+        const rect = mount.getBoundingClientRect();
+        mouse.x = ((event.clientX - rect.left) / rect.width) * 2 - 1;
+        mouse.y = -((event.clientY - rect.top) / rect.height) * 2 + 1;
     
-      raycaster.setFromCamera(mouse, camera);
-      const intersects = raycaster.intersectObjects(cubes);
+        raycaster.setFromCamera(mouse, camera);
+        const intersects = raycaster.intersectObjects(cubes);
     
-      cubes.forEach(cube => {
-        cube.material.color.set(cube.userData.originalColor);
-      });
+        cubes.forEach(cube => {
+          cube.material.color.set(cube.userData.originalColor);
+        });
     
-      if (intersects.length > 0) {
-        const intersected = intersects[0].object;
-        intersected.material.color.set(highlightColors[intersected.userData.category]);
-        setHoveredZone(intersected.userData);
+        if (intersects.length > 0) {
+          const intersected = intersects[0].object;
+          intersected.material.color.set(highlightColors[intersected.userData.category]);
+          setHoveredZone(intersected.userData);
     
-        tooltipRef.current.style.display = "block";
-        tooltipRef.current.style.left = `${event.clientX + 10}px`;
-        tooltipRef.current.style.top = `${event.clientY + 10}px`;
-        tooltipRef.current.innerHTML = `${intersected.userData.name}: ${intersected.userData.kWh} kWh`;
+          tooltipRef.current.style.display = "block";
+          tooltipRef.current.style.left = `${event.clientX - rect.left - 1}px`;
+          tooltipRef.current.style.top = `${event.clientY - rect.top - 1}px`;
+          tooltipRef.current.innerHTML = `${intersected.userData.name}: ${intersected.userData.kWh} kWh`;
     
-        mountRef.current.style.cursor = "pointer"; 
-      } else {
-        setHoveredZone(null);
-        tooltipRef.current.style.display = "none";
-        mountRef.current.style.cursor = "default";  
-      }
+          mount.style.cursor = "pointer"; 
+        } else {
+          setHoveredZone(null);
+          tooltipRef.current.style.display = "none";
+          mount.style.cursor = "default";  
+        }
+      }, 0);
     };
-    
 
     const handleMouseClick = () => {
       if (hoveredZone) {
@@ -122,8 +121,18 @@ const ZoneUsage = () => {
       }
     };
 
-    mountRef.current.addEventListener("mousemove", handleMouseMove);
-    mountRef.current.addEventListener("click", handleMouseClick);
+    mount.addEventListener("mousemove", handleMouseMove);
+    mount.addEventListener("click", handleMouseClick);
+
+    const handleResize = () => {
+      const width = mount.clientWidth;
+      const height = mount.clientHeight;
+      renderer.setSize(width, height);
+      camera.aspect = width / height;
+      camera.updateProjectionMatrix();
+    };
+
+    window.addEventListener("resize", handleResize);
 
     const animate = () => {
       requestAnimationFrame(animate);
@@ -134,44 +143,34 @@ const ZoneUsage = () => {
     animate();
 
     return () => {
-      if (mountRef.current) {
-        mountRef.current.removeChild(renderer.domElement);
+      if (mount) {
+        mount.removeChild(renderer.domElement);
       }
-      if (mountRef.current) {
-        mountRef.current.removeEventListener("mousemove", handleMouseMove);
-        mountRef.current.removeEventListener("click", handleMouseClick);
-      }
+      window.removeEventListener("resize", handleResize);
+      mount.removeEventListener("mousemove", handleMouseMove);
+      mount.removeEventListener("click", handleMouseClick);
     };
   }, [navigate]);
 
   return (
-    <>
-      <div className="bg-white p-5 rounded-lg shadow-lg w-1/2 relative">
-        <h2 className="text-xl font-semibold">Zone Usage</h2>
-        <div ref={mountRef} className="w-full h-[50vh]" />
-  
-        <div 
-  className="absolute bottom-[70px] left-[32%] transform -translate-x-1/2 
-             bg-white text-black px-4 py-3 rounded-lg shadow-lg 
-             border-2 border-black text-lg font-bold">
-  C-49
-</div>
-
-<div 
-  className="absolute top-[107px] right-[35%] transform translate-x-1/2 
-             bg-white text-black px-4 py-3 rounded-lg shadow-lg 
-             border-2 border-black text-lg font-bold">
-  C-50
-</div>
-
+<>
+  <div className="relative bg-white p-5 rounded-lg shadow-lg w-full">
+    <div ref={mountRef} className="w-full h-[50vh] overflow-hidden relative" />
+    <div className="flex space-x-12 pb-2 justify-center">
+      <div className="bg-[#008B8B] text-white px-4 py-3 rounded-lg shadow-lg border-2 border-[#99FF99] text-lg font-bold">
+        C-49
       </div>
-      <div
-        ref={tooltipRef}
-        className="absolute bg-white p-2 border border-black hidden pointer-events-none"
-      />
-    </>
+      <div className="bg-[#FFA500] text-white px-4 py-3 rounded-lg shadow-lg border-2 border-[#FFFF99] text-lg font-bold">
+        C-50
+      </div>
+    </div>
+  </div>
+  <div
+    ref={tooltipRef}
+    className="absolute bg-white p-2 border border-black hidden pointer-events-none"
+  />
+</>
   );
-  
 };
 
 export default ZoneUsage;
